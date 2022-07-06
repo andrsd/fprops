@@ -1,4 +1,5 @@
 add_executable(${PROJECT_NAME}
+    IdealGas_test.cpp
     main.cpp
 )
 

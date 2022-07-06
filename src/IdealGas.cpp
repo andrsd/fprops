@@ -1,0 +1,77 @@
+#include "IdealGas.h"
+#include "Constants.h"
+#include <cmath>
+#include <assert.h>
+#include "fmt/printf.h"
+
+namespace fprops {
+
+IdealGas::IdealGas(double gamma, double molar_mass) :
+    SinglePhaseFluidProperties(),
+    gamma(gamma),
+    molar_mass(molar_mass),
+    R_specific(R / molar_mass),
+    cp(gamma * R_specific / (gamma - 1.0)),
+    cv(cp / gamma),
+    mu(0.),
+    k(0.)
+{
+}
+
+SinglePhaseFluidProperties::Props
+IdealGas::p_T(double p, double T)
+{
+    Props props;
+    props.p = p;
+    props.T = T;
+    props.cp = this->cp;
+    props.cv = this->cv;
+    props.mu = this->mu;
+    props.k = this->k;
+    props.rho = p * this->molar_mass / (R * T);
+    props.u = this->cv * T;
+    props.v = 1. / props.rho;
+    const double n = std::pow(T, this->gamma) / std::pow(p, this->gamma - 1.0);
+    assert(n > 0);
+    props.s = this->cv * std::log(n);
+    props.h = this->cp * T;
+    props.w = std::sqrt(this->cp * R * T / (this->cv * this->molar_mass));
+    return props;
+}
+
+SinglePhaseFluidProperties::Props
+IdealGas::v_u(double v, double u)
+{
+    assert(v != 0.);
+
+    Props props;
+    props.v = v;
+    props.u = u;
+    props.cp = this->cp;
+    props.cv = this->cv;
+    props.mu = this->mu;
+    props.k = this->k;
+    props.rho = 1. / v;
+    props.p = (this->gamma - 1.0) * u * props.rho;
+    props.T = u / this->cv;
+    const double n = std::pow(props.T, this->gamma) / std::pow(props.p, this->gamma - 1.0);
+    assert(n > 0);
+    props.s = this->cv * std::log(n);
+    props.h = this->cp * props.T;
+    props.w = std::sqrt(this->gamma * this->R_specific * props.T);
+    return props;
+}
+
+void
+IdealGas::set_mu(double mu)
+{
+    this->mu = mu;
+}
+
+void
+IdealGas::set_k(double k)
+{
+    this->k = k;
+}
+
+} // namespace fprops

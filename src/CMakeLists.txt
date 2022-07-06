@@ -7,6 +7,7 @@ project(
 add_library(${PROJECT_NAME}
     SHARED
         FluidProperties.cpp
+        IdealGas.cpp
         SinglePhaseFluidProperties.cpp
 )
 
