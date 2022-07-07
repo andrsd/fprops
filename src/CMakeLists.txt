@@ -6,7 +6,9 @@ project(
 
 add_library(${PROJECT_NAME}
     SHARED
+        BrentsMethod.cpp
         FluidProperties.cpp
+        Helmholtz.cpp
         IdealGas.cpp
         SinglePhaseFluidProperties.cpp
 )
