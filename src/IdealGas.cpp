@@ -1,10 +1,12 @@
 #include "IdealGas.h"
-#include "Constants.h"
 #include <cmath>
 #include <assert.h>
 #include "fmt/printf.h"
 
 namespace fprops {
+
+/// Universal gas constant
+static const double R = 8.3144598;
 
 IdealGas::IdealGas(double gamma, double molar_mass) :
     SinglePhaseFluidProperties(),
