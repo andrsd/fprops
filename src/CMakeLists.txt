@@ -10,6 +10,7 @@ add_library(${PROJECT_NAME}
         FluidProperties.cpp
         Helmholtz.cpp
         IdealGas.cpp
+        Nitrogen.cpp
         SinglePhaseFluidProperties.cpp
 )
 
