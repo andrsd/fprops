@@ -9,3 +9,4 @@
 - C++ compiler (C++17 or better)
 - fmt (>=9.0.0)
 - gtest (>=1.11.0)
+- pybind11 (>=2.9.2 - if building with python bindings)
