@@ -9,6 +9,7 @@ namespace fprops {
 class SinglePhaseFluidProperties : public FluidProperties {
 public:
     SinglePhaseFluidProperties();
+    virtual ~SinglePhaseFluidProperties();
 
     /// Computed properties referring to a thermodynamical state
     struct Props {
