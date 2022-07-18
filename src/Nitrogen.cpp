@@ -44,7 +44,7 @@ static const double phi3[] = { 20.0, 20.0, 15.0, 25.0 };
 static const double beta3[] = { 325.0, 325.0, 300.0, 275.0 };
 static const double gamma3[] = { 1.16, 1.16, 1.13, 1.25 };
 
-Nitrogen::Nitrogen() : Helmholtz(8.314510, 28.01348e-3, 313.3, 126.192) {}
+Nitrogen::Nitrogen() : Helmholtz(8.314510, 28.01348e-3, 313.299958972, 126.192) {}
 
 double
 Nitrogen::alpha(double delta, double tau)
