@@ -7,9 +7,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include(FetchContent)
 
+option(FPROPS_WITH_PYTHON "Build python wrapper" YES)
 option(FPROPS_BUILD_TESTS "Build tests" NO)
 
 find_package(fmt REQUIRED)
+if (FPROPS_WITH_PYTHON)
+    add_subdirectory(python)
+endif()
 
 FetchContent_Declare(
   googletest

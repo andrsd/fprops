@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt install libfmt-dev
+          sudo apt install libfmt-dev python3-pybind11
       - name: Configure
         run: |
           cmake -S . -B ${{ github.workspace }}/build \
@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt install libfmt-dev
+          sudo apt install libfmt-dev python3-pybind11
       - name: Configure
         run: |
           cmake -S . -B ${{ github.workspace }}/build \
@@ -48,15 +48,13 @@ jobs:
         run: make -C ${{ github.workspace }}/build test ARGS='-V'
 
   macosx-clang:
-    runs-on: macos-10.15
+    runs-on: macos-11
     name: macosx-clang
-    env:
-      SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
       - name: Install dependencies
-        run: brew install cmake llvm@12 fmt
+        run: brew install cmake llvm@12 fmt pybind11
       - name: Configure
         run: |
           cmake -S . -B ${{ github.workspace }}/build \
