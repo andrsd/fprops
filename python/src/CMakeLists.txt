@@ -3,7 +3,7 @@ project(pyfprops LANGUAGES CXX)
 
 find_package(pybind11 REQUIRED)
 
-pybind11_add_module(pyfprops fprops.cpp)
+pybind11_add_module(${PROJECT_NAME} fprops.cpp)
 
 target_include_directories(
     ${PROJECT_NAME}
@@ -16,4 +16,10 @@ target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
         fprops
+)
+
+install(
+    TARGETS ${PROJECT_NAME}
+    COMPONENT python
+    LIBRARY DESTINATION "${Python3_SITELIB}/pyfprops"
 )

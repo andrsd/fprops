@@ -1,9 +1,3 @@
-project(
-    fprops
-    VERSION 0.1
-    LANGUAGES CXX
-)
-
 add_library(
     ${PROJECT_NAME}
     SHARED
