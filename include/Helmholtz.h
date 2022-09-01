@@ -4,7 +4,7 @@
 
 namespace fprops {
 
-/// Base class for fluid properties basedon Helmholtz equation of state
+/// Base class for fluid properties based on Helmholtz equation of state
 ///
 /// This class is based on HelmholtzFluidProperties.h from idaholab/moose/fluid_properties module
 class Helmholtz : public SinglePhaseFluidProperties {
