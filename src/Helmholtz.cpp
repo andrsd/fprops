@@ -55,8 +55,8 @@ Helmholtz::p_T(double p, double T)
     // s = ...
     const double s = this->R * (tau * da_dt - a) / this->M;
 
-    // TODO
-    const double mu = 0;
+    // mu
+    const double mu = mu_from_rho_T(rho, T);
 
     // TODO
     const double k = 0;

@@ -65,6 +65,13 @@ protected:
 
     double rho_from_p_T(double pressure, double temperature);
 
+    /// Dynamic viscosity
+    ///
+    /// @param rho Density [kg/m^3]
+    /// @param T Temperature [K]
+    /// @return Dynamic viscosity [Pa.s]
+    virtual double mu_from_rho_T(double rho, double T) = 0;
+
     /// Universal gas constant [J / (mol K)]
     const double R;
     /// Molar mass [kg/mol]
