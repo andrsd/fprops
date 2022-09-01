@@ -58,8 +58,8 @@ Helmholtz::p_T(double p, double T)
     // mu
     const double mu = mu_from_rho_T(rho, T);
 
-    // TODO
-    const double k = 0;
+    // k
+    const double k = k_from_rho_T(rho, T);
 
     props.p = p;
     props.T = T;

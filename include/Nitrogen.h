@@ -25,6 +25,7 @@ protected:
     virtual double d2alpha_ddeltatau(double delta, double tau) override;
 
     virtual double mu_from_rho_T(double rho, double T) override;
+    virtual double k_from_rho_T(double rho, double T) override;
 };
 
 } // namespace fprops

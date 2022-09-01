@@ -72,6 +72,13 @@ protected:
     /// @return Dynamic viscosity [Pa.s]
     virtual double mu_from_rho_T(double rho, double T) = 0;
 
+    /// Thermal conductivity
+    ///
+    /// @param rho Density [kg/m^3]
+    /// @param T Temperature [K]
+    /// @return Thermal conductivity [W/(m*K)]
+    virtual double k_from_rho_T(double rho, double T) = 0;
+
     /// Universal gas constant [J / (mol K)]
     const double R;
     /// Molar mass [kg/mol]
