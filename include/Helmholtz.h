@@ -72,20 +72,6 @@ protected:
     /// @return Second derivative of Helmholtz free energy wrt delta and tau
     virtual double d2alpha_ddeltatau(double delta, double tau) = 0;
 
-    /// Pressure given density and temperature
-    ///
-    /// @param rho Density [kg/m^3]
-    /// @param T Temperature [K]
-    /// @return Pressure [Pa]
-    double p_from_rho_T(double rho, double T);
-
-    /// Derivative of pressure given density and temperature
-    ///
-    /// @param rho Density [kg/m^3]
-    /// @param T Temperature [K]
-    /// @return Derivative of pressure wrt density
-    double dp_drho_T(double rho, double T);
-
     /// Density given pressure and temperature
     ///
     /// @param p Pressure [Pa]

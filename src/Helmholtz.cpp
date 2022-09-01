@@ -88,41 +88,28 @@ Helmholtz::v_u(double v, double u)
 }
 
 double
-Helmholtz::p_from_rho_T(double density, double temperature)
-{
-    // Scale the input density and temperature
-    const double delta = density / this->rho_c;
-    const double tau = this->T_c / temperature;
-
-    return this->R * density * temperature * delta * dalpha_ddelta(delta, tau) / this->M;
-}
-
-double
-Helmholtz::dp_drho_T(double rho, double T)
-{
-    const double delta = rho / this->rho_c;
-    const double ddelta_drho = 1 / this->rho_c;
-    const double tau = this->T_c / T;
-
-    double K = this->R * T / this->M;
-    double t1 = delta * dalpha_ddelta(delta, tau);
-    double t2 = rho * ddelta_drho * dalpha_ddelta(delta, tau);
-    double t3 = rho * delta * d2alpha_ddelta2(delta, tau) * ddelta_drho;
-
-    return K * (t1 + t2 + t3);
-}
-
-double
 Helmholtz::rho_from_p_T(double p, double T)
 {
-    auto p_diff = [&p, &T, this](double x) {
-        return this->p_from_rho_T(x, T) - p;
+    auto f = [&p, &T, this](double rho) {
+        const double delta = rho / this->rho_c;
+        const double tau = this->T_c / T;
+
+        return this->R * rho * T * delta * dalpha_ddelta(delta, tau) / this->M - p;
     };
-    auto dp_diff = [&p, &T, this](double x) {
-        return this->dp_drho_T(x, T);
+    auto df = [&T, this](double rho) {
+        const double delta = rho / this->rho_c;
+        const double ddelta_drho = 1 / this->rho_c;
+        const double tau = this->T_c / T;
+
+        double K = this->R * T / this->M;
+        double t1 = delta * dalpha_ddelta(delta, tau);
+        double t2 = rho * ddelta_drho * dalpha_ddelta(delta, tau);
+        double t3 = rho * delta * d2alpha_ddelta2(delta, tau) * ddelta_drho;
+
+        return K * (t1 + t2 + t3);
     };
 
-    return newton::root(1.0e-2, p_diff, dp_diff);
+    return newton::root(1.0e-2, f, df);
 }
 
 } // namespace fprops
