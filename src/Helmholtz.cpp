@@ -1,5 +1,4 @@
 #include "Helmholtz.h"
-#include "BrentsMethod.h"
 #include "Numerics.h"
 #include <cmath>
 #include <assert.h>
@@ -99,22 +98,31 @@ Helmholtz::p_from_rho_T(double density, double temperature)
 }
 
 double
-Helmholtz::rho_from_p_T(double pressure, double temperature)
+Helmholtz::dp_drho_T(double rho, double T)
 {
-    double density;
-    // Initial estimate of a bracketing interval for the density
-    double lower_density = 1.0e-2;
-    double upper_density = 100.0;
+    const double delta = rho / this->rho_c;
+    const double ddelta_drho = 1 / this->rho_c;
+    const double tau = this->T_c / T;
 
-    // The density is found by finding the zero of the pressure
-    auto pressure_diff = [&pressure, &temperature, this](double x) {
-        return this->p_from_rho_T(x, temperature) - pressure;
+    double K = this->R * T / this->M;
+    double t1 = delta * dalpha_ddelta(delta, tau);
+    double t2 = rho * ddelta_drho * dalpha_ddelta(delta, tau);
+    double t3 = rho * delta * d2alpha_ddelta2(delta, tau) * ddelta_drho;
+
+    return K * (t1 + t2 + t3);
+}
+
+double
+Helmholtz::rho_from_p_T(double p, double T)
+{
+    auto p_diff = [&p, &T, this](double x) {
+        return this->p_from_rho_T(x, T) - p;
+    };
+    auto dp_diff = [&p, &T, this](double x) {
+        return this->dp_drho_T(x, T);
     };
 
-    BrentsMethod::bracket(pressure_diff, lower_density, upper_density);
-    density = BrentsMethod::root(pressure_diff, lower_density, upper_density);
-
-    return density;
+    return newton::root(1.0e-2, p_diff, dp_diff);
 }
 
 } // namespace fprops
