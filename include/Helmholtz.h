@@ -4,7 +4,7 @@
 
 namespace fprops {
 
-/// Base class for fluid properties basedon Helmholtz equation of state
+/// Base class for fluid properties based on Helmholtz equation of state
 ///
 /// This class is based on HelmholtzFluidProperties.h from idaholab/moose/fluid_properties module
 class Helmholtz : public SinglePhaseFluidProperties {
@@ -15,7 +15,18 @@ public:
     /// @param T_c Critical temperature [K]
     Helmholtz(double R, double M, double rho_c, double T_c);
 
+    /// Compute properties given pressure and temperature
+    ///
+    /// @param p Pressure [Pa]
+    /// @param T Temperature [K]
+    /// @return Computed properties
     virtual Props p_T(double p, double T) override;
+
+    /// Compute properties given specific volume and internal energy
+    ///
+    /// @param v Specific volume [m^3/kg]
+    /// @param u Internal energy [J/kg]
+    /// @return Computed properties
     virtual Props v_u(double v, double u) override;
 
 protected:
@@ -64,6 +75,20 @@ protected:
     double p_from_rho_T(double density, double temperature);
 
     double rho_from_p_T(double pressure, double temperature);
+
+    /// Dynamic viscosity
+    ///
+    /// @param rho Density [kg/m^3]
+    /// @param T Temperature [K]
+    /// @return Dynamic viscosity [Pa.s]
+    virtual double mu_from_rho_T(double rho, double T) = 0;
+
+    /// Thermal conductivity
+    ///
+    /// @param rho Density [kg/m^3]
+    /// @param T Temperature [K]
+    /// @return Thermal conductivity [W/(m*K)]
+    virtual double k_from_rho_T(double rho, double T) = 0;
 
     /// Universal gas constant [J / (mol K)]
     const double R;

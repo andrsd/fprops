@@ -6,6 +6,11 @@ namespace fprops {
 
 #define len(a) (sizeof(a) / sizeof(a[0]))
 
+#define R 8.314510
+#define M 28.01348e-3
+#define rho_c 313.299958972
+#define T_c 126.192
+
 // Coefficients for ideal gas component of the Helmholtz free energy
 static const double a[] = { 2.5,          -12.76952708, -0.00784163, -1.934819e-4,
                             -1.247742e-5, 6.678326e-8,  1.012941,    26.65788 };
@@ -44,7 +49,22 @@ static const double phi3[] = { 20.0, 20.0, 15.0, 25.0 };
 static const double beta3[] = { 325.0, 325.0, 300.0, 275.0 };
 static const double gamma3[] = { 1.16, 1.16, 1.13, 1.25 };
 
-Nitrogen::Nitrogen() : Helmholtz(8.314510, 28.01348e-3, 313.299958972, 126.192) {}
+/// Coefficients for viscosity
+static const double b_mu[] = { 0.431, -0.4623, 0.08406, 0.005341, -0.00331 };
+static const double N_mu[] = { 10.72, 0.03989, 0.001208, -7.402, 4.62 };
+static const double t_mu[] = { 0.1, 0.25, 3.2, 0.9, 0.3 };
+static const double d_mu[] = { 2, 10, 12, 2, 1 };
+static const double l_mu[] = { 0, 1, 1, 2, 3 };
+static const double gamma_mu[] = { 0.0, 1.0, 1.0, 1.0, 1.0 };
+
+/// Coefficients for thermal conductivity
+static const double N_k[] = { 8.862, 31.11, -73.13, 20.03, -0.7096, 0.2672 };
+static const double t_k[] = { 0.0, 0.03, 0.2, 0.8, 0.6, 1.9 };
+static const unsigned int d_k[] = { 1, 2, 3, 4, 8, 10 };
+static const unsigned int l_k[] = { 0, 0, 1, 2, 2, 2 };
+static const double gamma_k[] = { 0.0, 0.0, 1.0, 1.0, 1.0 };
+
+Nitrogen::Nitrogen() : Helmholtz(R, M, rho_c, T_c) {}
 
 double
 Nitrogen::alpha(double delta, double tau)
@@ -179,6 +199,50 @@ Nitrogen::d2alpha_ddeltatau(double delta, double tau)
                    (j3[i] - 2.0 * tau * beta3[i] * (tau - gamma3[i]));
 
     return dalphar / delta / tau;
+}
+
+double
+Nitrogen::mu_from_rho_T(double rho, double T)
+{
+    const double delta = rho / rho_c;
+    const double tau = T_c / T;
+    const double logTstar = std::log(T / 98.94);
+
+    // The dilute gas component
+    double logOmega = 0.0;
+    for (unsigned int i = 0; i < len(b_mu); i++)
+        logOmega += b_mu[i] * std::pow(logTstar, i);
+    const double mu0 =
+        0.0266958 * std::sqrt(1000.0 * M * T) / (0.3656 * 0.3656 * std::exp(logOmega));
+
+    // The residual component
+    double mur = 0.0;
+    for (unsigned int i = 0; i < len(N_mu); i++)
+        mur += N_mu[i] * std::pow(tau, t_mu[i]) * std::pow(delta, d_mu[i]) *
+               std::exp(-gamma_mu[i] * std::pow(delta, l_mu[i]));
+
+    // [Pa.s]
+    return (mu0 + mur) * 1.0e-6;
+}
+
+double
+Nitrogen::k_from_rho_T(double rho, double T)
+{
+    const double delta = rho / rho_c;
+    const double tau = T_c / T;
+
+    // The dilute gas component
+    const double lambda0 =
+        1.511 * mu_from_rho_T(0.0, T) * 1.0e6 + 2.117 / tau - 3.332 * std::pow(tau, -0.7);
+
+    // The residual component
+    double lambdar = 0.0;
+    for (unsigned int i = 0; i < len(N_k); ++i)
+        lambdar += N_k[i] * std::pow(tau, t_k[i]) * std::pow(delta, d_k[i]) *
+                   std::exp(-gamma_k[i] * std::pow(delta, l_k[i]));
+
+    // The thermal conductivity (note: critical enhancement not implemented)
+    return (lambda0 + lambdar) * 1.0e-3;
 }
 
 } // namespace fprops
