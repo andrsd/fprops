@@ -33,7 +33,11 @@
 
 # cmake
 build/*
+cmake-build-*
 
 # python
 __pycache__
 python/src/pyfprops.egg-info
+
+# CLion
+.idea
