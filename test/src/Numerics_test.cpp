@@ -12,3 +12,30 @@ TEST(NumericsTest, cb)
 {
     EXPECT_DOUBLE_EQ(cb(2.), 8.);
 }
+
+TEST(NumericsTest, newton_root)
+{
+    auto f = [](double x) {
+        return x * x - 4;
+    };
+
+    auto df = [](double x) {
+        return 2 * x;
+    };
+
+    EXPECT_DOUBLE_EQ(newton::root(3., f, df), 2);
+    EXPECT_DOUBLE_EQ(newton::root(-3., f, df), -2);
+}
+
+TEST(NumericsTest, newton_root_diverge)
+{
+    auto f = [](double x) {
+        return x * x * x - 2 * x + 2;
+    };
+
+    auto df = [](double x) {
+        return 3 * x * x - 2;
+    };
+
+    EXPECT_THROW(newton::root(0, f, df), std::runtime_error);
+}
