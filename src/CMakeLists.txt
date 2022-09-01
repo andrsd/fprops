@@ -6,6 +6,7 @@ add_library(
         Helmholtz.cpp
         IdealGas.cpp
         Nitrogen.cpp
+        Numerics.cpp
         SinglePhaseFluidProperties.cpp
 )
 

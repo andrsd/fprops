@@ -1,6 +1,7 @@
 add_executable(${PROJECT_NAME}
     IdealGas_test.cpp
     Nitrogen_test.cpp
+    Numerics_test.cpp
     main.cpp
 )
 
