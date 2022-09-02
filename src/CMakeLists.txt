@@ -1,11 +1,11 @@
 add_library(
     ${PROJECT_NAME}
     SHARED
-        BrentsMethod.cpp
         FluidProperties.cpp
         Helmholtz.cpp
         IdealGas.cpp
         Nitrogen.cpp
+        Numerics.cpp
         SinglePhaseFluidProperties.cpp
 )
 

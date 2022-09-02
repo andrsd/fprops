@@ -72,9 +72,19 @@ protected:
     /// @return Second derivative of Helmholtz free energy wrt delta and tau
     virtual double d2alpha_ddeltatau(double delta, double tau) = 0;
 
-    double p_from_rho_T(double density, double temperature);
+    /// Density given pressure and temperature
+    ///
+    /// @param p Pressure [Pa]
+    /// @param T Temperature [K]
+    /// @return Density [kg/m^3]
+    double rho_from_p_T(double p, double T);
 
-    double rho_from_p_T(double pressure, double temperature);
+    /// Tau given specific volume and internal energy
+    ///
+    /// @param v Specific volume
+    /// @param u Internal energy
+    /// @return Tau (scaled temperature)
+    double tau_from_v_u(double v, double u);
 
     /// Dynamic viscosity
     ///
