@@ -6,107 +6,97 @@ namespace fprops {
 
 /// Base class for fluid properties based on Helmholtz equation of state
 ///
-/// This class is based on HelmholtzFluidProperties.h from idaholab/moose/fluid_properties module
+/// This class is based on `HelmholtzFluidProperties.h` from `idaholab/moose/fluid_properties`
+/// module
 class Helmholtz : public SinglePhaseFluidProperties {
 public:
-    /// @param R Universal gas constant [J / (mol K)]
-    /// @param M Molar mass [kg/mol]
-    /// @param rho_c Critical density [kg/m^3]
-    /// @param T_c Critical temperature [K]
+    /// @param R Universal gas constant \f$[J/(mol-K)]\f$
+    /// @param M Molar mass \f$[kg/mol]\f$
+    /// @param rho_c Critical density \f$[kg/m^3]\f$
+    /// @param T_c Critical temperature \f$[K]\f$
     Helmholtz(double R, double M, double rho_c, double T_c);
 
-    /// Compute properties given pressure and temperature
-    ///
-    /// @param p Pressure [Pa]
-    /// @param T Temperature [K]
-    /// @return Computed properties
     virtual Props p_T(double p, double T) override;
-
-    /// Compute properties given specific volume and internal energy
-    ///
-    /// @param v Specific volume [m^3/kg]
-    /// @param u Internal energy [J/kg]
-    /// @return Computed properties
     virtual Props v_u(double v, double u) override;
 
 protected:
     /// Helmholtz free energy
     ///
-    /// @param delta Scaled density [-]
-    /// @param tau Scaled temperature [-]
-    /// @return alpha - Helmholtz free energy
+    /// @param delta Scaled density \f$[-]\f$
+    /// @param tau Scaled temperature \f$[-]\f$
+    /// @return Helmholtz free energy (\f$\alpha\f$)
     virtual double alpha(double delta, double tau) = 0;
 
     /// Derivative of Helmholtz free energy wrt delta
     ///
-    /// @param delta Scaled density [-]
-    /// @param tau Scaled temperature [-]
+    /// @param delta Scaled density \f$[-]\f$
+    /// @param tau Scaled temperature \f$[-]\f$
     /// @return Derivative of Helmholtz free energy wrt delta
     virtual double dalpha_ddelta(double delta, double tau) = 0;
 
     /// Derivative of Helmholtz free energy wrt tau
     ///
-    /// @param delta Scaled density [-]
-    /// @param tau Scaled temperature [-]
+    /// @param delta Scaled density \f$[-]\f$
+    /// @param tau Scaled temperature \f$[-]\f$
     /// @return Derivative of Helmholtz free energy wrt tau
     virtual double dalpha_dtau(double delta, double tau) = 0;
 
     /// Second derivative of Helmholtz free energy wrt delta
     ///
-    /// @param delta Scaled density [-]
-    /// @param tau Scaled temperature [-]
+    /// @param delta Scaled density \f$[-]\f$
+    /// @param tau Scaled temperature \f$[-]\f$
     /// @return Second derivative of Helmholtz free energy wrt delta
     virtual double d2alpha_ddelta2(double delta, double tau) = 0;
 
     /// Second derivative of Helmholtz free energy wrt tau
     ///
-    /// @param delta Scaled density [-]
-    /// @param tau Scaled temperature [-]
+    /// @param delta Scaled density \f$[-]\f$
+    /// @param tau Scaled temperature \f$[-]\f$
     /// @return Second derivative of Helmholtz free energy wrt tau
     virtual double d2alpha_dtau2(double delta, double tau) = 0;
 
     /// Second derivative of Helmholtz free energy wrt delta and tau
     ///
-    /// @param delta Scaled density [-]
-    /// @param tau Scaled temperature [-]
+    /// @param delta Scaled density \f$[-]\f$
+    /// @param tau Scaled temperature \f$[-]\f$
     /// @return Second derivative of Helmholtz free energy wrt delta and tau
     virtual double d2alpha_ddeltatau(double delta, double tau) = 0;
 
     /// Density given pressure and temperature
     ///
-    /// @param p Pressure [Pa]
-    /// @param T Temperature [K]
-    /// @return Density [kg/m^3]
+    /// @param p Pressure \f$[Pa]\f$
+    /// @param T Temperature \f$[K]\f$
+    /// @return Density \f$[kg/m^3]\f$
     double rho_from_p_T(double p, double T);
 
     /// Tau given specific volume and internal energy
     ///
-    /// @param v Specific volume
-    /// @param u Internal energy
+    /// @param v Specific volume \f$[m^3/kg]\f$
+    /// @param u Specific internal energy \f$[J/kg]\f$
     /// @return Tau (scaled temperature)
     double tau_from_v_u(double v, double u);
 
     /// Dynamic viscosity
     ///
-    /// @param rho Density [kg/m^3]
-    /// @param T Temperature [K]
-    /// @return Dynamic viscosity [Pa.s]
+    /// @param rho Density \f$[kg/m^3]\f$
+    /// @param T Temperature \f$[K]\f$
+    /// @return Dynamic viscosity \f$[Pa-s]\f$
     virtual double mu_from_rho_T(double rho, double T) = 0;
 
     /// Thermal conductivity
     ///
-    /// @param rho Density [kg/m^3]
-    /// @param T Temperature [K]
-    /// @return Thermal conductivity [W/(m*K)]
+    /// @param rho Density \f$[kg/m^3]\f$
+    /// @param T Temperature \f$[K]\f$
+    /// @return Thermal conductivity \f$[W/(m-K)]\f$
     virtual double k_from_rho_T(double rho, double T) = 0;
 
-    /// Universal gas constant [J / (mol K)]
+    /// Universal gas constant \f$[J/(mol-K)]\f$
     const double R;
-    /// Molar mass [kg/mol]
+    /// Molar mass \f$[kg/mol]\f$
     const double M;
-    /// Critical density [kg/m^3]
+    /// Critical density \f$[kg/m^3]\f$
     const double rho_c;
-    /// Critical temperature [K]
+    /// Critical temperature \f$[K]\f$
     const double T_c;
 };
 

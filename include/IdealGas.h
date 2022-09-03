@@ -12,12 +12,12 @@ public:
 
     /// Set dynamic viscosity
     ///
-    /// @param mu Dynamic viscosity
+    /// @param mu Dynamic viscosity \f$[Pa-s]\f$
     void set_mu(double mu);
 
     /// Set thermal conductivity
     ///
-    /// @param k Thermal conductivity
+    /// @param k Thermal conductivity \f$[W/(m-K)]\f$
     void set_k(double k);
 
     virtual Props p_T(double p, double T) override;
@@ -26,17 +26,17 @@ public:
 protected:
     /// Adiabatic index (ratio of specific heats cp/cv)
     double gamma;
-    /// Molar mass
+    /// Molar mass \f$[kg/mol]\f$
     double molar_mass;
     /// Specific gas constant (R / molar mass)
     double R_specific;
-    /// Specific heat at constant pressure
+    /// Specific heat at constant pressure \f$[J/(kg-K)]\f$
     double cp;
-    /// Specific heat at constant volume
+    /// Specific heat at constant volume \f$[J/(kg-K)]\f$
     double cv;
-    /// Dynamic viscosity
+    /// Dynamic viscosity \f$[Pa-s]\f$
     double mu;
-    /// Thermal conductivity
+    /// Thermal conductivity \f$[W/(m-K)]\f$
     double k;
 };
 

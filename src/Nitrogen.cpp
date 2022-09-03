@@ -221,7 +221,7 @@ Nitrogen::mu_from_rho_T(double rho, double T)
         mur += N_mu[i] * std::pow(tau, t_mu[i]) * std::pow(delta, d_mu[i]) *
                std::exp(-gamma_mu[i] * std::pow(delta, l_mu[i]));
 
-    // [Pa.s]
+    // [Pa-s]
     return (mu0 + mur) * 1.0e-6;
 }
 
