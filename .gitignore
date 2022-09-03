@@ -41,3 +41,6 @@ python/src/pyfprops.egg-info
 
 # CLion
 .idea
+
+# docs
+docs/pyplots/*.png

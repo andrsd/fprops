@@ -13,6 +13,15 @@ fprops
    :maxdepth: 1
    :titlesonly:
    :hidden:
+   :caption: Fluids
+   :glob:
+
+   fluids/*
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :hidden:
    :caption: API
    :glob:
 
