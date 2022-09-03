@@ -8,3 +8,12 @@ fprops
    :hidden:
 
    install.rst
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :hidden:
+   :caption: API
+   :glob:
+
+   classes/*
