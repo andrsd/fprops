@@ -52,9 +52,11 @@ jobs:
         run: make -C ${{ github.workspace }}/build test ARGS='-V'
 
       - name: Generate code coverage
+        if: startsWith(matrix.os, 'ubuntu')
         run: make -C ${{ github.workspace }}/build coverage
 
       - name: Upload coverage artifact
+        if: startsWith(matrix.os, 'ubuntu')
         uses: actions/upload-artifact@v2
         with:
           name: coverage-${{ matrix.os }}
