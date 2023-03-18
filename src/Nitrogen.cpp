@@ -62,7 +62,7 @@ static const double N_k[] = { 8.862, 31.11, -73.13, 20.03, -0.7096, 0.2672 };
 static const double t_k[] = { 0.0, 0.03, 0.2, 0.8, 0.6, 1.9 };
 static const unsigned int d_k[] = { 1, 2, 3, 4, 8, 10 };
 static const unsigned int l_k[] = { 0, 0, 1, 2, 2, 2 };
-static const double gamma_k[] = { 0.0, 0.0, 1.0, 1.0, 1.0 };
+static const double gamma_k[] = { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
 
 Nitrogen::Nitrogen() : Helmholtz(R, M, rho_c, T_c) {}
 
