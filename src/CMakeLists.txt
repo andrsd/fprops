@@ -8,6 +8,8 @@ add_library(
         Numerics.cpp
         SinglePhaseFluidProperties.cpp
 )
+target_code_coverage(${PROJECT_NAME})
+target_sanitization(${PROJECT_NAME})
 
 set_target_properties(
     ${PROJECT_NAME}
