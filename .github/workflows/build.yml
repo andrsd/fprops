@@ -52,11 +52,9 @@ jobs:
         run: make -C ${{ github.workspace }}/build test ARGS='-V'
 
       - name: Generate code coverage
-        if: startsWith(matrix.os, 'ubuntu')
         run: make -C ${{ github.workspace }}/build coverage
 
       - name: Upload coverage artifact
-        if: startsWith(matrix.os, 'ubuntu')
         uses: actions/upload-artifact@v2
         with:
           name: coverage-${{ matrix.os }}
@@ -73,10 +71,4 @@ jobs:
         uses: actions/download-artifact@v2
 
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v2
-
-      - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: 'coverage-ubuntu-22.04/coverage.info'
+        uses: codecov/codecov-action@v3
