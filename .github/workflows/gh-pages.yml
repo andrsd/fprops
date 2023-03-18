@@ -45,6 +45,7 @@ jobs:
       - name: Build doco
         run: |
           cmake -S . -B ${{ github.workspace }}/build
+          make -C ${{ github.workspace }}/build all
           make -C ${{ github.workspace }}/build doc
 
       - name: Deploy
