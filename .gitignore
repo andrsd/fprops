@@ -32,7 +32,7 @@
 *.app
 
 # cmake
-build/*
+build-*
 cmake-build-*
 
 # python
@@ -44,3 +44,5 @@ python/src/pyfprops.egg-info
 
 # docs
 docs/pyplots/*.png
+
+*.profraw
