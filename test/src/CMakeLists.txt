@@ -4,6 +4,8 @@ add_executable(${PROJECT_NAME}
     Numerics_test.cpp
     main.cpp
 )
+target_code_coverage(${PROJECT_NAME})
+target_sanitization(${PROJECT_NAME})
 
 target_include_directories(
     ${PROJECT_NAME}
@@ -21,7 +23,3 @@ target_link_libraries(
         gtest_main
         gmock_main
 )
-
-if (DEFINED ENV{CONDA_PREFIX})
-    set_target_properties(${PROJECT_NAME} PROPERTIES BUILD_RPATH $ENV{CONDA_PREFIX}/lib)
-endif()

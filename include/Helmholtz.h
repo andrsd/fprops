@@ -16,8 +16,8 @@ public:
     /// @param T_c Critical temperature \f$[K]\f$
     Helmholtz(double R, double M, double rho_c, double T_c);
 
-    virtual Props p_T(double p, double T) override;
-    virtual Props v_u(double v, double u) override;
+    Props p_T(double p, double T) override;
+    Props v_u(double v, double u) override;
 
 protected:
     /// Helmholtz free energy

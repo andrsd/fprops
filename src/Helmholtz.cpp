@@ -1,7 +1,7 @@
 #include "Helmholtz.h"
 #include "Numerics.h"
 #include <cmath>
-#include <assert.h>
+#include <cassert>
 
 namespace fprops {
 

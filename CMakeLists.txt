@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(FetchContent)
+include(${CMAKE_SOURCE_DIR}/cmake/CodeCoverage.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/Sanitization.cmake)
 
 option(FPROPS_WITH_PYTHON "Build python wrapper" YES)
 option(FPROPS_BUILD_TESTS "Build tests" NO)

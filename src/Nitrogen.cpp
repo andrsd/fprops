@@ -6,11 +6,6 @@ namespace fprops {
 
 #define len(a) (sizeof(a) / sizeof(a[0]))
 
-#define R 8.314510
-#define M 28.01348e-3
-#define rho_c 313.299958972
-#define T_c 126.192
-
 // Coefficients for ideal gas component of the Helmholtz free energy
 static const double a[] = { 2.5,          -12.76952708, -0.00784163, -1.934819e-4,
                             -1.247742e-5, 6.678326e-8,  1.012941,    26.65788 };
@@ -62,9 +57,9 @@ static const double N_k[] = { 8.862, 31.11, -73.13, 20.03, -0.7096, 0.2672 };
 static const double t_k[] = { 0.0, 0.03, 0.2, 0.8, 0.6, 1.9 };
 static const unsigned int d_k[] = { 1, 2, 3, 4, 8, 10 };
 static const unsigned int l_k[] = { 0, 0, 1, 2, 2, 2 };
-static const double gamma_k[] = { 0.0, 0.0, 1.0, 1.0, 1.0 };
+static const double gamma_k[] = { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
 
-Nitrogen::Nitrogen() : Helmholtz(R, M, rho_c, T_c) {}
+Nitrogen::Nitrogen() : Helmholtz(8.314510, 28.01348e-3, 313.299958972, 126.192) {}
 
 double
 Nitrogen::alpha(double delta, double tau)
@@ -204,8 +199,8 @@ Nitrogen::d2alpha_ddeltatau(double delta, double tau)
 double
 Nitrogen::mu_from_rho_T(double rho, double T)
 {
-    const double delta = rho / rho_c;
-    const double tau = T_c / T;
+    const double delta = rho / this->rho_c;
+    const double tau = this->T_c / T;
     const double logTstar = std::log(T / 98.94);
 
     // The dilute gas component
@@ -213,7 +208,7 @@ Nitrogen::mu_from_rho_T(double rho, double T)
     for (unsigned int i = 0; i < len(b_mu); i++)
         logOmega += b_mu[i] * std::pow(logTstar, i);
     const double mu0 =
-        0.0266958 * std::sqrt(1000.0 * M * T) / (0.3656 * 0.3656 * std::exp(logOmega));
+        0.0266958 * std::sqrt(1000.0 * this->M * T) / (0.3656 * 0.3656 * std::exp(logOmega));
 
     // The residual component
     double mur = 0.0;
@@ -228,8 +223,8 @@ Nitrogen::mu_from_rho_T(double rho, double T)
 double
 Nitrogen::k_from_rho_T(double rho, double T)
 {
-    const double delta = rho / rho_c;
-    const double tau = T_c / T;
+    const double delta = rho / this->rho_c;
+    const double tau = this->T_c / T;
 
     // The dilute gas component
     const double lambda0 =

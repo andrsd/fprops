@@ -20,8 +20,8 @@ public:
     /// @param k Thermal conductivity \f$[W/(m-K)]\f$
     void set_k(double k);
 
-    virtual Props p_T(double p, double T) override;
-    virtual Props v_u(double v, double u) override;
+    Props p_T(double p, double T) override;
+    Props v_u(double v, double u) override;
 
 protected:
     /// Adiabatic index (ratio of specific heats cp/cv)
