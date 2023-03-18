@@ -17,15 +17,15 @@ public:
     Nitrogen();
 
 protected:
-    virtual double alpha(double delta, double tau) override;
-    virtual double dalpha_ddelta(double delta, double tau) override;
-    virtual double dalpha_dtau(double delta, double tau) override;
-    virtual double d2alpha_ddelta2(double delta, double tau) override;
-    virtual double d2alpha_dtau2(double delta, double tau) override;
-    virtual double d2alpha_ddeltatau(double delta, double tau) override;
+    double alpha(double delta, double tau) override;
+    double dalpha_ddelta(double delta, double tau) override;
+    double dalpha_dtau(double delta, double tau) override;
+    double d2alpha_ddelta2(double delta, double tau) override;
+    double d2alpha_dtau2(double delta, double tau) override;
+    double d2alpha_ddeltatau(double delta, double tau) override;
 
-    virtual double mu_from_rho_T(double rho, double T) override;
-    virtual double k_from_rho_T(double rho, double T) override;
+    double mu_from_rho_T(double rho, double T) override;
+    double k_from_rho_T(double rho, double T) override;
 };
 
 } // namespace fprops

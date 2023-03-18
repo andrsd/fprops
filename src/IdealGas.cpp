@@ -1,7 +1,6 @@
 #include "IdealGas.h"
 #include <cmath>
 #include <assert.h>
-#include "fmt/printf.h"
 
 namespace fprops {
 
