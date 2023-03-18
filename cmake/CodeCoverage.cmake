@@ -1,3 +1,4 @@
+if(CMAKE_PROJECT_NAME STREQUAL "fprops")
 
 option(FPROPS_CODE_COVERAGE "Builds targets with code coverage instrumentation" OFF)
 
@@ -166,5 +167,7 @@ else()
 
     function(add_test_with_coverage)
     endfunction()
+
+endif()
 
 endif()

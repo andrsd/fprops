@@ -8,8 +8,10 @@ add_library(
         Numerics.cpp
         SinglePhaseFluidProperties.cpp
 )
-target_code_coverage(${PROJECT_NAME})
-target_sanitization(${PROJECT_NAME})
+if(CMAKE_PROJECT_NAME STREQUAL "fprops")
+    target_code_coverage(${PROJECT_NAME})
+    target_sanitization(${PROJECT_NAME})
+endif()
 
 set_target_properties(
     ${PROJECT_NAME}
@@ -20,9 +22,11 @@ set_target_properties(
 
 target_include_directories(
     ${PROJECT_NAME}
+    PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include/fprops>
     PRIVATE
         ${CMAKE_BINARY_DIR}
-        ${CMAKE_SOURCE_DIR}/include
 )
 
 target_link_libraries(
@@ -63,7 +67,7 @@ install(
 
 install(
     FILES
-        "${CMAKE_SOURCE_DIR}/cmake/fpropsConfig.cmake"
+        "${PROJECT_SOURCE_DIR}/cmake/fpropsConfig.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/fpropsConfigVersion.cmake"
     DESTINATION
         lib/cmake/${PROJECT_NAME}

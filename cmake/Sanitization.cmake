@@ -1,4 +1,5 @@
 # LLVM: Sanitization
+if(CMAKE_PROJECT_NAME STREQUAL "fprops")
 
 if(CMAKE_C_COMPILER_ID MATCHES "(Apple)?[Cc]lang" OR CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
     option(FPROPS_ADDRESS_SANITIZATION "Build with address sanitizer (requires clang)" NO)
@@ -20,3 +21,5 @@ function(target_sanitization TARGET_NAME)
         endif()
     endif()
 endfunction()
+
+endif()
