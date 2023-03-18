@@ -18,23 +18,65 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
-      - name: Install dependencies
+
+      - name: Install dependencies (linux)
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update -qq
-          sudo apt install libfmt-dev python3-pybind11
-      - name: Install dependencies
+          sudo apt install lcov libfmt-dev python3-pybind11
+
+      - name: Install dependencies (macos)
         if: startsWith(matrix.os, 'macos')
-        run: brew install cmake llvm@12 fmt pybind11
+        run: brew install cmake llvm@14 lcov fmt pybind11
+
       - name: Install python dependencies
         run: |
           python3 -m pip install --upgrade pip
           pip3 install flake8 pytest
+
+      - name: Set up env (macos)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          echo "$(brew --cellar)/llvm@14/14.0.6/bin" >> $GITHUB_PATH
+
       - name: Configure
         run: |
           cmake -S . -B ${{ github.workspace }}/build \
-            -DFPROPS_BUILD_TESTS=YES
+            -DFPROPS_BUILD_TESTS=YES \
+            -DFPROPS_CODE_COVERAGE=YES
+
       - name: Build
         run: make -C ${{ github.workspace }}/build
+
       - name: Run tests
         run: make -C ${{ github.workspace }}/build test ARGS='-V'
+
+      - name: Generate code coverage
+        if: startsWith(matrix.os, 'ubuntu')
+        run: make -C ${{ github.workspace }}/build coverage
+
+      - name: Upload coverage artifact
+        if: startsWith(matrix.os, 'ubuntu')
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-${{ matrix.os }}
+          path: ${{ github.workspace }}/build/coverage.info
+
+  upload-to-codecov:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v2
+
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: 'coverage-ubuntu-22.04/coverage.info'
