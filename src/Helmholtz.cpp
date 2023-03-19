@@ -15,7 +15,7 @@ Helmholtz::Helmholtz(double R, double M, double rho_c, double T_c) :
 }
 
 SinglePhaseFluidProperties::Props
-Helmholtz::p_T(double p, double T)
+Helmholtz::p_T(double p, double T) const
 {
     Props props;
 
@@ -77,7 +77,7 @@ Helmholtz::p_T(double p, double T)
 }
 
 SinglePhaseFluidProperties::Props
-Helmholtz::v_u(double v, double u)
+Helmholtz::v_u(double v, double u) const
 {
     assert(v != 0.);
 
@@ -143,7 +143,7 @@ Helmholtz::v_u(double v, double u)
 }
 
 double
-Helmholtz::rho_from_p_T(double p, double T)
+Helmholtz::rho_from_p_T(double p, double T) const
 {
     auto f = [&p, &T, this](double rho) {
         const double delta = rho / this->rho_c;
@@ -168,7 +168,7 @@ Helmholtz::rho_from_p_T(double p, double T)
 }
 
 double
-Helmholtz::tau_from_v_u(double v, double u)
+Helmholtz::tau_from_v_u(double v, double u) const
 {
     auto f = [&v, &u, this](double tau) {
         const double delta = 1. / this->rho_c / v;

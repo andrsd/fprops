@@ -45,13 +45,13 @@ public:
     ///
     /// @param p Pressure \f$[Pa]\f$
     /// @param T Temperature \f$[K]\f$
-    virtual Props p_T(double p, double T) = 0;
+    virtual Props p_T(double p, double T) const = 0;
 
     /// Compute thermodynamical state given specific volume and internal energy
     ///
     /// @param v Specific volume \f$[m^3/kg]\f$
     /// @param u Specific internal energy \f$[J/kg]\f$
-    virtual Props v_u(double v, double u) = 0;
+    virtual Props v_u(double v, double u) const = 0;
 };
 
 } // namespace fprops
