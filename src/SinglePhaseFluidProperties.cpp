@@ -20,6 +20,4 @@ SinglePhaseFluidProperties::Props::Props()
 
 SinglePhaseFluidProperties::SinglePhaseFluidProperties() : FluidProperties() {}
 
-SinglePhaseFluidProperties::~SinglePhaseFluidProperties() {}
-
 } // namespace fprops
