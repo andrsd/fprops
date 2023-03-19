@@ -20,7 +20,7 @@ IdealGas::IdealGas(double gamma, double molar_mass) :
 }
 
 SinglePhaseFluidProperties::Props
-IdealGas::p_T(double p, double T)
+IdealGas::p_T(double p, double T) const
 {
     Props props;
     props.p = p;
@@ -41,7 +41,7 @@ IdealGas::p_T(double p, double T)
 }
 
 SinglePhaseFluidProperties::Props
-IdealGas::v_u(double v, double u)
+IdealGas::v_u(double v, double u) const
 {
     assert(v != 0.);
 

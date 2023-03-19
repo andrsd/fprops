@@ -62,7 +62,7 @@ static const double gamma_k[] = { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
 Nitrogen::Nitrogen() : Helmholtz(8.314510, 28.01348e-3, 313.299958972, 126.192) {}
 
 double
-Nitrogen::alpha(double delta, double tau)
+Nitrogen::alpha(double delta, double tau) const
 {
     // Ideal gas component of the Helmholtz free energy
     double alpha0 = std::log(delta) + a[0] * std::log(tau) + a[1] + a[2] * tau + a[3] / tau +
@@ -83,7 +83,7 @@ Nitrogen::alpha(double delta, double tau)
 }
 
 double
-Nitrogen::dalpha_ddelta(double delta, double tau)
+Nitrogen::dalpha_ddelta(double delta, double tau) const
 {
     // Ideal gas component of the Helmholtz free energy
     double dalpha0 = 1.0 / delta;
@@ -104,7 +104,7 @@ Nitrogen::dalpha_ddelta(double delta, double tau)
 }
 
 double
-Nitrogen::dalpha_dtau(double delta, double tau)
+Nitrogen::dalpha_dtau(double delta, double tau) const
 {
     // Ideal gas component of the Helmholtz free energy
     const double dalpha0 = a[0] + a[2] * tau - a[3] / tau - 2.0 * a[4] / sqr(tau) -
@@ -126,7 +126,7 @@ Nitrogen::dalpha_dtau(double delta, double tau)
 }
 
 double
-Nitrogen::d2alpha_ddelta2(double delta, double tau)
+Nitrogen::d2alpha_ddelta2(double delta, double tau) const
 {
     // Ideal gas component of the Helmholtz free energy
     const double dalpha0 = -1.0 / delta / delta;
@@ -153,7 +153,7 @@ Nitrogen::d2alpha_ddelta2(double delta, double tau)
 }
 
 double
-Nitrogen::d2alpha_dtau2(double delta, double tau)
+Nitrogen::d2alpha_dtau2(double delta, double tau) const
 {
     // Ideal gas component of the Helmholtz free energy
     const double dalpha0 =
@@ -177,7 +177,7 @@ Nitrogen::d2alpha_dtau2(double delta, double tau)
 }
 
 double
-Nitrogen::d2alpha_ddeltatau(double delta, double tau)
+Nitrogen::d2alpha_ddeltatau(double delta, double tau) const
 {
     // Residual component of the Helmholtz free energy (second derivative of ideal
     // component wrt delta and tau is 0)
@@ -197,7 +197,7 @@ Nitrogen::d2alpha_ddeltatau(double delta, double tau)
 }
 
 double
-Nitrogen::mu_from_rho_T(double rho, double T)
+Nitrogen::mu_from_rho_T(double rho, double T) const
 {
     const double delta = rho / this->rho_c;
     const double tau = this->T_c / T;
@@ -221,7 +221,7 @@ Nitrogen::mu_from_rho_T(double rho, double T)
 }
 
 double
-Nitrogen::k_from_rho_T(double rho, double T)
+Nitrogen::k_from_rho_T(double rho, double T) const
 {
     const double delta = rho / this->rho_c;
     const double tau = this->T_c / T;
