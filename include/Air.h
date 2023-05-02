@@ -26,6 +26,9 @@ protected:
 
     [[nodiscard]] double mu_from_rho_T(double rho, double T) const override;
     [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
+
+private:
+    double eta0(double T) const;
 };
 
 } // namespace fprops
