@@ -1,7 +1,7 @@
 #include "Helmholtz.h"
 #include "Numerics.h"
 #include <cmath>
-#include <cassert>
+#include <stdexcept>
 
 namespace fprops {
 
@@ -17,6 +17,9 @@ Helmholtz::Helmholtz(double R, double M, double rho_c, double T_c) :
 SinglePhaseFluidProperties::Props
 Helmholtz::p_T(double p, double T) const
 {
+    if (T < 0)
+        throw std::domain_error("Negative temperature");
+
     Props props;
 
     const double rho = rho_from_p_T(p, T);
@@ -79,7 +82,10 @@ Helmholtz::p_T(double p, double T) const
 SinglePhaseFluidProperties::Props
 Helmholtz::v_u(double v, double u) const
 {
-    assert(v != 0.);
+    if (v <= 0.)
+        throw std::domain_error("Negative specific volume");
+    if (u <= 0.)
+        throw std::domain_error("Negative internal energy");
 
     Props props;
 
