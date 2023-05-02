@@ -1,6 +1,7 @@
 add_library(
     ${PROJECT_NAME}
     SHARED
+        Air.cpp
         FluidProperties.cpp
         Helmholtz.cpp
         IdealGas.cpp
