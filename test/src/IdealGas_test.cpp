@@ -54,3 +54,22 @@ TEST(IdealGas, v_u)
     EXPECT_DOUBLE_EQ(props.h, 3.9451394987224141e5);
     EXPECT_DOUBLE_EQ(props.w, 3.9724750464779078e2);
 }
+
+TEST(IdealGas, v_u_incorrect)
+{
+    double gamma = 1.4;
+    double molar_mass = 29.0e-3;
+    IdealGas fp(gamma, molar_mass);
+
+    EXPECT_THROW(auto p = fp.v_u(-1, 1), std::domain_error);
+    EXPECT_THROW(auto p = fp.v_u(1, -1), std::domain_error);
+}
+
+TEST(IdealGas, p_T_incorrect)
+{
+    double gamma = 1.4;
+    double molar_mass = 29.0e-3;
+    IdealGas fp(gamma, molar_mass);
+
+    EXPECT_THROW(auto p = fp.p_T(1e5, -1), std::domain_error);
+}

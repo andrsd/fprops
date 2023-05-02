@@ -1,8 +1,10 @@
-add_executable(${PROJECT_NAME}
-    IdealGas_test.cpp
-    Nitrogen_test.cpp
-    Numerics_test.cpp
-    main.cpp
+add_executable(
+    ${PROJECT_NAME}
+        Helmholtz_test.cpp
+        IdealGas_test.cpp
+        Nitrogen_test.cpp
+        Numerics_test.cpp
+        main.cpp
 )
 target_code_coverage(${PROJECT_NAME})
 target_sanitization(${PROJECT_NAME})
