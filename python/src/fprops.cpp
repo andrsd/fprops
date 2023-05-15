@@ -1,6 +1,7 @@
 #include <pybind11/pybind11.h>
 
 #include "SinglePhaseFluidProperties.h"
+#include "Air.h"
 #include "IdealGas.h"
 #include "Nitrogen.h"
 
@@ -29,6 +30,8 @@ PYBIND11_MODULE(pyfprops, m)
         .def_readwrite("k", &SinglePhaseFluidProperties::Props::k)
         .def_readwrite("h", &SinglePhaseFluidProperties::Props::h)
         .def_readwrite("w", &SinglePhaseFluidProperties::Props::w);
+
+    py::class_<Air>(m, "Air").def(py::init()).def("p_T", &Air::p_T).def("v_u", &Air::v_u);
 
     py::class_<IdealGas>(m, "IdealGas")
         .def(py::init<double, double>())

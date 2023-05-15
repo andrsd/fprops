@@ -23,6 +23,17 @@ if(DOXYGEN_FOUND)
         n2_err_u.png
         n2_err_w.png
     )
+    set(AIR_ERR_IMGS
+        air_err_c_p.png
+        air_err_c_v.png
+        air_err_h.png
+        air_err_k.png
+        air_err_mu.png
+        air_err_rho.png
+        air_err_s.png
+        air_err_u.png
+        air_err_w.png
+    )
 
     add_custom_command(
         OUTPUT
@@ -34,6 +45,7 @@ if(DOXYGEN_FOUND)
             ${PROJECT_BINARY_DIR}/docs/xml/index.xml
             ${RST_FILES}
             ${N2_ERR_IMGS}
+            ${AIR_ERR_IMGS}
     )
 
     add_custom_command(
@@ -57,6 +69,19 @@ if(DOXYGEN_FOUND)
         DEPENDS
             ${PROJECT_SOURCE_DIR}/docs/pyplots/plot_err.py
             ${PROJECT_SOURCE_DIR}/docs/pyplots/n2.yml
+    )
+
+    add_custom_command(
+        OUTPUT
+            ${AIR_ERR_IMGS}
+        COMMAND
+            ${CMAKE_COMMAND} -E env "PYTHONPATH=${PROJECT_BINARY_DIR}/python/src:$ENV{PYTHONPATH}"
+            python3 plot_err.py air.yml
+        WORKING_DIRECTORY
+            ${PROJECT_SOURCE_DIR}/docs/pyplots
+        DEPENDS
+            ${PROJECT_SOURCE_DIR}/docs/pyplots/plot_err.py
+            ${PROJECT_SOURCE_DIR}/docs/pyplots/air.yml
     )
 
     add_custom_command(
