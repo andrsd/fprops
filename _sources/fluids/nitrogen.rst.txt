@@ -29,9 +29,3 @@ Verification against CoolProp package
 .. image:: ../pyplots/n2_err_mu.png
 
 .. image:: ../pyplots/n2_err_k.png
-
-References
-----------
-
-.. bibliography::
-   :style: unsrt
