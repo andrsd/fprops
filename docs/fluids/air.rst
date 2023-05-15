@@ -29,10 +29,3 @@ Verification against CoolProp package
 .. image:: ../pyplots/air_err_mu.png
 
 .. image:: ../pyplots/air_err_k.png
-
-References
-----------
-
-.. bibliography::
-   :cited:
-   :style: unsrt

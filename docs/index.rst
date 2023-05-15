@@ -8,6 +8,7 @@ fprops
    :hidden:
 
    install.rst
+   references.rst
 
 .. toctree::
    :maxdepth: 1
