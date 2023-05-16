@@ -15,4 +15,5 @@
 ### List of fluids
 
 - Ideal gas
+- Air
 - Nitrogen
