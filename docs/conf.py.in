@@ -3,7 +3,7 @@ import sys
 import subprocess
 
 project = 'fprops'
-copyright = '2022, David Andrs'
+copyright = '2022-2023, David Andrs'
 author = 'David Andrs'
 
 master_doc = 'index'
