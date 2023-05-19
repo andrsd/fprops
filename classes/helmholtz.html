@@ -47,12 +47,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluids.html">Fluids</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Fluids</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../fluids/air.html">Air</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fluids/nitrogen.html">Nitrogen</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -62,6 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ideal-gas.html">IdealGas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nitrogen.html">Nitrogen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="single-phase-fluid-properties.html">SinglePhaseFluidProperties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transport-models.html">TransportModels</a></li>
 </ul>
 
         </div>
@@ -143,6 +140,109 @@
 </div>
 </dd></dl>
 
+<section id="models">
+<h2>Models<a class="headerlink" href="#models" title="Permalink to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6fprops9Helmholtz12IdealGasLeadE">
+<span id="_CPPv3I0EN6fprops9Helmholtz12IdealGasLeadE"></span><span id="_CPPv2I0EN6fprops9Helmholtz12IdealGasLeadE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_helmholtz_1_1_ideal_gas_lead"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IdealGasLead</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops9Helmholtz12IdealGasLeadE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The leading term in the EOS used to set the desired reference state. </p>
+<p><span class="math notranslate nohighlight">\(\alpha = \ln(\delta) + a_1 + a_2 \tau\)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – The basic data type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6fprops9Helmholtz14IdealGasLogTauE">
+<span id="_CPPv3I0EN6fprops9Helmholtz14IdealGasLogTauE"></span><span id="_CPPv2I0EN6fprops9Helmholtz14IdealGasLogTauE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_helmholtz_1_1_ideal_gas_log_tau"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IdealGasLogTau</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops9Helmholtz14IdealGasLogTauE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Log(tau) term. </p>
+<p><span class="math notranslate nohighlight">\(\alpha = a_1\ln(\tau)\)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – The basic data type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6fprops9Helmholtz13IdealGasPowerE">
+<span id="_CPPv3I0EN6fprops9Helmholtz13IdealGasPowerE"></span><span id="_CPPv2I0EN6fprops9Helmholtz13IdealGasPowerE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_helmholtz_1_1_ideal_gas_power"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IdealGasPower</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops9Helmholtz13IdealGasPowerE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sum of powers used for ideal part of <span class="math notranslate nohighlight">\(\alpha\)</span>. </p>
+<p><span class="math notranslate nohighlight">\(\alpha = \displaystyle\sum_{i=0}^n N_i \tau^{t_i}\)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – The basic data type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6fprops9Helmholtz30IdealPlanckEinsteinGeneralizedE">
+<span id="_CPPv3I0EN6fprops9Helmholtz30IdealPlanckEinsteinGeneralizedE"></span><span id="_CPPv2I0EN6fprops9Helmholtz30IdealPlanckEinsteinGeneralizedE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_helmholtz_1_1_ideal_planck_einstein_generalized"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IdealPlanckEinsteinGeneralized</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops9Helmholtz30IdealPlanckEinsteinGeneralizedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Generalized Planck-Einstein model. </p>
+<p><span class="math notranslate nohighlight">\( \alpha = \displaystyle\sum_{i=0}^{n} N_i \log(c_i + d_i \exp(\theta \tau)) \)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – The basic data type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6fprops9Helmholtz31IdealGasPlanckEinsteinFunctionTE">
+<span id="_CPPv3I0EN6fprops9Helmholtz31IdealGasPlanckEinsteinFunctionTE"></span><span id="_CPPv2I0EN6fprops9Helmholtz31IdealGasPlanckEinsteinFunctionTE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_helmholtz_1_1_ideal_gas_planck_einstein_function_t"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IdealGasPlanckEinsteinFunctionT</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops9Helmholtz31IdealGasPlanckEinsteinFunctionTE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Planck-Einstein model as a function of temperature. </p>
+<p><span class="math notranslate nohighlight">\( \alpha = \displaystyle\sum_{i=0}^{n} N_i \log(1 - \exp({v_i \over T_{crit}} \tau)) \)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – The basic data type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6fprops9Helmholtz13ResidualPowerE">
+<span id="_CPPv3I0EN6fprops9Helmholtz13ResidualPowerE"></span><span id="_CPPv2I0EN6fprops9Helmholtz13ResidualPowerE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_helmholtz_1_1_residual_power"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ResidualPower</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops9Helmholtz13ResidualPowerE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Power model. </p>
+<p><span class="math notranslate nohighlight">\( \alpha = \displaystyle\sum_{i=0}^{n} N_i \delta^{d_i} \tau^{t_i}  \)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – basic data type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I00EN6fprops9Helmholtz16ResidualPowerExpE">
+<span id="_CPPv3I00EN6fprops9Helmholtz16ResidualPowerExpE"></span><span id="_CPPv2I00EN6fprops9Helmholtz16ResidualPowerExpE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">L</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_helmholtz_1_1_residual_power_exp"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ResidualPowerExp</span></span></span><a class="headerlink" href="#_CPPv4I00EN6fprops9Helmholtz16ResidualPowerExpE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Power model with exponential term. </p>
+<p><span class="math notranslate nohighlight">\( \alpha = \displaystyle\sum_{i=0}^{n} N_i \delta^{d_i} \tau^{t_i} \exp(-\delta^{l_i}) \)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> – basic data type </p></li>
+<li><p><strong>L</strong> – type of the <code class="docutils literal notranslate"><span class="pre">l</span></code>-coefficient</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6fprops9Helmholtz16ResidualGaussianE">
+<span id="_CPPv3I0EN6fprops9Helmholtz16ResidualGaussianE"></span><span id="_CPPv2I0EN6fprops9Helmholtz16ResidualGaussianE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_helmholtz_1_1_residual_gaussian"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ResidualGaussian</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops9Helmholtz16ResidualGaussianE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Gaussian model for residual part. </p>
+<p><span class="math notranslate nohighlight">\( \alpha = \displaystyle\sum_{i=0}^n N_i \delta^{d_i} \tau^{t_i}
+\exp(-\eta_i (\delta - \epsilon_i)^2 - \beta_i (\tau - \gamma_i)^2) \)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – The basic data type</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -156,7 +256,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, David Andrs.</p>
+    <p>&#169; Copyright 2022-2023, David Andrs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
