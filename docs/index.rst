@@ -8,16 +8,8 @@ fprops
    :hidden:
 
    install.rst
+   fluids.rst
    references.rst
-
-.. toctree::
-   :maxdepth: 1
-   :titlesonly:
-   :hidden:
-   :caption: Fluids
-   :glob:
-
-   fluids/*
 
 .. toctree::
    :maxdepth: 1

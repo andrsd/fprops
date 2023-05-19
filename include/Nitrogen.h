@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Helmholtz.h"
+#include "TransportModels.h"
 
 namespace fprops {
 
@@ -26,6 +27,20 @@ protected:
 
     [[nodiscard]] double mu_from_rho_T(double rho, double T) const override;
     [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
+
+private:
+    IdealGasLead<double> lead;
+    IdealGasLogTau<double> log_tau;
+    IdealGasPower<double> power_0;
+    IdealGasPlanckEinsteinFunctionT<double> pefnt;
+    ResidualPower<double> power_r;
+    ResidualPowerExp<double, unsigned int> power_exp_r;
+    ResidualGaussian<double> gauss;
+
+    LennardJones<double> eta_0;
+    ModifiedBatshinskiHildebrand<double> eta_r;
+    Eta0AndPoly<double> lambda_0;
+    ModifiedBatshinskiHildebrand<double> lambda_r;
 };
 
 } // namespace fprops
