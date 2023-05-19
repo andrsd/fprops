@@ -4,6 +4,7 @@
 #include "Air.h"
 #include "IdealGas.h"
 #include "Nitrogen.h"
+#include "Helium.h"
 
 using namespace fprops;
 
@@ -41,6 +42,11 @@ PYBIND11_MODULE(pyfprops, m)
         .def("v_u", &IdealGas::v_u);
 
     py::class_<Nitrogen>(m, "Nitrogen")
+        .def(py::init())
+        .def("p_T", &Nitrogen::p_T)
+        .def("v_u", &Nitrogen::v_u);
+
+    py::class_<Helium>(m, "Helium")
         .def(py::init())
         .def("p_T", &Nitrogen::p_T)
         .def("v_u", &Nitrogen::v_u);

@@ -91,6 +91,22 @@ TEST(HelmholtzTest, ideal_gas_power)
     Test t;
 }
 
+TEST(HelmholtzTest, enthalpy_entropy_offset)
+{
+    class Test : public MockHelmholtz {
+    public:
+        Test() : MockHelmholtz(), a(11, 12)
+        {
+            EXPECT_DOUBLE_EQ(a.alpha(0., 2), 35.);
+            EXPECT_DOUBLE_EQ(a.dtau(0, 2), 12.);
+        }
+
+        Helmholtz::IdealEnthalpyEntropyOffset<double> a;
+    };
+
+    Test t;
+}
+
 TEST(HelmholtzTest, ideal_gas_planck_einstein_generalized)
 {
     class Test : public MockHelmholtz {

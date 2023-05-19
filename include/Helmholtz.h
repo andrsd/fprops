@@ -218,6 +218,33 @@ protected:
         std::vector<T> t;
     };
 
+    /// Offset for enthalpy and entropy
+    ///
+    /// @tparam T The basic data type
+    ///
+    /// \f$\alpha = a_1 + a_2 \tau\f$
+    template <typename T>
+    class IdealEnthalpyEntropyOffset {
+    public:
+        IdealEnthalpyEntropyOffset(double a1, double a2) : a1(a1), a2(a2) {}
+
+        T
+        alpha(T delta, T tau) const
+        {
+            return this->a1 + this->a2 * tau;
+        }
+
+        T
+        dtau(T delta, T tau) const
+        {
+            return this->a2;
+        }
+
+    private:
+        double a1;
+        double a2;
+    };
+
     /// Generalized Planck-Einstein model
     ///
     /// @tparam T The basic data type
