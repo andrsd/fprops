@@ -16,4 +16,5 @@
 
 - Ideal gas
 - Air
+- Helium
 - Nitrogen
