@@ -16,6 +16,9 @@ Models
 .. doxygenclass:: fprops::Helmholtz::IdealGasPower
    :members:
 
+.. doxygenclass:: fprops::Helmholtz::IdealEnthalpyEntropyOffset
+   :members:
+
 .. doxygenclass:: fprops::Helmholtz::IdealPlanckEinsteinGeneralized
    :members:
 
