@@ -3,6 +3,7 @@ add_library(
     SHARED
         Air.cpp
         FluidProperties.cpp
+        Helium.cpp
         Helmholtz.cpp
         IdealGas.cpp
         Nitrogen.cpp
