@@ -1,6 +1,7 @@
 add_executable(
     ${PROJECT_NAME}
         Air_test.cpp
+        CarbonDioxide_test.cpp
         Helium_test.cpp
         Helmholtz_test.cpp
         IdealGas_test.cpp

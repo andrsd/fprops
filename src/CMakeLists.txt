@@ -2,6 +2,7 @@ add_library(
     ${PROJECT_NAME}
     SHARED
         Air.cpp
+        CarbonDioxide.cpp
         FluidProperties.cpp
         Helium.cpp
         Helmholtz.cpp
