@@ -219,3 +219,25 @@ TEST(HelmholtzTest, residual_gaussian)
 
     Test t;
 }
+
+TEST(HelmholtzTest, non_analytic)
+{
+    class Test : public MockHelmholtz {
+    public:
+        Test() :
+            MockHelmholtz(),
+            a({ 2, 3 }, { 3, 4 }, { 4, 5 }, { 5, 6 }, { 3, 2 }, { 4, 3 }, { 5, 4 }, { 6, 5 })
+        {
+            EXPECT_DOUBLE_EQ(a.alpha(2., 3.), 5.5677378067433475e-08);
+            EXPECT_DOUBLE_EQ(a.ddelta(2., 3.), 1.7956263727569099e-06);
+            EXPECT_DOUBLE_EQ(a.dtau(2., 3.), -1.1171086932549971e-06);
+            EXPECT_DOUBLE_EQ(a.d2delta(2., 3.), -1.5082537326175269e-05);
+            EXPECT_DOUBLE_EQ(a.d2tau(2., 3.), 2.2058154287500501e-05);
+            EXPECT_DOUBLE_EQ(a.d2deltatau(2., 3.), -3.5433699047353868e-05);
+        }
+
+        Helmholtz::ResidualNonAnalytic<double> a;
+    };
+
+    Test t;
+}
