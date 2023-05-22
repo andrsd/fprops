@@ -34,7 +34,6 @@ if(DOXYGEN_FOUND)
         air_err_u.png
         air_err_w.png
     )
-    file(GLOB_RECURSE RST_FILES ${PROJECT_SOURCE_DIR}/docs/*.rst)
     set(HE_ERR_IMGS
         he_err_c_p.png
         he_err_c_v.png
@@ -45,6 +44,17 @@ if(DOXYGEN_FOUND)
         he_err_s.png
         he_err_u.png
         he_err_w.png
+    )
+    set(CO2_ERR_IMGS
+        co2_err_c_p.png
+        co2_err_c_v.png
+        co2_err_h.png
+        co2_err_k.png
+        co2_err_mu.png
+        co2_err_rho.png
+        co2_err_s.png
+        co2_err_u.png
+        co2_err_w.png
     )
 
     add_custom_command(
@@ -59,6 +69,7 @@ if(DOXYGEN_FOUND)
             ${N2_ERR_IMGS}
             ${AIR_ERR_IMGS}
             ${HE_ERR_IMGS}
+            ${CO2_ERR_IMGS}
     )
 
     add_custom_command(
@@ -108,6 +119,19 @@ if(DOXYGEN_FOUND)
         DEPENDS
             ${PROJECT_SOURCE_DIR}/docs/pyplots/plot_err.py
             ${PROJECT_SOURCE_DIR}/docs/pyplots/he.yml
+    )
+
+    add_custom_command(
+        OUTPUT
+            ${CO2_ERR_IMGS}
+        COMMAND
+            ${CMAKE_COMMAND} -E env "PYTHONPATH=${PROJECT_BINARY_DIR}/python/src:$ENV{PYTHONPATH}"
+            python3 plot_err.py co2.yml
+        WORKING_DIRECTORY
+            ${PROJECT_SOURCE_DIR}/docs/pyplots
+        DEPENDS
+            ${PROJECT_SOURCE_DIR}/docs/pyplots/plot_err.py
+            ${PROJECT_SOURCE_DIR}/docs/pyplots/co2.yml
     )
 
     add_custom_command(
