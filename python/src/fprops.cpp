@@ -48,6 +48,6 @@ PYBIND11_MODULE(pyfprops, m)
 
     py::class_<Helium>(m, "Helium")
         .def(py::init())
-        .def("p_T", &Nitrogen::p_T)
-        .def("v_u", &Nitrogen::v_u);
+        .def("p_T", &Helium::p_T)
+        .def("v_u", &Helium::v_u);
 }
