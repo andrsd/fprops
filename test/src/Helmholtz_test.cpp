@@ -141,6 +141,23 @@ TEST(HelmholtzTest, ideal_gas_planck_einstein_function_t)
     Test t;
 }
 
+TEST(HelmholtzTest, ideal_gas_planck_einstein)
+{
+    class Test : public MockHelmholtz {
+    public:
+        Test() : MockHelmholtz(), a({ 2, 3 }, { 3, 4 })
+        {
+            EXPECT_DOUBLE_EQ(a.alpha(0., 1.), -0.157594702363063);
+            EXPECT_DOUBLE_EQ(a.dtau(0., 1.), 0.53826250331282433);
+            EXPECT_DOUBLE_EQ(a.d2tau(0., 1.), -1.904800057093929);
+        }
+
+        Helmholtz::IdealGasPlanckEinstein<double> a;
+    };
+
+    Test t;
+}
+
 TEST(HelmholtzTest, residual_power)
 {
     class Test : public MockHelmholtz {

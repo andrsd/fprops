@@ -350,6 +350,47 @@ protected:
         IdealPlanckEinsteinGeneralized<T> * generalized;
     };
 
+    /// Planck-Einstein
+    ///
+    /// @tparam T basic data type
+    ///
+    /// \f$ \alpha = \displaystyle\sum_{i=0}^{n} N_i \log(1 - \exp(-t_i \tau)) \f$
+    template <typename T>
+    class IdealGasPlanckEinstein {
+    public:
+        IdealGasPlanckEinstein(const std::vector<T> & n, const std::vector<T> & t)
+        {
+            assert(n.size() == t.size());
+            std::vector<T> theta(n.size(), 0.);
+            for (std::size_t i = 0; i < t.size(); i++)
+                theta[i] = -t[i];
+            std::vector<T> c(n.size(), 1);
+            std::vector<T> d(n.size(), -1);
+            this->generalized = new IdealPlanckEinsteinGeneralized<T>(n, theta, c, d);
+        }
+
+        T
+        alpha(T delta, T tau) const
+        {
+            return this->generalized->alpha(delta, tau);
+        }
+
+        T
+        dtau(T delta, T tau) const
+        {
+            return this->generalized->dtau(delta, tau);
+        }
+
+        T
+        d2tau(T delta, T tau) const
+        {
+            return this->generalized->d2tau(delta, tau);
+        }
+
+    private:
+        IdealPlanckEinsteinGeneralized<T> * generalized;
+    };
+
     /// Power model
     ///
     /// @tparam T basic data type
