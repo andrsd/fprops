@@ -11,7 +11,7 @@ TEST(TransportTest, eta0_and_poly)
 
 TEST(TransportTest, lennard_jones)
 {
-    LennardJones<double> lj(2.e-3, 3., 2., { 2, 3 });
+    LennardJones<double> lj(0.0266958, 2.e-3, 3., 2., { 2, 3 });
     EXPECT_DOUBLE_EQ(lj.value(2.), 0.0060967411665096916);
 }
 

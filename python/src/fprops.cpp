@@ -5,6 +5,7 @@
 #include "IdealGas.h"
 #include "Nitrogen.h"
 #include "Helium.h"
+#include "CarbonDioxide.h"
 
 using namespace fprops;
 
@@ -50,4 +51,9 @@ PYBIND11_MODULE(pyfprops, m)
         .def(py::init())
         .def("p_T", &Helium::p_T)
         .def("v_u", &Helium::v_u);
+
+    py::class_<CarbonDioxide>(m, "CarbonDioxide")
+        .def(py::init())
+        .def("p_T", &CarbonDioxide::p_T)
+        .def("v_u", &CarbonDioxide::v_u);
 }

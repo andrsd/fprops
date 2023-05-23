@@ -691,6 +691,294 @@ protected:
         std::vector<T> beta;
         std::vector<T> gamma;
     };
+
+    template <typename T>
+    class ResidualNonAnalytic {
+    public:
+        ResidualNonAnalytic(const std::vector<T> & n,
+                            const std::vector<T> & a,
+                            const std::vector<T> & b,
+                            const std::vector<T> & beta,
+                            const std::vector<T> & A,
+                            const std::vector<T> & B,
+                            const std::vector<T> & C,
+                            const std::vector<T> & D) :
+            n(n),
+            a(a),
+            b(b),
+            beta(beta),
+            A(A),
+            B(B),
+            C(C),
+            D(D)
+        {
+            assert(n.size() == a.size());
+            assert(n.size() == b.size());
+            assert(n.size() == beta.size());
+            assert(n.size() == A.size());
+            assert(n.size() == B.size());
+            assert(n.size() == C.size());
+            assert(n.size() == D.size());
+        }
+
+        T
+        alpha(T delta, T tau) const
+        {
+            fiddle(delta, tau);
+            T sum = 0;
+            for (std::size_t i = 0; i < this->n.size(); i++)
+                sum += delta * this->n[i] * DELTA_bi(i, delta, tau) * PSI(i, delta, tau);
+            return sum;
+        }
+
+        T
+        ddelta(T delta, T tau) const
+        {
+            fiddle(delta, tau);
+            T sum = 0;
+            for (std::size_t i = 0; i < this->n.size(); i++) {
+                sum += this->n[i] * (DELTA_bi(i, delta, tau) * PSI(i, delta, tau) +
+                                     delta * dDELTA_bi_ddelta(i, delta, tau) * PSI(i, delta, tau) +
+                                     delta * DELTA_bi(i, delta, tau) * dPSI_ddelta(i, delta, tau));
+            }
+            return sum;
+        }
+
+        T
+        dtau(T delta, T tau) const
+        {
+            fiddle(delta, tau);
+            T sum = 0;
+            for (std::size_t i = 0; i < this->n.size(); i++) {
+                sum += this->n[i] * delta *
+                       (dDELTA_bi_dtau(i, delta, tau) * PSI(i, delta, tau) +
+                        DELTA_bi(i, delta, tau) * dPSI_dtau(i, delta, tau));
+            }
+            return sum;
+        }
+
+        T
+        d2delta(T delta, T tau) const
+        {
+            fiddle(delta, tau);
+            T sum = 0;
+            for (std::size_t i = 0; i < this->n.size(); i++) {
+                sum += this->n[i] *
+                       (dDELTA_bi_ddelta(i, delta, tau) * PSI(i, delta, tau) +
+                        DELTA_bi(i, delta, tau) * dPSI_ddelta(i, delta, tau) +
+                        dDELTA_bi_ddelta(i, delta, tau) * PSI(i, delta, tau) +
+                        delta * d2DELTA_bi_ddelta2(i, delta, tau) * PSI(i, delta, tau) +
+                        delta * dDELTA_bi_ddelta(i, delta, tau) * dPSI_ddelta(i, delta, tau) +
+                        DELTA_bi(i, delta, tau) * dPSI_ddelta(i, delta, tau) +
+                        delta * dDELTA_bi_ddelta(i, delta, tau) * dPSI_ddelta(i, delta, tau) +
+                        delta * DELTA_bi(i, delta, tau) * d2PSI_ddelta2(i, delta, tau));
+            }
+            return sum;
+        }
+
+        T
+        d2tau(T delta, T tau) const
+        {
+            fiddle(delta, tau);
+            T sum = 0;
+            for (std::size_t i = 0; i < this->n.size(); i++) {
+                sum += this->n[i] * delta *
+                       (d2DELTA_bi_dtau2(i, delta, tau) * PSI(i, delta, tau) +
+                        2 * dDELTA_bi_dtau(i, delta, tau) * dPSI_dtau(i, delta, tau) +
+                        DELTA_bi(i, delta, tau) * d2PSI_dtau2(i, delta, tau));
+            }
+            return sum;
+        }
+
+        T
+        d2deltatau(T delta, T tau) const
+        {
+            fiddle(delta, tau);
+            T sum = 0;
+            for (std::size_t i = 0; i < this->n.size(); i++) {
+                sum += this->n[i] *
+                       (dDELTA_bi_dtau(i, delta, tau) * PSI(i, delta, tau) +
+                        delta * (d2DELTA_bi_ddeltatau(i, delta, tau) * PSI(i, delta, tau) +
+                                 dDELTA_bi_dtau(i, delta, tau) * dPSI_ddelta(i, delta, tau) +
+                                 dDELTA_bi_ddelta(i, delta, tau) * dPSI_dtau(i, delta, tau) +
+                                 DELTA_bi(i, delta, tau) * d2PSI_ddeltatau(i, delta, tau)));
+            }
+            return sum;
+        }
+
+    private:
+        // Manipulate `delta` and `tau` such that we are not evaluating at the critical point but
+        // very close to it
+        void
+        fiddle(T & delta, T & tau) const
+        {
+            T EPSILON = std::numeric_limits<T>::epsilon();
+            if (std::abs(tau - 1) < 10 * EPSILON)
+                tau = 1.0 + 10 * EPSILON;
+            if (std::abs(delta - 1) < 10 * EPSILON)
+                delta = 1.0 + 10 * EPSILON;
+        }
+
+        T
+        theta(std::size_t i, T delta, T tau) const
+        {
+            return (1.0 - tau) +
+                   this->A[i] * std::pow(sqr(delta - 1.0), 1.0 / (2.0 * this->beta[i]));
+        }
+
+        T
+        dtheta_ddelta(std::size_t i, T delta, T tau) const
+        {
+            return this->A[i] * std::pow(sqr(delta - 1), 1. / (2. * this->beta[i])) /
+                   (this->beta[i] * (delta - 1));
+        }
+
+        T
+        dtheta_dtau(std::size_t i, T delta, T tau) const
+        {
+            return -1;
+        }
+
+        T
+        d2theta_ddelta2(std::size_t i, T delta, T tau) const
+        {
+            return -1 *
+                   (this->A[i] * (this->beta[i] - 1) *
+                    std::pow(sqr(delta - 1), 1. / (2 * this->beta[i]) - 1.)) /
+                   (sqr(this->beta[i]));
+        }
+
+        T
+        DELTA(std::size_t i, T delta, T tau) const
+        {
+            return sqr(theta(i, delta, tau)) + this->B[i] * std::pow(sqr(delta - 1.0), this->a[i]);
+        }
+
+        T
+        dDELTA_ddelta(std::size_t i, T delta, T tau) const
+        {
+            return 2. * theta(i, delta, tau) * dtheta_ddelta(i, delta, tau) +
+                   (2 * this->a[i] * this->B[i] * std::pow(delta - 1, 2 * this->a[i] - 1));
+        }
+
+        T
+        dDELTA_dtau(std::size_t i, T delta, T tau) const
+        {
+            return 2. * theta(i, delta, tau) * dtheta_dtau(i, delta, tau);
+        }
+
+        T
+        d2DELTA_ddelta2(std::size_t i, T delta, T tau) const
+        {
+            return 2. * (sqr(dtheta_ddelta(i, delta, tau) +
+                             theta(i, delta, tau) * d2theta_ddelta2(i, delta, tau))) +
+                   2 * this->a[i] * (2 * this->a[i] - 1) * this->B[i] *
+                       std::pow(delta - 1, 2 * this->a[i] - 2);
+        }
+
+        T
+        d2DELTA_dtau2(std::size_t i, T delta, T tau) const
+        {
+            return 2. * sqr(dtheta_dtau(i, delta, tau));
+        }
+
+        T
+        d2DELTA_ddeltatau(std::size_t i, T delta, T tau) const
+        {
+            return 2 * dtheta_ddelta(i, delta, tau) * dtheta_dtau(i, delta, tau);
+        }
+
+        T
+        DELTA_bi(std::size_t i, T delta, T tau) const
+        {
+            return std::pow(DELTA(i, delta, tau), this->b[i]);
+        }
+
+        T
+        dDELTA_bi_ddelta(std::size_t i, T delta, T tau) const
+        {
+            return this->b[i] * std::pow(DELTA(i, delta, tau), this->b[i] - 1) *
+                   dDELTA_ddelta(i, delta, tau);
+        }
+
+        T
+        dDELTA_bi_dtau(std::size_t i, T delta, T tau) const
+        {
+            return this->b[i] * std::pow(DELTA(i, delta, tau), this->b[i] - 1) *
+                   dDELTA_dtau(i, delta, tau);
+        }
+
+        T
+        d2DELTA_bi_ddelta2(std::size_t i, T delta, T tau) const
+        {
+            return this->b[i] * std::pow(DELTA(i, delta, tau), this->b[i] - 1) *
+                   d2DELTA_ddelta2(i, delta, tau);
+        }
+
+        T
+        d2DELTA_bi_dtau2(std::size_t i, T delta, T tau) const
+        {
+            return this->b[i] * std::pow(DELTA(i, delta, tau), this->b[i] - 1) *
+                   d2DELTA_dtau2(i, delta, tau);
+        }
+
+        T
+        d2DELTA_bi_ddeltatau(std::size_t i, T delta, T tau) const
+        {
+            return this->b[i] * std::pow(DELTA(i, delta, tau), this->b[i] - 1) *
+                   d2DELTA_ddeltatau(i, delta, tau);
+        }
+
+        T
+        PSI(std::size_t i, T delta, T tau) const
+        {
+            return std::exp(-this->C[i] * sqr(delta - 1.0) - this->D[i] * sqr(tau - 1.0));
+        }
+
+        T
+        dPSI_ddelta(std::size_t i, T delta, T tau) const
+        {
+            return -2 * this->C[i] * (delta - 1) *
+                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+        }
+
+        T
+        dPSI_dtau(std::size_t i, T delta, T tau) const
+        {
+            return -2 * this->D[i] * (tau - 1) *
+                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+        }
+
+        T
+        d2PSI_ddelta2(std::size_t i, T delta, T tau) const
+        {
+            return 2 * this->C[i] * (2 * this->C[i] * sqr(delta - 1) - 1) *
+                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+        }
+
+        T
+        d2PSI_dtau2(std::size_t i, T delta, T tau) const
+        {
+            return 2 * this->D[i] * (2 * this->D[i] * sqr(tau - 1) - 1) *
+                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+        }
+
+        T
+        d2PSI_ddeltatau(std::size_t i, T delta, T tau) const
+        {
+            return 4. * this->C[i] * (delta - 1) * this->D[i] * (tau - 1) *
+                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+        }
+
+        std::vector<T> n;
+        std::vector<T> a;
+        std::vector<T> b;
+        std::vector<T> beta;
+        std::vector<T> A;
+        std::vector<T> B;
+        std::vector<T> C;
+        std::vector<T> D;
+    };
 };
 
 } // namespace fprops
