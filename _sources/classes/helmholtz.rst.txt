@@ -22,6 +22,9 @@ Models
 .. doxygenclass:: fprops::Helmholtz::IdealPlanckEinsteinGeneralized
    :members:
 
+.. doxygenclass:: fprops::Helmholtz::IdealGasPlanckEinstein
+   :members:
+
 .. doxygenclass:: fprops::Helmholtz::IdealGasPlanckEinsteinFunctionT
    :members:
 
