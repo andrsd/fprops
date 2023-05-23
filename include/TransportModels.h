@@ -49,7 +49,7 @@ private:
 ///
 /// @tparam T The basic data type
 ///
-/// \f$ \eta_0(T) = \frac{0.0266958 \sqrt{M T}}{\sigma^2 \Omega(T^*)} \f$
+/// \f$ \eta_0(T) = \frac{C \sqrt{M T}}{\sigma^2 \Omega(T^*)} \f$
 ///
 /// where \f$\sigma\f$ is the Lennard-Jones size parameter and
 /// \f$\Omega\f$ is the collision integral, given by
@@ -63,11 +63,17 @@ class LennardJones {
 public:
     /// Lennard-Jones model
     ///
+    /// @param C Constant in front of term
     /// @param M Molar mass \f$[{kg\over mol}]\f$
     /// @param epsilon_over_k \f${\epsilon\over k} [K]\f$
     /// @param sigma \f$\sigma\f$
     /// @param b \f$b_i\f$
-    LennardJones(double M, double epsilon_over_k, double sigma, const std::vector<double> & b) :
+    LennardJones(double C,
+                 double M,
+                 double epsilon_over_k,
+                 double sigma,
+                 const std::vector<double> & b) :
+        C(C),
         M(M),
         epsilon_over_k(epsilon_over_k),
         sigma(sigma),
@@ -87,11 +93,12 @@ public:
         for (unsigned int i = 0; i < this->b.size(); i++)
             Omega_T_star += this->b[i] * std::pow(log_T_star, i);
         Omega_T_star = std::exp(Omega_T_star);
-        return 0.0266958 * std::sqrt(1000.0 * this->M * temperature) /
+        return this->C * std::sqrt(1000.0 * this->M * temperature) /
                (this->sigma * this->sigma * Omega_T_star);
     }
 
 private:
+    double C;
     double M;
     double epsilon_over_k;
     const double sigma;
