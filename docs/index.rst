@@ -15,7 +15,16 @@ fprops
    :maxdepth: 1
    :titlesonly:
    :hidden:
-   :caption: API
+   :caption: API (C++)
    :glob:
 
    classes/*
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :hidden:
+   :caption: API (python)
+   :glob:
+
+   python/example.rst
