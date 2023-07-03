@@ -22,6 +22,7 @@ public:
 
     [[nodiscard]] Props p_T(double p, double T) const override;
     [[nodiscard]] Props v_u(double v, double u) const override;
+    [[nodiscard]] Props h_s(double h, double s) const override;
 
 protected:
     /// Adiabatic index (ratio of specific heats cp/cv)

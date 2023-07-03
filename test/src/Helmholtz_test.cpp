@@ -22,6 +22,13 @@ public:
 
 } // namespace
 
+TEST(HelmholtzTest, h_s)
+{
+    MockHelmholtz fp;
+
+    EXPECT_THROW(auto p = fp.h_s(1, 1), std::domain_error);
+}
+
 TEST(HelmholtzTest, p_T_incorrect)
 {
     MockHelmholtz fp;

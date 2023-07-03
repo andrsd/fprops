@@ -55,6 +55,32 @@ TEST(IdealGas, v_u)
     EXPECT_DOUBLE_EQ(props.w, 3.9724750464779078e2);
 }
 
+TEST(IdealGas, h_s)
+{
+    double gamma = 1.4;
+    double molar_mass = 29.0e-3;
+    IdealGas fp(gamma, molar_mass);
+    fp.set_mu(18.23e-6);
+    fp.set_k(25.68e-3);
+
+    double h = 3.9451394987224141e5;
+    double s = 2.6903243258630837e3;
+    SinglePhaseFluidProperties::Props props = fp.h_s(h, s);
+
+    EXPECT_DOUBLE_EQ(props.v, 1.1124428462084279);
+    EXPECT_DOUBLE_EQ(props.u, 2.8179567848017206e5);
+    EXPECT_DOUBLE_EQ(props.p, 101324.99999999983);
+    EXPECT_DOUBLE_EQ(props.T, 393.14999999999941);
+    EXPECT_DOUBLE_EQ(props.rho, 0.89892258591830565);
+    EXPECT_DOUBLE_EQ(props.cv, 7.16763775862069e2);
+    EXPECT_DOUBLE_EQ(props.cp, 1.0034692862068968e3);
+    EXPECT_DOUBLE_EQ(props.mu, 18.23e-6);
+    EXPECT_DOUBLE_EQ(props.k, 25.68e-3);
+    EXPECT_DOUBLE_EQ(props.s, 2.6903243258630837e3);
+    EXPECT_DOUBLE_EQ(props.h, 3.9451394987224141e5);
+    EXPECT_DOUBLE_EQ(props.w, 3.9724750464779049e2);
+}
+
 TEST(IdealGas, v_u_incorrect)
 {
     double gamma = 1.4;

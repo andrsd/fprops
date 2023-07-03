@@ -71,6 +71,30 @@ IdealGas::v_u(double v, double u) const
     return props;
 }
 
+SinglePhaseFluidProperties::Props
+IdealGas::h_s(double h, double s) const
+{
+    Props props;
+    props.h = h;
+    props.s = s;
+    props.cp = this->cp;
+    props.cv = this->cv;
+    props.mu = this->mu;
+    props.k = this->k;
+    props.p = std::pow(h / (this->gamma * this->cv), this->gamma / (this->gamma - 1.0)) *
+              std::exp(-s / ((this->gamma - 1.0) * this->cv));
+    const double aux = (s + this->cv * std::log(std::pow(props.p, this->gamma - 1.0))) / this->cv;
+    props.T = std::pow(std::exp(aux), 1.0 / this->gamma);
+    props.rho = props.p * this->molar_mass / (R * props.T);
+    props.u = this->cv * props.T;
+    props.v = 1. / props.rho;
+    const double n = std::pow(props.T, this->gamma) / std::pow(props.p, this->gamma - 1.0);
+    if (n <= 0)
+        throw std::domain_error("Invalid log base for computing entropy");
+    props.w = std::sqrt(this->gamma * this->R_specific * props.T);
+    return props;
+}
+
 void
 IdealGas::set_mu(double mu)
 {

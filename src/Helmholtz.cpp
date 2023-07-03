@@ -148,6 +148,12 @@ Helmholtz::v_u(double v, double u) const
     return props;
 }
 
+SinglePhaseFluidProperties::Props
+Helmholtz::h_s(double h, double s) const
+{
+    throw std::domain_error("Not implemented");
+}
+
 double
 Helmholtz::rho_from_p_T(double p, double T) const
 {
