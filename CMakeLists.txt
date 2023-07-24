@@ -19,7 +19,7 @@ include(${PROJECT_SOURCE_DIR}/cmake/Sanitization.cmake)
 option(FPROPS_WITH_PYTHON "Build python wrapper" YES)
 option(FPROPS_BUILD_TESTS "Build tests" NO)
 
-find_package(fmt REQUIRED)
+find_package(fmt 8.0 REQUIRED)
 if (FPROPS_WITH_PYTHON)
     add_subdirectory(python)
 endif()
