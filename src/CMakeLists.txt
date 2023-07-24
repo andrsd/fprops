@@ -38,6 +38,17 @@ target_link_libraries(
         fmt::fmt
 )
 
+configure_package_config_file(
+    ${PROJECT_SOURCE_DIR}/cmake/fpropsConfig.cmake.in
+    fpropsConfig.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fprops
+    NO_SET_AND_CHECK_MACRO
+)
+write_basic_package_version_file(fpropsConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)
+
 install(
     TARGETS fprops
     EXPORT fpropsTargets
@@ -54,24 +65,16 @@ install(
     FILES_MATCHING PATTERN "*.h"
 )
 
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-    fpropsConfigVersion.cmake
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY AnyNewerVersion
-)
-
 install(
     EXPORT fpropsTargets
     FILE fpropsTargets.cmake
     NAMESPACE fprops::
-    DESTINATION lib/cmake/fprops
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fprops
 )
 
 install(
     FILES
-        "${PROJECT_SOURCE_DIR}/cmake/fpropsConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/fpropsConfig.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/fpropsConfigVersion.cmake"
-    DESTINATION
-        lib/cmake/${PROJECT_NAME}
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fprops
 )

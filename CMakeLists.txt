@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(FetchContent)
+include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
 include(${PROJECT_SOURCE_DIR}/cmake/CodeCoverage.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/Sanitization.cmake)
 
