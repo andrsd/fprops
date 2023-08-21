@@ -15,6 +15,54 @@ Helmholtz::Helmholtz(double R, double M, double rho_c, double T_c) :
 }
 
 SinglePhaseFluidProperties::Props
+Helmholtz::rho_T(double rho, double T) const
+{
+    if (rho < 0)
+        throw std::domain_error("Negative density");
+    if (T < 0)
+        throw std::domain_error("Negative temperature");
+
+    Props props;
+    const double delta = rho / this->rho_c;
+    const double tau = this->T_c / T;
+
+    const double a = alpha(delta, tau);
+    const double da_dd = dalpha_ddelta(delta, tau);
+    const double da_dt = dalpha_dtau(delta, tau);
+    const double d2a_dt2 = d2alpha_dtau2(delta, tau);
+    const double d2a_dd2 = d2alpha_ddelta2(delta, tau);
+    const double d2a_ddt = d2alpha_ddeltatau(delta, tau);
+
+    props.rho = rho;
+    props.v = 1. / rho;
+    props.T = T;
+    // p
+    props.p = this->R * rho * T * delta * da_dd / this->M;
+    // u
+    props.u = this->R * T * tau * da_dt / this->M;
+    // h
+    props.h = this->R * T * (tau * da_dt + delta * da_dd) / this->M;
+    // w
+    const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
+                     sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
+    props.w = std::sqrt(this->R * T * n / this->M);
+    // cp = dh/dt
+    props.cp = this->R *
+               (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
+                                           (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
+               this->M;
+    // cv = du/dt
+    props.cv = -this->R * tau * tau * d2a_dt2 / this->M;
+    // s = ...
+    props.s = this->R * (tau * da_dt - a) / this->M;
+    // mu
+    props.mu = mu_from_rho_T(rho, T);
+    // k
+    props.k = k_from_rho_T(rho, T);
+    return props;
+}
+
+SinglePhaseFluidProperties::Props
 Helmholtz::p_T(double p, double T) const
 {
     if (T < 0)

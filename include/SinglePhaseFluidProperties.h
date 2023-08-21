@@ -41,6 +41,12 @@ public:
         Props();
     };
 
+    /// Compute thermodynamical state given density and temperature
+    ///
+    /// @param rho Density \f$[kg/m^3]\f$
+    /// @param T Temperature \f$[K]\f$
+    [[nodiscard]] virtual Props rho_T(double rho, double T) const = 0;
+
     /// Compute thermodynamical state given pressure and temperature
     ///
     /// @param p Pressure \f$[Pa]\f$
