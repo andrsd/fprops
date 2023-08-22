@@ -34,48 +34,31 @@ Helmholtz::p_T(double p, double T) const
     const double d2a_dd2 = d2alpha_ddelta2(delta, tau);
     const double d2a_ddt = d2alpha_ddeltatau(delta, tau);
 
+    props.p = p;
+    props.T = T;
+    props.rho = rho;
+    props.v = 1. / rho;
     // u
-    const double u = this->R * T * tau * da_dt / this->M;
-
+    props.u = this->R * T * tau * da_dt / this->M;
     // h
-    const double h = this->R * T * (tau * da_dt + delta * da_dd) / this->M;
-
+    props.h = this->R * T * (tau * da_dt + delta * da_dd) / this->M;
     // w
     const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
                      sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
-    const double w = std::sqrt(this->R * T * n / this->M);
-
+    props.w = std::sqrt(this->R * T * n / this->M);
     // cp = dh/dt
-    const double cp = this->R *
-                      (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
-                                                  (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
-                      this->M;
-
+    props.cp = this->R *
+               (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
+                                           (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
+               this->M;
     // cv = du/dt
-    const double cv = -this->R * tau * tau * d2a_dt2 / this->M;
-
+    props.cv = -this->R * tau * tau * d2a_dt2 / this->M;
     // s = ...
-    const double s = this->R * (tau * da_dt - a) / this->M;
-
+    props.s = this->R * (tau * da_dt - a) / this->M;
     // mu
-    const double mu = mu_from_rho_T(rho, T);
-
+    props.mu = mu_from_rho_T(rho, T);
     // k
-    const double k = k_from_rho_T(rho, T);
-
-    props.p = p;
-    props.T = T;
-    props.cp = cp;
-    props.cv = cv;
-    props.mu = mu;
-    props.k = k;
-    props.rho = rho;
-    props.u = u;
-    props.v = 1. / rho;
-    props.s = s;
-    props.h = h;
-    props.w = w;
-
+    props.k = k_from_rho_T(rho, T);
     return props;
 }
 
@@ -100,51 +83,32 @@ Helmholtz::v_u(double v, double u) const
     const double d2a_dd2 = d2alpha_ddelta2(delta, tau);
     const double d2a_ddt = d2alpha_ddeltatau(delta, tau);
 
-    // T
-    const double T = u * this->M / (this->R * tau * da_dt);
-
-    // p
-    const double p = this->R * rho * T * delta * da_dd / this->M;
-
-    // h
-    const double h = this->R * T * (tau * da_dt + delta * da_dd) / this->M;
-
-    // w
-    const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
-                     sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
-    const double w = std::sqrt(this->R * T * n / this->M);
-
-    // cp = dh/dt
-    const double cp = this->R *
-                      (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
-                                                  (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
-                      this->M;
-
-    // cv = du/dt
-    const double cv = -this->R * tau * tau * d2a_dt2 / this->M;
-
-    // s = ...
-    const double s = this->R * (tau * da_dt - a) / this->M;
-
-    // mu
-    const double mu = mu_from_rho_T(rho, T);
-
-    // k
-    const double k = k_from_rho_T(rho, T);
-
-    props.p = p;
-    props.T = T;
-    props.cp = cp;
-    props.cv = cv;
-    props.mu = mu;
-    props.k = k;
     props.rho = rho;
     props.u = u;
     props.v = v;
-    props.s = s;
-    props.h = h;
-    props.w = w;
-
+    // T
+    props.T = u * this->M / (this->R * tau * da_dt);
+    // p
+    props.p = this->R * rho * props.T * delta * da_dd / this->M;
+    // h
+    props.h = this->R * props.T * (tau * da_dt + delta * da_dd) / this->M;
+    // w
+    const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
+                     sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
+    props.w = std::sqrt(this->R * props.T * n / this->M);
+    // cp = dh/dt
+    props.cp = this->R *
+               (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
+                                           (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
+               this->M;
+    // cv = du/dt
+    props.cv = -this->R * tau * tau * d2a_dt2 / this->M;
+    // s = ...
+    props.s = this->R * (tau * da_dt - a) / this->M;
+    // mu
+    props.mu = mu_from_rho_T(rho, props.T);
+    // k
+    props.k = k_from_rho_T(rho, props.T);
     return props;
 }
 
