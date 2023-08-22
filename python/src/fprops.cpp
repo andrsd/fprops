@@ -45,7 +45,8 @@ PYBIND11_MODULE(pyfprops, m)
         .def("set_k", &IdealGas::set_k)
         .def("rho_T", &IdealGas::rho_T)
         .def("p_T", &IdealGas::p_T)
-        .def("v_u", &IdealGas::v_u);
+        .def("v_u", &IdealGas::v_u)
+        .def("h_s", &IdealGas::h_s);
 
     py::class_<Nitrogen>(m, "Nitrogen")
         .def(py::init())
