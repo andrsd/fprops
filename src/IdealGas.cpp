@@ -20,6 +20,33 @@ IdealGas::IdealGas(double gamma, double molar_mass) :
 }
 
 SinglePhaseFluidProperties::Props
+IdealGas::rho_T(double rho, double T) const
+{
+    if (rho < 0)
+        throw std::domain_error("Negative density");
+    if (T < 0)
+        throw std::domain_error("Negative temperature");
+
+    Props props;
+    props.rho = rho;
+    props.T = T;
+    props.cp = this->cp;
+    props.cv = this->cv;
+    props.mu = this->mu;
+    props.k = this->k;
+    props.p = rho * R * T / this->molar_mass;
+    props.u = this->cv * T;
+    props.v = 1. / props.rho;
+    const double n = std::pow(T, this->gamma) / std::pow(props.p, this->gamma - 1.0);
+    if (n <= 0)
+        throw std::domain_error("Invalid log base for computing entropy");
+    props.s = this->cv * std::log(n);
+    props.h = this->cp * T;
+    props.w = std::sqrt(this->cp * R * T / (this->cv * this->molar_mass));
+    return props;
+}
+
+SinglePhaseFluidProperties::Props
 IdealGas::p_T(double p, double T) const
 {
     if (T < 0)

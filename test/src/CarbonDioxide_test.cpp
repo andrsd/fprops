@@ -3,6 +3,28 @@
 
 using namespace fprops;
 
+TEST(CarbonDioxide, rho_T)
+{
+    CarbonDioxide fp;
+
+    double rho = 20.199309000812121;
+    double T = 280;
+    SinglePhaseFluidProperties::Props props = fp.rho_T(rho, T);
+
+    EXPECT_DOUBLE_EQ(props.rho, rho);
+    EXPECT_DOUBLE_EQ(props.T, T);
+    EXPECT_DOUBLE_EQ(props.p, 1e6);
+    EXPECT_DOUBLE_EQ(props.u, 430888.05580697849);
+    EXPECT_DOUBLE_EQ(props.cv, 670.91985675762839);
+    EXPECT_DOUBLE_EQ(props.cp, 925.17988930107481);
+    EXPECT_DOUBLE_EQ(props.v, 0.049506644012416195);
+    EXPECT_DOUBLE_EQ(props.s, 2225.7418437948568);
+    EXPECT_DOUBLE_EQ(props.h, 480394.69981939468);
+    EXPECT_DOUBLE_EQ(props.w, 252.32654137014907);
+    EXPECT_DOUBLE_EQ(props.mu, 1.4150532169060509e-05);
+    EXPECT_DOUBLE_EQ(props.k, 0.015727797767537487);
+}
+
 TEST(CarbonDioxide, p_T)
 {
     CarbonDioxide fp;

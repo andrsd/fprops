@@ -20,6 +20,7 @@ public:
     /// @param T_c Critical temperature \f$[K]\f$
     Helmholtz(double R, double M, double rho_c, double T_c);
 
+    [[nodiscard]] Props rho_T(double rho, double T) const override;
     [[nodiscard]] Props p_T(double p, double T) const override;
     [[nodiscard]] Props v_u(double v, double u) const override;
     [[nodiscard]] Props h_s(double h, double s) const override;
