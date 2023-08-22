@@ -3,6 +3,23 @@
 
 using namespace fprops;
 
+namespace {
+
+SinglePhaseFluidProperties::Props gold1 = { 2.8179567848017247e5,
+                                            1.1124428462084279,
+                                            0.89892258591830565,
+                                            101325,
+                                            393.15,
+                                            18.23e-6,
+                                            1.0034692862068968e3,
+                                            7.16763775862069e2,
+                                            2.6903243258630837e3,
+                                            25.68e-3,
+                                            3.9451394987224141e5,
+                                            3.9724750464779078e2 };
+
+}
+
 TEST(IdealGas, rho_T)
 {
     double gamma = 1.4;
@@ -15,18 +32,18 @@ TEST(IdealGas, rho_T)
     double T = 120. + 273.15;
     SinglePhaseFluidProperties::Props props = fp.rho_T(rho, T);
 
-    EXPECT_DOUBLE_EQ(props.rho, rho);
-    EXPECT_DOUBLE_EQ(props.T, T);
-    EXPECT_DOUBLE_EQ(props.p, 101325);
-    EXPECT_DOUBLE_EQ(props.u, 2.8179567848017247e5);
-    EXPECT_DOUBLE_EQ(props.cv, 7.16763775862069e2);
-    EXPECT_DOUBLE_EQ(props.cp, 1.0034692862068968e3);
-    EXPECT_DOUBLE_EQ(props.mu, 18.23e-6);
-    EXPECT_DOUBLE_EQ(props.k, 25.68e-3);
-    EXPECT_DOUBLE_EQ(props.v, 1.1124428462084279);
-    EXPECT_DOUBLE_EQ(props.s, 2.6903243258630837e3);
-    EXPECT_DOUBLE_EQ(props.h, 3.9451394987224141e5);
-    EXPECT_DOUBLE_EQ(props.w, 3.9724750464779078e2);
+    EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(props.T, gold1.T);
+    EXPECT_DOUBLE_EQ(props.p, gold1.p);
+    EXPECT_DOUBLE_EQ(props.u, gold1.u);
+    EXPECT_DOUBLE_EQ(props.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(props.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(props.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(props.k, gold1.k);
+    EXPECT_DOUBLE_EQ(props.v, gold1.v);
+    EXPECT_DOUBLE_EQ(props.s, gold1.s);
+    EXPECT_DOUBLE_EQ(props.h, gold1.h);
+    EXPECT_DOUBLE_EQ(props.w, gold1.w);
 }
 
 TEST(IdealGas, p_T)
@@ -41,18 +58,18 @@ TEST(IdealGas, p_T)
     double p = 101325;
     SinglePhaseFluidProperties::Props props = fp.p_T(p, T);
 
-    EXPECT_DOUBLE_EQ(props.p, p);
-    EXPECT_DOUBLE_EQ(props.T, T);
-    EXPECT_DOUBLE_EQ(props.rho, 0.89892258591830565);
-    EXPECT_DOUBLE_EQ(props.u, 2.8179567848017247e5);
-    EXPECT_DOUBLE_EQ(props.cv, 7.16763775862069e2);
-    EXPECT_DOUBLE_EQ(props.cp, 1.0034692862068968e3);
-    EXPECT_DOUBLE_EQ(props.mu, 18.23e-6);
-    EXPECT_DOUBLE_EQ(props.k, 25.68e-3);
-    EXPECT_DOUBLE_EQ(props.v, 1.1124428462084279);
-    EXPECT_DOUBLE_EQ(props.s, 2.6903243258630837e3);
-    EXPECT_DOUBLE_EQ(props.h, 3.9451394987224141e5);
-    EXPECT_DOUBLE_EQ(props.w, 3.9724750464779078e2);
+    EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(props.T, gold1.T);
+    EXPECT_DOUBLE_EQ(props.p, gold1.p);
+    EXPECT_DOUBLE_EQ(props.u, gold1.u);
+    EXPECT_DOUBLE_EQ(props.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(props.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(props.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(props.k, gold1.k);
+    EXPECT_DOUBLE_EQ(props.v, gold1.v);
+    EXPECT_DOUBLE_EQ(props.s, gold1.s);
+    EXPECT_DOUBLE_EQ(props.h, gold1.h);
+    EXPECT_DOUBLE_EQ(props.w, gold1.w);
 }
 
 TEST(IdealGas, v_u)
@@ -67,18 +84,18 @@ TEST(IdealGas, v_u)
     double u = 2.8179567848017247e5;
     SinglePhaseFluidProperties::Props props = fp.v_u(v, u);
 
-    EXPECT_DOUBLE_EQ(props.v, v);
-    EXPECT_DOUBLE_EQ(props.u, u);
-    EXPECT_DOUBLE_EQ(props.p, 101325);
-    EXPECT_DOUBLE_EQ(props.T, 393.15);
-    EXPECT_DOUBLE_EQ(props.rho, 0.89892258591830565);
-    EXPECT_DOUBLE_EQ(props.cv, 7.16763775862069e2);
-    EXPECT_DOUBLE_EQ(props.cp, 1.0034692862068968e3);
-    EXPECT_DOUBLE_EQ(props.mu, 18.23e-6);
-    EXPECT_DOUBLE_EQ(props.k, 25.68e-3);
-    EXPECT_DOUBLE_EQ(props.s, 2.6903243258630837e3);
-    EXPECT_DOUBLE_EQ(props.h, 3.9451394987224141e5);
-    EXPECT_DOUBLE_EQ(props.w, 3.9724750464779078e2);
+    EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(props.T, gold1.T);
+    EXPECT_DOUBLE_EQ(props.p, gold1.p);
+    EXPECT_DOUBLE_EQ(props.u, gold1.u);
+    EXPECT_DOUBLE_EQ(props.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(props.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(props.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(props.k, gold1.k);
+    EXPECT_DOUBLE_EQ(props.v, gold1.v);
+    EXPECT_DOUBLE_EQ(props.s, gold1.s);
+    EXPECT_DOUBLE_EQ(props.h, gold1.h);
+    EXPECT_DOUBLE_EQ(props.w, gold1.w);
 }
 
 TEST(IdealGas, h_s)
@@ -93,18 +110,18 @@ TEST(IdealGas, h_s)
     double s = 2.6903243258630837e3;
     SinglePhaseFluidProperties::Props props = fp.h_s(h, s);
 
-    EXPECT_DOUBLE_EQ(props.v, 1.1124428462084279);
-    EXPECT_DOUBLE_EQ(props.u, 2.8179567848017206e5);
-    EXPECT_DOUBLE_EQ(props.p, 101324.99999999983);
-    EXPECT_DOUBLE_EQ(props.T, 393.14999999999941);
-    EXPECT_DOUBLE_EQ(props.rho, 0.89892258591830565);
-    EXPECT_DOUBLE_EQ(props.cv, 7.16763775862069e2);
-    EXPECT_DOUBLE_EQ(props.cp, 1.0034692862068968e3);
-    EXPECT_DOUBLE_EQ(props.mu, 18.23e-6);
-    EXPECT_DOUBLE_EQ(props.k, 25.68e-3);
-    EXPECT_DOUBLE_EQ(props.s, 2.6903243258630837e3);
-    EXPECT_DOUBLE_EQ(props.h, 3.9451394987224141e5);
-    EXPECT_DOUBLE_EQ(props.w, 3.9724750464779049e2);
+    EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
+    EXPECT_NEAR(props.T, gold1.T, 1e-12);
+    EXPECT_NEAR(props.p, gold1.p, 1e-9);
+    EXPECT_NEAR(props.u, gold1.u, 1e-9);
+    EXPECT_DOUBLE_EQ(props.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(props.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(props.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(props.k, gold1.k);
+    EXPECT_DOUBLE_EQ(props.v, gold1.v);
+    EXPECT_DOUBLE_EQ(props.s, gold1.s);
+    EXPECT_DOUBLE_EQ(props.h, gold1.h);
+    EXPECT_NEAR(props.w, gold1.w, 1e-9);
 }
 
 TEST(IdealGas, v_u_incorrect)

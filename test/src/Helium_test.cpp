@@ -3,6 +3,24 @@
 
 using namespace fprops;
 
+namespace {
+
+// T = 280 K, p = 1 MPa
+SinglePhaseFluidProperties::Props gold1 = { 877864.48974420107,
+                                            0.584485817263523,
+                                            1.7109055009783694,
+                                            1.e6,
+                                            280.0,
+                                            1.9050487777800348e-05,
+                                            5193.7491442602677,
+                                            3118.4171250330392,
+                                            22983.561984600798,
+                                            0.14939414616319868,
+                                            1462350.3070077244,
+                                            989.0570220636348 };
+
+} // namespace
+
 TEST(HeliumTest, rho_T)
 {
     Helium fp;
@@ -11,49 +29,46 @@ TEST(HeliumTest, rho_T)
     double T = 280.0;
     SinglePhaseFluidProperties::Props props = fp.rho_T(rho, T);
 
-    EXPECT_DOUBLE_EQ(props.rho, rho);
-    EXPECT_DOUBLE_EQ(props.T, T);
-    EXPECT_DOUBLE_EQ(props.p, 1.e6);
-    EXPECT_DOUBLE_EQ(props.h, 1462350.3070077244);
-    EXPECT_DOUBLE_EQ(props.u, 877864.48974420107);
-    EXPECT_DOUBLE_EQ(props.s, 22983.561984600798);
-    EXPECT_DOUBLE_EQ(props.cp, 5193.7491442602677);
-    EXPECT_DOUBLE_EQ(props.cv, 3118.4171250330392);
-    EXPECT_DOUBLE_EQ(props.w, 989.0570220636348);
-    EXPECT_DOUBLE_EQ(props.mu, 1.9050487777800348e-05);
-    EXPECT_DOUBLE_EQ(props.k, 0.14939414616319868);
+    EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(props.T, gold1.T);
+    EXPECT_DOUBLE_EQ(props.p, gold1.p);
+    EXPECT_DOUBLE_EQ(props.u, gold1.u);
+    EXPECT_DOUBLE_EQ(props.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(props.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(props.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(props.k, gold1.k);
+    EXPECT_DOUBLE_EQ(props.v, gold1.v);
+    EXPECT_DOUBLE_EQ(props.s, gold1.s);
+    EXPECT_DOUBLE_EQ(props.h, gold1.h);
+    EXPECT_DOUBLE_EQ(props.w, gold1.w);
 }
 
 TEST(HeliumTest, p_T)
 {
     Helium fp;
 
-    // 280 K, 1 MPa
     double T = 280.0;
     double p = 1.0e6;
     SinglePhaseFluidProperties::Props props = fp.p_T(p, T);
 
-    EXPECT_DOUBLE_EQ(props.p, p);
-    EXPECT_DOUBLE_EQ(props.T, T);
-
-    EXPECT_DOUBLE_EQ(props.rho, 1.7109055009783694);
-    EXPECT_DOUBLE_EQ(props.h, 1462350.3070077244);
-    EXPECT_DOUBLE_EQ(props.u, 877864.48974420107);
-
-    EXPECT_DOUBLE_EQ(props.s, 22983.561984600798);
-    EXPECT_DOUBLE_EQ(props.cp, 5193.7491442602677);
-    EXPECT_DOUBLE_EQ(props.cv, 3118.4171250330392);
-    EXPECT_DOUBLE_EQ(props.w, 989.0570220636348);
-
-    EXPECT_DOUBLE_EQ(props.mu, 1.9050487777800348e-05);
-    EXPECT_DOUBLE_EQ(props.k, 0.14939414616319868);
+    EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(props.T, gold1.T);
+    EXPECT_DOUBLE_EQ(props.p, gold1.p);
+    EXPECT_DOUBLE_EQ(props.u, gold1.u);
+    EXPECT_DOUBLE_EQ(props.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(props.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(props.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(props.k, gold1.k);
+    EXPECT_DOUBLE_EQ(props.v, gold1.v);
+    EXPECT_DOUBLE_EQ(props.s, gold1.s);
+    EXPECT_DOUBLE_EQ(props.h, gold1.h);
+    EXPECT_DOUBLE_EQ(props.w, gold1.w);
 }
 
 TEST(HeliumTest, v_u)
 {
     Helium fp;
 
-    // 280 K, 1 MPa
     double T = 280.0;
     double p = 1.0e6;
     SinglePhaseFluidProperties::Props state0 = fp.p_T(p, T);
@@ -62,17 +77,17 @@ TEST(HeliumTest, v_u)
     /*
         SinglePhaseFluidProperties::Props props = fp.v_u(state0.v, state0.u);
 
-        EXPECT_DOUBLE_EQ(props.p, p);
-        EXPECT_DOUBLE_EQ(props.T, T);
-        EXPECT_DOUBLE_EQ(props.rho, 1.7109055009783694);
-        EXPECT_DOUBLE_EQ(props.h, 1462350.3070077244);
-        EXPECT_DOUBLE_EQ(props.u, 877864.48974420107);
-        EXPECT_DOUBLE_EQ(props.s, 22983.561984600798);
-        EXPECT_DOUBLE_EQ(props.cp, 5193.7491442602677);
-        EXPECT_DOUBLE_EQ(props.cv, 3118.4171250330392);
-        EXPECT_DOUBLE_EQ(props.w, 989.0570220636348);
-
-        EXPECT_DOUBLE_EQ(props.mu, 1.7090507109297636e-05);
-        EXPECT_DOUBLE_EQ(props.k, 0.024857419011067187);
+        EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
+        EXPECT_DOUBLE_EQ(props.T, gold1.T);
+        EXPECT_DOUBLE_EQ(props.p, gold1.p);
+        EXPECT_DOUBLE_EQ(props.u, gold1.u);
+        EXPECT_DOUBLE_EQ(props.cv, gold1.cv);
+        EXPECT_DOUBLE_EQ(props.cp, gold1.cp);
+        EXPECT_DOUBLE_EQ(props.mu, gold1.mu);
+        EXPECT_DOUBLE_EQ(props.k, gold1.k);
+        EXPECT_DOUBLE_EQ(props.v, gold1.v);
+        EXPECT_DOUBLE_EQ(props.s, gold1.s);
+        EXPECT_DOUBLE_EQ(props.h, gold1.h);
+        EXPECT_DOUBLE_EQ(props.w, gold1.w);
     */
 }

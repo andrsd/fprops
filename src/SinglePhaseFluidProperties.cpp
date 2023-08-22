@@ -18,6 +18,33 @@ SinglePhaseFluidProperties::Props::Props()
     this->w = 0.;
 }
 
+SinglePhaseFluidProperties::Props::Props(double u,
+                                         double v,
+                                         double rho,
+                                         double p,
+                                         double T,
+                                         double mu,
+                                         double cp,
+                                         double cv,
+                                         double s,
+                                         double k,
+                                         double h,
+                                         double w) :
+    u(u),
+    v(v),
+    rho(rho),
+    p(p),
+    T(T),
+    mu(mu),
+    cp(cp),
+    cv(cv),
+    s(s),
+    k(k),
+    h(h),
+    w(w)
+{
+}
+
 SinglePhaseFluidProperties::SinglePhaseFluidProperties() : FluidProperties() {}
 
 } // namespace fprops

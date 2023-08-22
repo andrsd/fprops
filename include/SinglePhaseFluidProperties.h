@@ -39,6 +39,18 @@ public:
         double w;
 
         Props();
+        Props(double u,
+              double v,
+              double rho,
+              double p,
+              double T,
+              double mu,
+              double cp,
+              double cv,
+              double s,
+              double k,
+              double h,
+              double w);
     };
 
     /// Compute thermodynamical state given density and temperature
