@@ -8,6 +8,10 @@ namespace fprops {
 ///
 class IdealGas : public SinglePhaseFluidProperties {
 public:
+    /// Constructor
+    ///
+    /// @param gamma Adiabatic index (ratio of specific heats cp/cv)
+    /// @param molar_mass Molar mass \f$[kg/mol]\f$
     IdealGas(double gamma, double molar_mass);
 
     /// Set dynamic viscosity

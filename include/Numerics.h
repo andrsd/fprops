@@ -23,7 +23,7 @@ namespace newton {
 /// @param x0 Initial guess
 /// @param f Function to find root of
 /// @param df Derivative of `f`
-/// @param tolerance Root finding tolerance (default is 1e-12)
+/// @param tol Root finding tolerance (default is 1e-12)
 double root(double x0,
             std::function<double(double)> const & f,
             std::function<double(double)> const & df,

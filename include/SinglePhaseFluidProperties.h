@@ -39,6 +39,20 @@ public:
         double w;
 
         Props();
+        /// Constructor
+        ///
+        /// @param u Internal energy \f$[J/kg]\f$
+        /// @param v Specific volume \f$[m^3/kg]\f$
+        /// @param rho Density \f$[kg/m^3]\f$
+        /// @param p Pressure \f$[Pa]\f$
+        /// @param T Temperature \f$[K]\f$
+        /// @param mu Dynamic viscosity \f$[Pa-s]\f$
+        /// @param cp Isobaric heat capacity \f$[J/(kg-K)]\f$
+        /// @param cv Isochoric heat capacity \f$[J/(kg-K)]\f$
+        /// @param s Entropy \f$[J/(kg-K)]\f$
+        /// @param k Thermal conductivity \f$[W/(m-K)]\f$
+        /// @param h Specific enthalpy \f$[J/kg]\f$
+        /// @param w Speed of sound \f$[m/s]\f$
         Props(double u,
               double v,
               double rho,
