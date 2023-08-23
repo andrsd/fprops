@@ -36,6 +36,7 @@ PYBIND11_MODULE(pyfprops, m)
     py::class_<Air>(m, "Air")
         .def(py::init())
         .def("rho_T", &Air::rho_T)
+        .def("rho_p", &Air::rho_p)
         .def("p_T", &Air::p_T)
         .def("v_u", &Air::v_u);
 
@@ -44,6 +45,7 @@ PYBIND11_MODULE(pyfprops, m)
         .def("set_mu", &IdealGas::set_mu)
         .def("set_k", &IdealGas::set_k)
         .def("rho_T", &IdealGas::rho_T)
+        .def("rho_p", &IdealGas::rho_p)
         .def("p_T", &IdealGas::p_T)
         .def("v_u", &IdealGas::v_u)
         .def("h_s", &IdealGas::h_s);
@@ -51,18 +53,21 @@ PYBIND11_MODULE(pyfprops, m)
     py::class_<Nitrogen>(m, "Nitrogen")
         .def(py::init())
         .def("rho_T", &Nitrogen::rho_T)
+        .def("rho_p", &Nitrogen::rho_p)
         .def("p_T", &Nitrogen::p_T)
         .def("v_u", &Nitrogen::v_u);
 
     py::class_<Helium>(m, "Helium")
         .def(py::init())
         .def("rho_T", &Helium::rho_T)
+        .def("rho_p", &Helium::rho_p)
         .def("p_T", &Helium::p_T)
         .def("v_u", &Helium::v_u);
 
     py::class_<CarbonDioxide>(m, "CarbonDioxide")
         .def(py::init())
         .def("rho_T", &CarbonDioxide::rho_T)
+        .def("rho_p", &CarbonDioxide::rho_p)
         .def("p_T", &CarbonDioxide::p_T)
         .def("v_u", &CarbonDioxide::v_u);
 }

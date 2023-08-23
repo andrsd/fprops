@@ -25,6 +25,7 @@ public:
     void set_k(double k);
 
     [[nodiscard]] Props rho_T(double rho, double T) const override;
+    [[nodiscard]] Props rho_p(double rho, double p) const override;
     [[nodiscard]] Props p_T(double p, double T) const override;
     [[nodiscard]] Props v_u(double v, double u) const override;
     [[nodiscard]] Props h_s(double h, double s) const override;
