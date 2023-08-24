@@ -22,7 +22,6 @@ Helmholtz::rho_T(double rho, double T) const
     if (T < 0)
         throw std::domain_error("Negative temperature");
 
-    Props props;
     const double delta = rho / this->rho_c;
     const double tau = this->T_c / T;
 
@@ -33,33 +32,18 @@ Helmholtz::rho_T(double rho, double T) const
     const double d2a_dd2 = d2alpha_ddelta2(delta, tau);
     const double d2a_ddt = d2alpha_ddeltatau(delta, tau);
 
-    props.rho = rho;
-    props.v = 1. / rho;
-    props.T = T;
-    // p
-    props.p = this->R * rho * T * delta * da_dd / this->M;
-    // u
-    props.u = this->R * T * tau * da_dt / this->M;
-    // h
-    props.h = this->R * T * (tau * da_dt + delta * da_dd) / this->M;
-    // w
-    const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
-                     sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
-    props.w = std::sqrt(this->R * T * n / this->M);
-    // cp = dh/dt
-    props.cp = this->R *
-               (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
-                                           (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
-               this->M;
-    // cv = du/dt
-    props.cv = -this->R * tau * tau * d2a_dt2 / this->M;
-    // s = ...
-    props.s = this->R * (tau * da_dt - a) / this->M;
-    // mu
-    props.mu = mu_from_rho_T(rho, T);
-    // k
-    props.k = k_from_rho_T(rho, T);
-    return props;
+    auto v = 1. / rho;
+    auto p = pressure(rho, T, delta, da_dd);
+    auto u = internal_energy(T, tau, da_dt);
+    auto h = enthalphy(T, delta, tau, da_dt, da_dd);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = mu_from_rho_T(rho, T);
+    auto k = k_from_rho_T(rho, T);
+
+    return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
 SinglePhaseFluidProperties::Props
@@ -80,33 +64,17 @@ Helmholtz::rho_p(double rho, double p) const
     const double d2a_dd2 = d2alpha_ddelta2(delta, tau);
     const double d2a_ddt = d2alpha_ddeltatau(delta, tau);
 
-    Props props;
-    props.rho = rho;
-    props.v = 1. / rho;
-    props.p = p;
-    props.T = T;
-    // u
-    props.u = this->R * T * tau * da_dt / this->M;
-    // h
-    props.h = this->R * props.T * (tau * da_dt + delta * da_dd) / this->M;
-    // w
-    const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
-                     sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
-    props.w = std::sqrt(this->R * props.T * n / this->M);
-    // cp = dh/dt
-    props.cp = this->R *
-               (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
-                                           (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
-               this->M;
-    // cv = du/dt
-    props.cv = -this->R * tau * tau * d2a_dt2 / this->M;
-    // s = ...
-    props.s = this->R * (tau * da_dt - a) / this->M;
-    // mu
-    props.mu = mu_from_rho_T(rho, props.T);
-    // k
-    props.k = k_from_rho_T(rho, props.T);
-    return props;
+    auto v = 1. / rho;
+    auto u = internal_energy(T, tau, da_dt);
+    auto h = enthalphy(T, delta, tau, da_dt, da_dd);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = mu_from_rho_T(rho, T);
+    auto k = k_from_rho_T(rho, T);
+
+    return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
 SinglePhaseFluidProperties::Props
@@ -114,8 +82,6 @@ Helmholtz::p_T(double p, double T) const
 {
     if (T < 0)
         throw std::domain_error("Negative temperature");
-
-    Props props;
 
     const double rho = rho_from_p_T(p, T);
 
@@ -129,32 +95,17 @@ Helmholtz::p_T(double p, double T) const
     const double d2a_dd2 = d2alpha_ddelta2(delta, tau);
     const double d2a_ddt = d2alpha_ddeltatau(delta, tau);
 
-    props.p = p;
-    props.T = T;
-    props.rho = rho;
-    props.v = 1. / rho;
-    // u
-    props.u = this->R * T * tau * da_dt / this->M;
-    // h
-    props.h = this->R * T * (tau * da_dt + delta * da_dd) / this->M;
-    // w
-    const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
-                     sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
-    props.w = std::sqrt(this->R * T * n / this->M);
-    // cp = dh/dt
-    props.cp = this->R *
-               (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
-                                           (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
-               this->M;
-    // cv = du/dt
-    props.cv = -this->R * tau * tau * d2a_dt2 / this->M;
-    // s = ...
-    props.s = this->R * (tau * da_dt - a) / this->M;
-    // mu
-    props.mu = mu_from_rho_T(rho, T);
-    // k
-    props.k = k_from_rho_T(rho, T);
-    return props;
+    auto v = 1. / rho;
+    auto u = internal_energy(T, tau, da_dt);
+    auto h = enthalphy(T, delta, tau, da_dt, da_dd);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = mu_from_rho_T(rho, T);
+    auto k = k_from_rho_T(rho, T);
+
+    return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
 SinglePhaseFluidProperties::Props
@@ -164,8 +115,6 @@ Helmholtz::v_u(double v, double u) const
         throw std::domain_error("Negative specific volume");
     if (u <= 0.)
         throw std::domain_error("Negative internal energy");
-
-    Props props;
 
     const double rho = 1. / v;
     const double delta = rho / this->rho_c;
@@ -178,33 +127,17 @@ Helmholtz::v_u(double v, double u) const
     const double d2a_dd2 = d2alpha_ddelta2(delta, tau);
     const double d2a_ddt = d2alpha_ddeltatau(delta, tau);
 
-    props.rho = rho;
-    props.u = u;
-    props.v = v;
-    // T
-    props.T = u * this->M / (this->R * tau * da_dt);
-    // p
-    props.p = this->R * rho * props.T * delta * da_dd / this->M;
-    // h
-    props.h = this->R * props.T * (tau * da_dt + delta * da_dd) / this->M;
-    // w
-    const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
-                     sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
-    props.w = std::sqrt(this->R * props.T * n / this->M);
-    // cp = dh/dt
-    props.cp = this->R *
-               (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
-                                           (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
-               this->M;
-    // cv = du/dt
-    props.cv = -this->R * tau * tau * d2a_dt2 / this->M;
-    // s = ...
-    props.s = this->R * (tau * da_dt - a) / this->M;
-    // mu
-    props.mu = mu_from_rho_T(rho, props.T);
-    // k
-    props.k = k_from_rho_T(rho, props.T);
-    return props;
+    auto T = temperature(u, tau, da_dt);
+    auto p = pressure(rho, T, delta, da_dd);
+    auto h = enthalphy(T, delta, tau, da_dt, da_dd);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = mu_from_rho_T(rho, T);
+    auto k = k_from_rho_T(rho, T);
+
+    return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
 SinglePhaseFluidProperties::Props
@@ -275,6 +208,70 @@ Helmholtz::tau_from_v_u(double v, double u) const
     };
 
     return newton::root(1e-1, f, df);
+}
+
+double
+Helmholtz::temperature(double u, double tau, double da_dt) const
+{
+    return u * this->M / (this->R * tau * da_dt);
+}
+
+double
+Helmholtz::pressure(double rho, double T, double delta, double da_dd) const
+{
+    return this->R * rho * T * delta * da_dd / this->M;
+}
+
+double
+Helmholtz::internal_energy(double T, double tau, double da_dt) const
+{
+    return this->R * T * tau * da_dt / this->M;
+}
+
+double
+Helmholtz::enthalphy(double T, double delta, double tau, double da_dt, double da_dd) const
+{
+    return this->R * T * (tau * da_dt + delta * da_dd) / this->M;
+}
+
+double
+Helmholtz::sound_speed(double T,
+                       double delta,
+                       double tau,
+                       double da_dd,
+                       double d2a_dd2,
+                       double d2a_ddt,
+                       double d2a_dt2) const
+{
+    const double n = 2.0 * delta * da_dd + delta * delta * d2a_dd2 -
+                     sqr(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
+    return std::sqrt(this->R * T * n / this->M);
+}
+
+double
+Helmholtz::entropy(double tau, double a, double da_dt) const
+{
+    return this->R * (tau * da_dt - a) / this->M;
+}
+
+double
+Helmholtz::heat_capacity_isobaric(double delta,
+                                  double tau,
+                                  double da_dd,
+                                  double d2a_dt2,
+                                  double d2a_dd2,
+                                  double d2a_ddt) const
+{
+    return this->R *
+           (-tau * tau * d2a_dt2 + sqr(delta * da_dd - delta * tau * d2a_ddt) /
+                                       (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
+           this->M;
+}
+
+double
+Helmholtz::heat_capacity_isochoric(double tau, double d2a_dt2) const
+{
+    return -this->R * tau * tau * d2a_dt2 / this->M;
 }
 
 } // namespace fprops

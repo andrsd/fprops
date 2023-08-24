@@ -989,6 +989,26 @@ protected:
         std::vector<T> C;
         std::vector<T> D;
     };
+
+    double temperature(double u, double tau, double da_dt) const;
+    double pressure(double rho, double T, double delta, double da_dd) const;
+    double internal_energy(double T, double tau, double da_dt) const;
+    double enthalphy(double T, double delta, double tau, double da_dt, double da_dd) const;
+    double sound_speed(double T,
+                       double delta,
+                       double tau,
+                       double da_dd,
+                       double d2a_dd2,
+                       double d2a_ddt,
+                       double d2a_dt2) const;
+    double entropy(double tau, double a, double da_dt) const;
+    double heat_capacity_isobaric(double delta,
+                                  double tau,
+                                  double da_dd,
+                                  double d2a_dt2,
+                                  double d2a_dd2,
+                                  double d2a_ddt) const;
+    double heat_capacity_isochoric(double tau, double d2a_dt2) const;
 };
 
 } // namespace fprops
