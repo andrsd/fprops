@@ -30,6 +30,13 @@ TEST(HelmholtzTest, rho_T_incorrect)
     EXPECT_THROW(auto p = fp.rho_T(1, -1), std::domain_error);
 }
 
+TEST(HelmholtzTest, rho_p_incorrect)
+{
+    MockHelmholtz fp;
+
+    EXPECT_THROW(auto p = fp.rho_p(-1, 300), std::domain_error);
+}
+
 TEST(HelmholtzTest, h_s)
 {
     MockHelmholtz fp;

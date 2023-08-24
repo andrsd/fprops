@@ -43,6 +43,28 @@ TEST(NitrogenTest, rho_T)
     EXPECT_DOUBLE_EQ(props.w, gold1.w);
 }
 
+TEST(NitrogenTest, rho_p)
+{
+    Nitrogen fp;
+
+    double rho = 12.074993451051515;
+    double p = 1.0e6;
+    SinglePhaseFluidProperties::Props props = fp.rho_p(rho, p);
+
+    EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(props.T, gold1.T);
+    EXPECT_DOUBLE_EQ(props.p, gold1.p);
+    EXPECT_DOUBLE_EQ(props.u, gold1.u);
+    EXPECT_DOUBLE_EQ(props.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(props.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(props.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(props.k, gold1.k);
+    EXPECT_NEAR(props.v, gold1.v, 1e-9);
+    EXPECT_DOUBLE_EQ(props.s, gold1.s);
+    EXPECT_DOUBLE_EQ(props.h, gold1.h);
+    EXPECT_DOUBLE_EQ(props.w, gold1.w);
+}
+
 TEST(NitrogenTest, p_T)
 {
     Nitrogen fp;
