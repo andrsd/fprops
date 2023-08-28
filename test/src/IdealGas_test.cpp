@@ -20,6 +20,14 @@ State gold1 = { 2.8179567848017247e5,
 
 }
 
+TEST(IdealGas, api)
+{
+    double gamma = 1.4;
+    double molar_mass = 29.0e-3;
+    IdealGas fp(gamma, molar_mass);
+    EXPECT_DOUBLE_EQ(fp.get_gamma(), gamma);
+}
+
 TEST(IdealGas, rho_T)
 {
     double gamma = 1.4;

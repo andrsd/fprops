@@ -19,6 +19,12 @@ IdealGas::IdealGas(double gamma, double molar_mass) :
 {
 }
 
+double
+IdealGas::get_gamma() const
+{
+    return this->gamma;
+}
+
 State
 IdealGas::rho_T(double rho, double T) const
 {

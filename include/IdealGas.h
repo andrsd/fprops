@@ -14,6 +14,11 @@ public:
     /// @param molar_mass Molar mass \f$[kg/mol]\f$
     IdealGas(double gamma, double molar_mass);
 
+    /// Get adiabatic index
+    ///
+    /// @return Adiabatic index (ratio of specific heats cp/cv)
+    double get_gamma() const;
+
     /// Set dynamic viscosity
     ///
     /// @param mu Dynamic viscosity \f$[Pa-s]\f$
