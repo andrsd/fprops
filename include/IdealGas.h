@@ -19,6 +19,11 @@ public:
     /// @return Adiabatic index (ratio of specific heats cp/cv)
     double get_gamma() const;
 
+    /// Get specific gas constant
+    ///
+    /// @return Specific gas constant
+    double get_specific_gas_constant() const;
+
     /// Set dynamic viscosity
     ///
     /// @param mu Dynamic viscosity \f$[Pa-s]\f$

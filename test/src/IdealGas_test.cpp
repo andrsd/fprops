@@ -26,6 +26,7 @@ TEST(IdealGas, api)
     double molar_mass = 29.0e-3;
     IdealGas fp(gamma, molar_mass);
     EXPECT_DOUBLE_EQ(fp.get_gamma(), gamma);
+    EXPECT_DOUBLE_EQ(fp.get_specific_gas_constant(), 286.70551034482759);
 }
 
 TEST(IdealGas, rho_T)
