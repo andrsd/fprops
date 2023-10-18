@@ -3,7 +3,7 @@
 namespace fprops {
 
 /// Computed properties referring to a thermodynamical state
-struct Props {
+struct State {
     /// Internal energy \f$[J/kg]\f$
     double u;
     /// Specific volume \f$[m^3/kg]\f$
@@ -29,7 +29,7 @@ struct Props {
     /// Speed of sound \f$[m/s]\f$
     double w;
 
-    Props();
+    State();
     /// Constructor
     ///
     /// @param u Internal energy \f$[J/kg]\f$
@@ -44,7 +44,7 @@ struct Props {
     /// @param k Thermal conductivity \f$[W/(m-K)]\f$
     /// @param h Specific enthalpy \f$[J/kg]\f$
     /// @param w Speed of sound \f$[m/s]\f$
-    Props(double u,
+    State(double u,
           double v,
           double rho,
           double p,

@@ -14,7 +14,7 @@ Helmholtz::Helmholtz(double R, double M, double rho_c, double T_c) :
 {
 }
 
-Props
+State
 Helmholtz::rho_T(double rho, double T) const
 {
     if (rho < 0)
@@ -43,10 +43,10 @@ Helmholtz::rho_T(double rho, double T) const
     auto mu = mu_from_rho_T(rho, T);
     auto k = k_from_rho_T(rho, T);
 
-    return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
-Props
+State
 Helmholtz::rho_p(double rho, double p) const
 {
     if (rho < 0)
@@ -74,10 +74,10 @@ Helmholtz::rho_p(double rho, double p) const
     auto mu = mu_from_rho_T(rho, T);
     auto k = k_from_rho_T(rho, T);
 
-    return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
-Props
+State
 Helmholtz::p_T(double p, double T) const
 {
     if (T < 0)
@@ -105,10 +105,10 @@ Helmholtz::p_T(double p, double T) const
     auto mu = mu_from_rho_T(rho, T);
     auto k = k_from_rho_T(rho, T);
 
-    return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
-Props
+State
 Helmholtz::v_u(double v, double u) const
 {
     if (v <= 0.)
@@ -137,10 +137,10 @@ Helmholtz::v_u(double v, double u) const
     auto mu = mu_from_rho_T(rho, T);
     auto k = k_from_rho_T(rho, T);
 
-    return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
-Props
+State
 Helmholtz::h_s(double h, double s) const
 {
     throw std::domain_error("Not implemented");

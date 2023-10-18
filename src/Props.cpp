@@ -1,8 +1,8 @@
-#include "Props.h"
+#include "State.h"
 
 namespace fprops {
 
-Props::Props() :
+State::State() :
     u(0.),
     v(0.),
     rho(0.),
@@ -18,7 +18,7 @@ Props::Props() :
 {
 }
 
-Props::Props(double u,
+State::State(double u,
              double v,
              double rho,
              double p,
