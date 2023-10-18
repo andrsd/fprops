@@ -19,7 +19,7 @@ IdealGas::IdealGas(double gamma, double molar_mass) :
 {
 }
 
-SinglePhaseFluidProperties::Props
+Props
 IdealGas::rho_T(double rho, double T) const
 {
     if (rho < 0)
@@ -46,7 +46,7 @@ IdealGas::rho_T(double rho, double T) const
     return props;
 }
 
-SinglePhaseFluidProperties::Props
+Props
 IdealGas::rho_p(double rho, double p) const
 {
     if (rho < 0)
@@ -71,7 +71,7 @@ IdealGas::rho_p(double rho, double p) const
     return props;
 }
 
-SinglePhaseFluidProperties::Props
+Props
 IdealGas::p_T(double p, double T) const
 {
     if (T < 0)
@@ -96,7 +96,7 @@ IdealGas::p_T(double p, double T) const
     return props;
 }
 
-SinglePhaseFluidProperties::Props
+Props
 IdealGas::v_u(double v, double u) const
 {
     if (v <= 0.)
@@ -123,7 +123,7 @@ IdealGas::v_u(double v, double u) const
     return props;
 }
 
-SinglePhaseFluidProperties::Props
+Props
 IdealGas::h_s(double h, double s) const
 {
     Props props;

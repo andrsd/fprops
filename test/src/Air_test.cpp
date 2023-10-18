@@ -6,18 +6,18 @@ using namespace fprops;
 namespace {
 
 // T = 300 K, p = 101325 Pa
-SinglePhaseFluidProperties::Props gold1 = { 340138.96058601438,
-                                            0.84965298744304329,
-                                            1.1769510785919943,
-                                            101325,
-                                            300,
-                                            1.8537852519143559e-05,
-                                            1006.1967213037287,
-                                            717.95390122400988,
-                                            3923.025553321696,
-                                            26.386197401795309e-3,
-                                            426230.04953868076,
-                                            347.30666259109006 };
+Props gold1 = { 340138.96058601438,
+                0.84965298744304329,
+                1.1769510785919943,
+                101325,
+                300,
+                1.8537852519143559e-05,
+                1006.1967213037287,
+                717.95390122400988,
+                3923.025553321696,
+                26.386197401795309e-3,
+                426230.04953868076,
+                347.30666259109006 };
 
 } // namespace
 
@@ -27,7 +27,7 @@ TEST(Air, rho_T)
 
     double rho = 1.1769510785919943;
     double T = 300;
-    SinglePhaseFluidProperties::Props props = fp.rho_T(rho, T);
+    auto props = fp.rho_T(rho, T);
 
     EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
     EXPECT_DOUBLE_EQ(props.T, gold1.T);
@@ -49,7 +49,7 @@ TEST(Air, rho_p)
 
     double rho = 1.1769510785919943;
     double p = 101325;
-    SinglePhaseFluidProperties::Props props = fp.rho_p(rho, p);
+    auto props = fp.rho_p(rho, p);
 
     EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
     EXPECT_DOUBLE_EQ(props.T, gold1.T);
@@ -71,7 +71,7 @@ TEST(Air, p_T)
 
     double T = 300;
     double p = 101325;
-    SinglePhaseFluidProperties::Props props = fp.p_T(p, T);
+    auto props = fp.p_T(p, T);
 
     EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
     EXPECT_DOUBLE_EQ(props.T, gold1.T);
@@ -93,7 +93,7 @@ TEST(Air, v_u)
 
     double v = 0.84965298744304329;
     double u = 340138.96058601438;
-    SinglePhaseFluidProperties::Props props = fp.v_u(v, u);
+    auto props = fp.v_u(v, u);
 
     EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
     EXPECT_DOUBLE_EQ(props.T, gold1.T);

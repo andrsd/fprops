@@ -14,7 +14,7 @@ Helmholtz::Helmholtz(double R, double M, double rho_c, double T_c) :
 {
 }
 
-SinglePhaseFluidProperties::Props
+Props
 Helmholtz::rho_T(double rho, double T) const
 {
     if (rho < 0)
@@ -46,7 +46,7 @@ Helmholtz::rho_T(double rho, double T) const
     return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
-SinglePhaseFluidProperties::Props
+Props
 Helmholtz::rho_p(double rho, double p) const
 {
     if (rho < 0)
@@ -77,7 +77,7 @@ Helmholtz::rho_p(double rho, double p) const
     return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
-SinglePhaseFluidProperties::Props
+Props
 Helmholtz::p_T(double p, double T) const
 {
     if (T < 0)
@@ -108,7 +108,7 @@ Helmholtz::p_T(double p, double T) const
     return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
-SinglePhaseFluidProperties::Props
+Props
 Helmholtz::v_u(double v, double u) const
 {
     if (v <= 0.)
@@ -140,7 +140,7 @@ Helmholtz::v_u(double v, double u) const
     return Props(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
-SinglePhaseFluidProperties::Props
+Props
 Helmholtz::h_s(double h, double s) const
 {
     throw std::domain_error("Not implemented");

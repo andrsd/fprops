@@ -9,6 +9,7 @@ add_library(
         IdealGas.cpp
         Nitrogen.cpp
         Numerics.cpp
+        Props.cpp
         SinglePhaseFluidProperties.cpp
 )
 if(CMAKE_PROJECT_NAME STREQUAL "fprops")

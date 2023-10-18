@@ -6,18 +6,18 @@ using namespace fprops;
 namespace {
 
 // T = 280 K, p = 1 MPa
-SinglePhaseFluidProperties::Props gold1 = { 877864.48974420107,
-                                            0.584485817263523,
-                                            1.7109055009783694,
-                                            1.e6,
-                                            280.0,
-                                            1.9050487777800348e-05,
-                                            5193.7491442602677,
-                                            3118.4171250330392,
-                                            22983.561984600798,
-                                            0.14939414616319868,
-                                            1462350.3070077244,
-                                            989.0570220636348 };
+Props gold1 = { 877864.48974420107,
+                0.584485817263523,
+                1.7109055009783694,
+                1.e6,
+                280.0,
+                1.9050487777800348e-05,
+                5193.7491442602677,
+                3118.4171250330392,
+                22983.561984600798,
+                0.14939414616319868,
+                1462350.3070077244,
+                989.0570220636348 };
 
 } // namespace
 
@@ -27,7 +27,7 @@ TEST(HeliumTest, rho_T)
 
     double rho = 1.7109055009783694;
     double T = 280.0;
-    SinglePhaseFluidProperties::Props props = fp.rho_T(rho, T);
+    auto props = fp.rho_T(rho, T);
 
     EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
     EXPECT_DOUBLE_EQ(props.T, gold1.T);
@@ -49,7 +49,7 @@ TEST(HeliumTest, rho_p)
 
     double rho = 1.7109055009783694;
     double p = 1.e6;
-    SinglePhaseFluidProperties::Props props = fp.rho_p(rho, p);
+    auto props = fp.rho_p(rho, p);
 
     EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
     EXPECT_DOUBLE_EQ(props.T, gold1.T);
@@ -71,7 +71,7 @@ TEST(HeliumTest, p_T)
 
     double T = 280.0;
     double p = 1.0e6;
-    SinglePhaseFluidProperties::Props props = fp.p_T(p, T);
+    auto props = fp.p_T(p, T);
 
     EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
     EXPECT_DOUBLE_EQ(props.T, gold1.T);
@@ -93,11 +93,11 @@ TEST(HeliumTest, v_u)
 
     double T = 280.0;
     double p = 1.0e6;
-    SinglePhaseFluidProperties::Props state0 = fp.p_T(p, T);
+    auto state0 = fp.p_T(p, T);
 
     EXPECT_THROW(auto f = fp.v_u(state0.v, state0.u), std::runtime_error);
     /*
-        SinglePhaseFluidProperties::Props props = fp.v_u(state0.v, state0.u);
+        Props props = fp.v_u(state0.v, state0.u);
 
         EXPECT_DOUBLE_EQ(props.rho, gold1.rho);
         EXPECT_DOUBLE_EQ(props.T, gold1.T);
