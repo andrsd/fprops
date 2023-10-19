@@ -10,6 +10,7 @@ add_library(
         Numerics.cpp
         Props.cpp
         SinglePhaseFluidProperties.cpp
+        Utils.cpp
 )
 if(CMAKE_PROJECT_NAME STREQUAL "fprops")
     target_code_coverage(${PROJECT_NAME})

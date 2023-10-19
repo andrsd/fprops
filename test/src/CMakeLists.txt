@@ -8,6 +8,7 @@ add_executable(
         Nitrogen_test.cpp
         Numerics_test.cpp
         TransportModels_test.cpp
+        Utils_test.cpp
         main.cpp
 )
 target_code_coverage(${PROJECT_NAME})
