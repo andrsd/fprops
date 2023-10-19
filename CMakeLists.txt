@@ -20,6 +20,7 @@ option(FPROPS_WITH_PYTHON "Build python wrapper" YES)
 option(FPROPS_BUILD_TESTS "Build tests" NO)
 
 find_package(HDF5 1.8 COMPONENTS C HL REQUIRED)
+find_package(Eigen3 3.3.4 REQUIRED)
 find_package(fmt 8.0 REQUIRED)
 if (FPROPS_WITH_PYTHON)
     add_subdirectory(python)

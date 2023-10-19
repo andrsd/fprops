@@ -6,6 +6,7 @@ add_library(
         Helium.cpp
         Helmholtz.cpp
         IdealGas.cpp
+        InterpolatedFluidProperties.cpp
         Nitrogen.cpp
         Numerics.cpp
         Props.cpp
@@ -33,6 +34,7 @@ target_include_directories(
         ${CMAKE_BINARY_DIR}
         ${CMAKE_SOURCE_DIR}/contrib
         ${HDF5_INCLUDE_DIR}
+        ${EIGEN3_INCLUDE_DIR}
 )
 
 target_link_libraries(
