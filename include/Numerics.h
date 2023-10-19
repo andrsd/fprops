@@ -16,6 +16,35 @@ cb(double x)
     return x * x * x;
 }
 
+namespace math {
+
+template <typename T>
+T
+pow(T x, int e)
+{
+    bool neg = false;
+    T result = 1.0;
+
+    if (e < 0) {
+        neg = true;
+        e = -e;
+    }
+
+    while (e) {
+        // if bit 0 is set multiply the current power of two factor of the exponent
+        if (e & 1)
+            result *= x;
+        // x is incrementally set to consecutive powers of powers of two
+        x *= x;
+        // bit shift the exponent down
+        e >>= 1;
+    }
+
+    return neg ? 1.0 / result : result;
+}
+
+} // namespace math
+
 namespace newton {
 
 /// Finds the root of a function using Newton's method
