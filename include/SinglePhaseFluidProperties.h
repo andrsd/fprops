@@ -1,13 +1,12 @@
 #pragma once
 
-#include "FluidProperties.h"
 #include "State.h"
 
 namespace fprops {
 
 /// Base class for single phase fluids
 ///
-class SinglePhaseFluidProperties : public FluidProperties {
+class SinglePhaseFluidProperties {
 public:
     SinglePhaseFluidProperties();
     virtual ~SinglePhaseFluidProperties() = default;

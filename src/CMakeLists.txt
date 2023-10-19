@@ -3,7 +3,6 @@ add_library(
     SHARED
         Air.cpp
         CarbonDioxide.cpp
-        FluidProperties.cpp
         Helium.cpp
         Helmholtz.cpp
         IdealGas.cpp
