@@ -30,12 +30,16 @@ target_include_directories(
         $<INSTALL_INTERFACE:include/fprops>
     PRIVATE
         ${CMAKE_BINARY_DIR}
+        ${CMAKE_SOURCE_DIR}/contrib
+        ${HDF5_INCLUDE_DIR}
 )
 
 target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
         fmt::fmt
+    PRIVATE
+        ${HDF5_LIBRARIES}
 )
 
 configure_package_config_file(
