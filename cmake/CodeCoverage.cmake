@@ -25,6 +25,9 @@ if(FPROPS_CODE_COVERAGE)
         set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_CLEAN_FILES "${CODE_COVERAGE_PROFRAWS}")
 
         set(EXCLUDE_REGEX
+                --ignore-filename-regex=/contrib/
+                --ignore-filename-regex=/include/eigen3/
+                --ignore-filename-regex=/include/fmt/
         )
 
         set(CODE_COVERAGE_BINS
@@ -111,8 +114,10 @@ if(FPROPS_CODE_COVERAGE)
         )
 
         set(EXCLUDE_REGEX
+            --exclude=*/contrib/*
             --exclude=/usr/include/*
             --exclude=*/include/fmt/*
+            --exclude=*/include/eigen3/*
         )
 
         add_custom_target(coverage DEPENDS ${COVERAGE_INFO})

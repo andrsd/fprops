@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.4...3.18)
-project(pyfprops LANGUAGES CXX)
+project(pyfprops LANGUAGES C CXX)
 
 find_package(pybind11 2.9 REQUIRED)
 
@@ -10,6 +10,7 @@ target_include_directories(
     PRIVATE
         ${CMAKE_BINARY_DIR}
         ${CMAKE_SOURCE_DIR}/include
+        ${EIGEN3_INCLUDE_DIR}
 )
 
 target_link_libraries(

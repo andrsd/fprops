@@ -19,7 +19,7 @@ IdealGas::IdealGas(double gamma, double molar_mass) :
 {
 }
 
-SinglePhaseFluidProperties::Props
+State
 IdealGas::rho_T(double rho, double T) const
 {
     if (rho < 0)
@@ -27,76 +27,76 @@ IdealGas::rho_T(double rho, double T) const
     if (T < 0)
         throw std::domain_error("Negative temperature");
 
-    Props props;
-    props.rho = rho;
-    props.T = T;
-    props.cp = this->cp;
-    props.cv = this->cv;
-    props.mu = this->mu;
-    props.k = this->k;
-    props.p = rho * R * T / this->molar_mass;
-    props.u = this->cv * T;
-    props.v = 1. / props.rho;
-    const double n = std::pow(T, this->gamma) / std::pow(props.p, this->gamma - 1.0);
+    State state;
+    state.rho = rho;
+    state.T = T;
+    state.cp = this->cp;
+    state.cv = this->cv;
+    state.mu = this->mu;
+    state.k = this->k;
+    state.p = rho * R * T / this->molar_mass;
+    state.u = this->cv * T;
+    state.v = 1. / state.rho;
+    const double n = std::pow(T, this->gamma) / std::pow(state.p, this->gamma - 1.0);
     if (n <= 0)
         throw std::domain_error("Invalid log base for computing entropy");
-    props.s = this->cv * std::log(n);
-    props.h = this->cp * T;
-    props.w = std::sqrt(this->cp * R * T / (this->cv * this->molar_mass));
-    return props;
+    state.s = this->cv * std::log(n);
+    state.h = this->cp * T;
+    state.w = std::sqrt(this->cp * R * T / (this->cv * this->molar_mass));
+    return state;
 }
 
-SinglePhaseFluidProperties::Props
+State
 IdealGas::rho_p(double rho, double p) const
 {
     if (rho < 0)
         throw std::domain_error("Negative density");
 
-    Props props;
-    props.rho = rho;
-    props.p = p;
-    props.cp = this->cp;
-    props.cv = this->cv;
-    props.mu = this->mu;
-    props.k = this->k;
-    props.T = p * this->molar_mass / (rho * R);
-    props.u = this->cv * props.T;
-    props.v = 1. / props.rho;
-    const double n = std::pow(props.T, this->gamma) / std::pow(props.p, this->gamma - 1.0);
+    State state;
+    state.rho = rho;
+    state.p = p;
+    state.cp = this->cp;
+    state.cv = this->cv;
+    state.mu = this->mu;
+    state.k = this->k;
+    state.T = p * this->molar_mass / (rho * R);
+    state.u = this->cv * state.T;
+    state.v = 1. / state.rho;
+    const double n = std::pow(state.T, this->gamma) / std::pow(state.p, this->gamma - 1.0);
     if (n <= 0)
         throw std::domain_error("Invalid log base for computing entropy");
-    props.s = this->cv * std::log(n);
-    props.h = this->cp * props.T;
-    props.w = std::sqrt(this->cp * R * props.T / (this->cv * this->molar_mass));
-    return props;
+    state.s = this->cv * std::log(n);
+    state.h = this->cp * state.T;
+    state.w = std::sqrt(this->cp * R * state.T / (this->cv * this->molar_mass));
+    return state;
 }
 
-SinglePhaseFluidProperties::Props
+State
 IdealGas::p_T(double p, double T) const
 {
     if (T < 0)
         throw std::domain_error("Negative temperature");
 
-    Props props;
-    props.p = p;
-    props.T = T;
-    props.cp = this->cp;
-    props.cv = this->cv;
-    props.mu = this->mu;
-    props.k = this->k;
-    props.rho = p * this->molar_mass / (R * T);
-    props.u = this->cv * T;
-    props.v = 1. / props.rho;
+    State state;
+    state.p = p;
+    state.T = T;
+    state.cp = this->cp;
+    state.cv = this->cv;
+    state.mu = this->mu;
+    state.k = this->k;
+    state.rho = p * this->molar_mass / (R * T);
+    state.u = this->cv * T;
+    state.v = 1. / state.rho;
     const double n = std::pow(T, this->gamma) / std::pow(p, this->gamma - 1.0);
     if (n <= 0)
         throw std::domain_error("Invalid log base for computing entropy");
-    props.s = this->cv * std::log(n);
-    props.h = this->cp * T;
-    props.w = std::sqrt(this->cp * R * T / (this->cv * this->molar_mass));
-    return props;
+    state.s = this->cv * std::log(n);
+    state.h = this->cp * T;
+    state.w = std::sqrt(this->cp * R * T / (this->cv * this->molar_mass));
+    return state;
 }
 
-SinglePhaseFluidProperties::Props
+State
 IdealGas::v_u(double v, double u) const
 {
     if (v <= 0.)
@@ -104,47 +104,47 @@ IdealGas::v_u(double v, double u) const
     if (u <= 0.)
         throw std::domain_error("Negative internal energy");
 
-    Props props;
-    props.v = v;
-    props.u = u;
-    props.cp = this->cp;
-    props.cv = this->cv;
-    props.mu = this->mu;
-    props.k = this->k;
-    props.rho = 1. / v;
-    props.p = (this->gamma - 1.0) * u * props.rho;
-    props.T = u / this->cv;
-    const double n = std::pow(props.T, this->gamma) / std::pow(props.p, this->gamma - 1.0);
+    State state;
+    state.v = v;
+    state.u = u;
+    state.cp = this->cp;
+    state.cv = this->cv;
+    state.mu = this->mu;
+    state.k = this->k;
+    state.rho = 1. / v;
+    state.p = (this->gamma - 1.0) * u * state.rho;
+    state.T = u / this->cv;
+    const double n = std::pow(state.T, this->gamma) / std::pow(state.p, this->gamma - 1.0);
     if (n <= 0)
         throw std::domain_error("Invalid log base for computing entropy");
-    props.s = this->cv * std::log(n);
-    props.h = this->cp * props.T;
-    props.w = std::sqrt(this->gamma * this->R_specific * props.T);
-    return props;
+    state.s = this->cv * std::log(n);
+    state.h = this->cp * state.T;
+    state.w = std::sqrt(this->gamma * this->R_specific * state.T);
+    return state;
 }
 
-SinglePhaseFluidProperties::Props
+State
 IdealGas::h_s(double h, double s) const
 {
-    Props props;
-    props.h = h;
-    props.s = s;
-    props.cp = this->cp;
-    props.cv = this->cv;
-    props.mu = this->mu;
-    props.k = this->k;
-    props.p = std::pow(h / (this->gamma * this->cv), this->gamma / (this->gamma - 1.0)) *
+    State state;
+    state.h = h;
+    state.s = s;
+    state.cp = this->cp;
+    state.cv = this->cv;
+    state.mu = this->mu;
+    state.k = this->k;
+    state.p = std::pow(h / (this->gamma * this->cv), this->gamma / (this->gamma - 1.0)) *
               std::exp(-s / ((this->gamma - 1.0) * this->cv));
-    const double aux = (s + this->cv * std::log(std::pow(props.p, this->gamma - 1.0))) / this->cv;
-    props.T = std::pow(std::exp(aux), 1.0 / this->gamma);
-    props.rho = props.p * this->molar_mass / (R * props.T);
-    props.u = this->cv * props.T;
-    props.v = 1. / props.rho;
-    const double n = std::pow(props.T, this->gamma) / std::pow(props.p, this->gamma - 1.0);
+    const double aux = (s + this->cv * std::log(std::pow(state.p, this->gamma - 1.0))) / this->cv;
+    state.T = std::pow(std::exp(aux), 1.0 / this->gamma);
+    state.rho = state.p * this->molar_mass / (R * state.T);
+    state.u = this->cv * state.T;
+    state.v = 1. / state.rho;
+    const double n = std::pow(state.T, this->gamma) / std::pow(state.p, this->gamma - 1.0);
     if (n <= 0)
         throw std::domain_error("Invalid log base for computing entropy");
-    props.w = std::sqrt(this->gamma * this->R_specific * props.T);
-    return props;
+    state.w = std::sqrt(this->gamma * this->R_specific * state.T);
+    return state;
 }
 
 void

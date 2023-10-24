@@ -13,6 +13,15 @@ TEST(NumericsTest, cb)
     EXPECT_DOUBLE_EQ(cb(2.), 8.);
 }
 
+TEST(NumericsTest, pow)
+{
+    EXPECT_DOUBLE_EQ(math::pow(2., 3), 8.);
+    EXPECT_DOUBLE_EQ(math::pow(3., 3), 27.);
+    EXPECT_DOUBLE_EQ(math::pow(5., 4), 625.);
+
+    EXPECT_DOUBLE_EQ(math::pow(2., -1), 0.5);
+}
+
 TEST(NumericsTest, newton_root)
 {
     auto f = [](double x) {

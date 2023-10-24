@@ -3,13 +3,15 @@ add_library(
     SHARED
         Air.cpp
         CarbonDioxide.cpp
-        FluidProperties.cpp
         Helium.cpp
         Helmholtz.cpp
         IdealGas.cpp
+        InterpolatedFluidProperties.cpp
         Nitrogen.cpp
         Numerics.cpp
+        Props.cpp
         SinglePhaseFluidProperties.cpp
+        Utils.cpp
 )
 if(CMAKE_PROJECT_NAME STREQUAL "fprops")
     target_code_coverage(${PROJECT_NAME})
@@ -30,12 +32,17 @@ target_include_directories(
         $<INSTALL_INTERFACE:include/fprops>
     PRIVATE
         ${CMAKE_BINARY_DIR}
+        ${CMAKE_SOURCE_DIR}/contrib
+        ${HDF5_INCLUDE_DIR}
+        ${EIGEN3_INCLUDE_DIR}
 )
 
 target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
         fmt::fmt
+    PRIVATE
+        ${HDF5_LIBRARIES}
 )
 
 configure_package_config_file(
