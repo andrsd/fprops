@@ -23,11 +23,11 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update -qq
-          sudo apt install lcov libfmt-dev python3-pybind11
+          sudo apt install lcov libfmt-dev libhdf5-dev libeigen3-dev python3-pybind11
 
       - name: Install dependencies (macos)
         if: startsWith(matrix.os, 'macos')
-        run: brew install cmake llvm@14 lcov fmt pybind11
+        run: brew install cmake llvm@14 lcov fmt hdf5 eigen pybind11
 
       - name: Install python dependencies
         run: |
