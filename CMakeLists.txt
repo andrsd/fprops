@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION VERSION 3.19)
 
 project(
     fprops
-    VERSION 2.0
+    VERSION 3.0
     LANGUAGES CXX
 )
 
