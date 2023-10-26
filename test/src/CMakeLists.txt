@@ -31,7 +31,7 @@ target_include_directories(
 target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
-        fprops
+        libfprops
         gtest_main
         gmock_main
 )

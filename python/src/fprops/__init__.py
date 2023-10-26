@@ -1,4 +1,4 @@
-from .pyfprops import *
+from .fprops import *
 
 __all__ = [
     Air,

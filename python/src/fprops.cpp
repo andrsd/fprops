@@ -11,7 +11,7 @@ using namespace fprops;
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(pyfprops, m)
+PYBIND11_MODULE(fprops, m)
 {
     m.doc() = "pybind11 plugin for fprops";
 

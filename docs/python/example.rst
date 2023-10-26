@@ -6,7 +6,7 @@ temperature = 280 K.
 
 .. code::
 
-   import pyfprops as fp
+   import fprops as fp
    n2 = fp.Nitrogen()
    # p = 1MPa, T = 280 K
    s = n2.p_T(1e6, 280)

@@ -10,8 +10,8 @@ if (FPROPS_BUILD_TESTS)
     find_program(PYTEST "pytest" REQUIRED)
     enable_testing()
     add_test(
-        NAME pyfprops-test
+        NAME python-tests
         COMMAND ${PYTEST} ${CMAKE_CURRENT_SOURCE_DIR}
     )
-    set_tests_properties(pyfprops-test PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/src:$ENV{PYTHONPATH}")
+    set_tests_properties(python-tests PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/src:$ENV{PYTHONPATH}")
 endif()

@@ -1,4 +1,4 @@
-import pyfprops as fp
+import fprops as fp
 import pytest
 import math
 
