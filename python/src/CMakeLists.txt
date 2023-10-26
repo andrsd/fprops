@@ -22,5 +22,5 @@ target_link_libraries(
 install(
     TARGETS ${PROJECT_NAME}
     COMPONENT python
-    LIBRARY DESTINATION "${Python3_SITELIB}/pyfprops"
+    LIBRARY DESTINATION "lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages/pyfprops"
 )
