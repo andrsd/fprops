@@ -93,14 +93,14 @@
 <h1>SinglePhaseFluidProperties<a class="headerlink" href="#singlephasefluidproperties" title="Permalink to this heading"></a></h1>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidPropertiesE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidPropertiesE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidPropertiesE"></span><span id="fprops::SinglePhaseFluidProperties"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SinglePhaseFluidProperties</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">fprops</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="fluid-properties.html#_CPPv4N6fprops15FluidPropertiesE" title="fprops::FluidProperties"><span class="n"><span class="pre">FluidProperties</span></span></a><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidPropertiesE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N6fprops26SinglePhaseFluidPropertiesE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidPropertiesE"></span><span id="fprops::SinglePhaseFluidProperties"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SinglePhaseFluidProperties</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidPropertiesE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Base class for single phase fluids. </p>
-<p>Subclassed by <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz</span></a>, <a class="reference internal" href="ideal-gas.html#classfprops_1_1_ideal_gas"><span class="std std-ref">fprops::IdealGas</span></a></p>
+<p>Subclassed by <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz</span></a>, <a class="reference internal" href="ideal-gas.html#classfprops_1_1_ideal_gas"><span class="std std-ref">fprops::IdealGas</span></a>, fprops::InterpolatedFluidProperties</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK6fprops26SinglePhaseFluidProperties5rho_TEdd">
-<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties5rho_TEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties5rho_TEdd"></span><span id="fprops::SinglePhaseFluidProperties::rho_T__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1a5d5dd3686a5343858bccb10be7082140"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5PropsE" title="fprops::SinglePhaseFluidProperties::Props"><span class="n"><span class="pre">Props</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rho_T</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rho</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">T</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties5rho_TEdd" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties5rho_TEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties5rho_TEdd"></span><span id="fprops::SinglePhaseFluidProperties::rho_T__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1a2320af5a51939efdf043aa0750e1abf0"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">State</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rho_T</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rho</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">T</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties5rho_TEdd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Compute thermodynamical state given density and temperature. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -114,7 +114,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK6fprops26SinglePhaseFluidProperties5rho_pEdd">
-<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties5rho_pEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties5rho_pEdd"></span><span id="fprops::SinglePhaseFluidProperties::rho_p__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1ad5ceb23928c1f94aa2b31aa3b0381e74"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5PropsE" title="fprops::SinglePhaseFluidProperties::Props"><span class="n"><span class="pre">Props</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rho_p</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rho</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">p</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties5rho_pEdd" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties5rho_pEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties5rho_pEdd"></span><span id="fprops::SinglePhaseFluidProperties::rho_p__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1a4ae4817d3a70c7ad0e6594a164ef3770"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">State</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rho_p</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rho</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">p</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties5rho_pEdd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Compute thermodynamical state given density and pressure. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -128,7 +128,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK6fprops26SinglePhaseFluidProperties3p_TEdd">
-<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties3p_TEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties3p_TEdd"></span><span id="fprops::SinglePhaseFluidProperties::p_T__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1ab1deb72f43d24c0531d69b85a426628e"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5PropsE" title="fprops::SinglePhaseFluidProperties::Props"><span class="n"><span class="pre">Props</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">p_T</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">p</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">T</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties3p_TEdd" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties3p_TEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties3p_TEdd"></span><span id="fprops::SinglePhaseFluidProperties::p_T__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1ace30958c594ef5bf5830bb28a0243d04"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">State</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">p_T</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">p</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">T</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties3p_TEdd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Compute thermodynamical state given pressure and temperature. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -142,7 +142,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK6fprops26SinglePhaseFluidProperties3v_uEdd">
-<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties3v_uEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties3v_uEdd"></span><span id="fprops::SinglePhaseFluidProperties::v_u__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1a851a6bc562fcbfe1bdf59166d9efe444"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5PropsE" title="fprops::SinglePhaseFluidProperties::Props"><span class="n"><span class="pre">Props</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">v_u</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties3v_uEdd" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties3v_uEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties3v_uEdd"></span><span id="fprops::SinglePhaseFluidProperties::v_u__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1abdd97dbd3f06821c8f047cedb3ebce77"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">State</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">v_u</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties3v_uEdd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Compute thermodynamical state given specific volume and internal energy. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -156,7 +156,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK6fprops26SinglePhaseFluidProperties3h_sEdd">
-<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties3h_sEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties3h_sEdd"></span><span id="fprops::SinglePhaseFluidProperties::h_s__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1a68b4ba421ef7f68334fc9dd3980e6e7a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5PropsE" title="fprops::SinglePhaseFluidProperties::Props"><span class="n"><span class="pre">Props</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h_s</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties3h_sEdd" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3NK6fprops26SinglePhaseFluidProperties3h_sEdd"></span><span id="_CPPv2NK6fprops26SinglePhaseFluidProperties3h_sEdd"></span><span id="fprops::SinglePhaseFluidProperties::h_s__double.doubleC"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1a65e2f9991088d2afa67cb73b06cee04c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">State</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h_s</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK6fprops26SinglePhaseFluidProperties3h_sEdd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Compute thermodynamical state given specific enthalpy and entropy. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -169,114 +169,6 @@
 </dd></dl>
 
 </div>
-<dl class="cpp struct">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5PropsE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5PropsE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5PropsE"></span><span id="fprops::SinglePhaseFluidProperties::Props"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Props</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5PropsE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Computed properties referring to a thermodynamical state. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props5PropsEdddddddddddd">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props5PropsEdddddddddddd"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props5PropsEdddddddddddd"></span><span id="fprops::SinglePhaseFluidProperties::Props::Props__double.double.double.double.double.double.double.double.double.double.double.double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a90508615d0aa2f3b6bd5311cd665253d"></span><span class="sig-name descname"><span class="n"><span class="pre">Props</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rho</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">p</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">T</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cp</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cv</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">k</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">w</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props5PropsEdddddddddddd" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Constructor. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> – Internal energy <span class="math notranslate nohighlight">\([J/kg]\)</span></p></li>
-<li><p><strong>v</strong> – Specific volume <span class="math notranslate nohighlight">\([m^3/kg]\)</span></p></li>
-<li><p><strong>rho</strong> – Density <span class="math notranslate nohighlight">\([kg/m^3]\)</span></p></li>
-<li><p><strong>p</strong> – Pressure <span class="math notranslate nohighlight">\([Pa]\)</span></p></li>
-<li><p><strong>T</strong> – Temperature <span class="math notranslate nohighlight">\([K]\)</span></p></li>
-<li><p><strong>mu</strong> – Dynamic viscosity <span class="math notranslate nohighlight">\([Pa-s]\)</span></p></li>
-<li><p><strong>cp</strong> – Isobaric heat capacity <span class="math notranslate nohighlight">\([J/(kg-K)]\)</span></p></li>
-<li><p><strong>cv</strong> – Isochoric heat capacity <span class="math notranslate nohighlight">\([J/(kg-K)]\)</span></p></li>
-<li><p><strong>s</strong> – Entropy <span class="math notranslate nohighlight">\([J/(kg-K)]\)</span></p></li>
-<li><p><strong>k</strong> – Thermal conductivity <span class="math notranslate nohighlight">\([W/(m-K)]\)</span></p></li>
-<li><p><strong>h</strong> – Specific enthalpy <span class="math notranslate nohighlight">\([J/kg]\)</span></p></li>
-<li><p><strong>w</strong> – Speed of sound <span class="math notranslate nohighlight">\([m/s]\)</span></p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props1uE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props1uE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props1uE"></span><span id="fprops::SinglePhaseFluidProperties::Props::u__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1adb2d32e220795952706777b160bb305c"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">u</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props1uE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Internal energy <span class="math notranslate nohighlight">\([J/kg]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props1vE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props1vE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props1vE"></span><span id="fprops::SinglePhaseFluidProperties::Props::v__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a41ef48a399a35131849588d352868c6f"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">v</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props1vE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Specific volume <span class="math notranslate nohighlight">\([m^3/kg]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props3rhoE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props3rhoE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props3rhoE"></span><span id="fprops::SinglePhaseFluidProperties::Props::rho__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a4ef023b7a293add24b39d71e3a0399b5"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rho</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props3rhoE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Density <span class="math notranslate nohighlight">\([kg/m^3]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props1pE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props1pE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props1pE"></span><span id="fprops::SinglePhaseFluidProperties::Props::p__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1ab97ee4d8dc6b5bb492b749ad619cbfa9"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">p</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props1pE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Pressure <span class="math notranslate nohighlight">\([Pa]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props1TE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props1TE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props1TE"></span><span id="fprops::SinglePhaseFluidProperties::Props::T__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1aae0677c830b89375718805b1090fe923"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props1TE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Temperature <span class="math notranslate nohighlight">\([K]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props2muE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props2muE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props2muE"></span><span id="fprops::SinglePhaseFluidProperties::Props::mu__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a9b6451c60c4409eb2e0263e4327d0764"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mu</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props2muE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Dynamic viscosity <span class="math notranslate nohighlight">\([Pa-s]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props2cpE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props2cpE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props2cpE"></span><span id="fprops::SinglePhaseFluidProperties::Props::cp__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a4099f01357da0d6a291fea10610c8bc0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cp</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props2cpE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Isobaric heat capacity <span class="math notranslate nohighlight">\([J/(kg-K)]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props2cvE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props2cvE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props2cvE"></span><span id="fprops::SinglePhaseFluidProperties::Props::cv__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a97b35e74e8ea82e75a3cd7fa485610c5"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cv</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props2cvE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Isochoric heat capacity <span class="math notranslate nohighlight">\([J/(kg-K)]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props1sE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props1sE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props1sE"></span><span id="fprops::SinglePhaseFluidProperties::Props::s__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a89edfa74755fa9e7f8824810f13a2d88"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">s</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props1sE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Entropy <span class="math notranslate nohighlight">\([J/(kg-K)]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props1kE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props1kE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props1kE"></span><span id="fprops::SinglePhaseFluidProperties::Props::k__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a7b5664bb4fa08d1349339c399fe2fcd5"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">k</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props1kE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Thermal conductivity <span class="math notranslate nohighlight">\([W/(m-K)]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props1hE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props1hE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props1hE"></span><span id="fprops::SinglePhaseFluidProperties::Props::h__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a5b19f3586c88168f2b4bbe1615389f2a"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props1hE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Specific enthalpy <span class="math notranslate nohighlight">\([J/kg]\)</span>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties5Props1wE">
-<span id="_CPPv3N6fprops26SinglePhaseFluidProperties5Props1wE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties5Props1wE"></span><span id="fprops::SinglePhaseFluidProperties::Props::w__double"></span><span class="target" id="structfprops_1_1_single_phase_fluid_properties_1_1_props_1a8477812542a31ca910144017094210b5"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">w</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties5Props1wE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Speed of sound <span class="math notranslate nohighlight">\([m/s]\)</span>. </p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
 </dd></dl>
 
 </section>
