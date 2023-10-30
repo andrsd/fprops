@@ -40,6 +40,8 @@ jobs:
             coolprop \
             pybind11 \
             pytest \
+            hdf5 \
+            eigen \
             fmt
 
       - name: Build doco
