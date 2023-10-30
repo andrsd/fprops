@@ -45,6 +45,8 @@ jobs:
             fmt
 
       - name: Build doco
+        env:
+          CMAKE_PREFIX_PATH: "$CONDA_PREFIX"
         run: |
           cmake -S . -B ${{ github.workspace }}/build
           make -C ${{ github.workspace }}/build all
