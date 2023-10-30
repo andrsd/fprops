@@ -7,6 +7,7 @@
 
 ### Prerequisites
 
+- cmake (>=3.19)
 - C++ compiler (C++17 or better)
 - fmt (>=8.0)
 - gtest (>=1.11.0)
