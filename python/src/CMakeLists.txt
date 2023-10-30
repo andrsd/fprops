@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.4...3.18)
-project(pyfprops LANGUAGES C CXX)
+project(fprops LANGUAGES C CXX)
 
 find_package(pybind11 2.9 REQUIRED)
 
-pybind11_add_module(${PROJECT_NAME} fprops.cpp)
+pybind11_add_module(fprops fprops.cpp)
 
 target_include_directories(
-    ${PROJECT_NAME}
+    fprops
     PRIVATE
         ${CMAKE_BINARY_DIR}
         ${CMAKE_SOURCE_DIR}/include
@@ -14,13 +14,13 @@ target_include_directories(
 )
 
 target_link_libraries(
-    ${PROJECT_NAME}
+    fprops
     PUBLIC
-        fprops
+        libfprops
 )
 
 install(
-    TARGETS ${PROJECT_NAME}
+    TARGETS fprops
     COMPONENT python
-    LIBRARY DESTINATION "lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages/pyfprops"
+    LIBRARY DESTINATION "lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages/fprops"
 )

@@ -1,5 +1,5 @@
 add_library(
-    ${PROJECT_NAME}
+    libfprops
     SHARED
         Air.cpp
         CarbonDioxide.cpp
@@ -13,20 +13,23 @@ add_library(
         SinglePhaseFluidProperties.cpp
         Utils.cpp
 )
+if(NOT MSVC)
+    set_target_properties(libfprops PROPERTIES OUTPUT_NAME fprops)
+endif()
 if(CMAKE_PROJECT_NAME STREQUAL "fprops")
     target_code_coverage(${PROJECT_NAME})
     target_sanitization(${PROJECT_NAME})
 endif()
 
 set_target_properties(
-    ${PROJECT_NAME}
+    libfprops
     PROPERTIES
         VERSION ${PROJECT_VERSION}
         SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
 target_include_directories(
-    ${PROJECT_NAME}
+    libfprops
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include/fprops>
@@ -38,7 +41,7 @@ target_include_directories(
 )
 
 target_link_libraries(
-    ${PROJECT_NAME}
+    libfprops
     PUBLIC
         fmt::fmt
     PRIVATE
@@ -57,7 +60,7 @@ write_basic_package_version_file(fpropsConfigVersion.cmake
 )
 
 install(
-    TARGETS fprops
+    TARGETS libfprops
     EXPORT fpropsTargets
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

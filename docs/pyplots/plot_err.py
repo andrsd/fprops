@@ -6,7 +6,7 @@ import sys
 from CoolProp import AbstractState
 from CoolProp.CoolProp import PhaseSI, PropsSI, get_global_param_string
 import CoolProp.CoolProp as CoolProp
-import pyfprops as fp
+import fprops as fp
 import math
 import numpy as np
 import matplotlib.pyplot as plt
