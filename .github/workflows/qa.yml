@@ -21,7 +21,7 @@ jobs:
           style: file
           version: 14
           lines-changed-only: true
-          ignore: 'contrib'
+          ignore: 'cmake|contrib|docs|python'
           step-summary: true
 
       - name: Result
