@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Nitrogen.h"
+#include "fprops/Nitrogen.h"
 
 using namespace fprops;
 

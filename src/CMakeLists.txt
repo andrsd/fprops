@@ -1,18 +1,7 @@
-add_library(
-    libfprops
-    SHARED
-        Air.cpp
-        CarbonDioxide.cpp
-        Helium.cpp
-        Helmholtz.cpp
-        IdealGas.cpp
-        InterpolatedFluidProperties.cpp
-        Nitrogen.cpp
-        Numerics.cpp
-        Props.cpp
-        SinglePhaseFluidProperties.cpp
-        Utils.cpp
-)
+file(GLOB SRCS CONFIGURE_DEPENDS *.cpp)
+
+add_library(libfprops SHARED ${SRCS})
+
 if(NOT MSVC)
     set_target_properties(libfprops PROPERTIES OUTPUT_NAME fprops)
 endif()
@@ -30,11 +19,9 @@ set_target_properties(
 
 target_include_directories(
     libfprops
-    PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include/fprops>
     PRIVATE
-        ${CMAKE_BINARY_DIR}
+        ${PROJECT_SOURCE_DIR}/include
+        ${CMAKE_BINARY_DIR}/include
         ${CMAKE_SOURCE_DIR}/contrib
         ${HDF5_INCLUDE_DIR}
         ${EIGEN3_INCLUDE_DIR}
@@ -71,7 +58,7 @@ install(
 
 install(
     DIRECTORY ${CMAKE_SOURCE_DIR}/include/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/fprops
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING PATTERN "*.h"
 )
 

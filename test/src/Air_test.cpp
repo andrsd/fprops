@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Air.h"
+#include "fprops/Air.h"
 
 using namespace fprops;
 

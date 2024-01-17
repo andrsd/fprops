@@ -1,4 +1,4 @@
-#include "Nitrogen.h"
+#include "fprops/Nitrogen.h"
 
 namespace fprops {
 

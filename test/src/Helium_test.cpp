@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Helium.h"
+#include "fprops/Helium.h"
 
 using namespace fprops;
 
