@@ -42,6 +42,8 @@ PYBIND11_MODULE(fprops, m)
 
     py::class_<IdealGas>(m, "IdealGas")
         .def(py::init<double, double>())
+        .def("get_gamma", &IdealGas::get_gamma)
+        .def("get_specific_gas_constant", &IdealGas::get_specific_gas_constant)
         .def("set_mu", &IdealGas::set_mu)
         .def("set_k", &IdealGas::set_k)
         .def("rho_T", &IdealGas::rho_T)
