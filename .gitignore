@@ -38,6 +38,7 @@ cmake-build-*
 # python
 __pycache__
 python/src/pyfprops.egg-info
+python/src/fprops.egg-info
 
 # CLion
 .idea
