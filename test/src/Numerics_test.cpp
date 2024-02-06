@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Numerics.h"
+#include "fprops/Numerics.h"
 
 using namespace fprops;
 

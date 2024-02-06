@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "InterpolatedFluidProperties.h"
+#include "fprops/InterpolatedFluidProperties.h"
 #include <filesystem>
 
 using namespace fprops;

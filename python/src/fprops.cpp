@@ -1,11 +1,11 @@
 #include <pybind11/pybind11.h>
 
-#include "SinglePhaseFluidProperties.h"
-#include "Air.h"
-#include "IdealGas.h"
-#include "Nitrogen.h"
-#include "Helium.h"
-#include "CarbonDioxide.h"
+#include "fprops/SinglePhaseFluidProperties.h"
+#include "fprops/Air.h"
+#include "fprops/IdealGas.h"
+#include "fprops/Nitrogen.h"
+#include "fprops/Helium.h"
+#include "fprops/CarbonDioxide.h"
 
 using namespace fprops;
 

@@ -1,4 +1,4 @@
-#include "IdealGas.h"
+#include "fprops/IdealGas.h"
 #include <cmath>
 #include <stdexcept>
 

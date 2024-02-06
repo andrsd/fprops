@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "Helmholtz.h"
+#include "fprops/Helmholtz.h"
 
 using namespace fprops;
 

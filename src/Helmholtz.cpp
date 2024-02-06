@@ -1,5 +1,5 @@
-#include "Helmholtz.h"
-#include "Numerics.h"
+#include "fprops/Helmholtz.h"
+#include "fprops/Numerics.h"
 #include <cmath>
 #include <stdexcept>
 
