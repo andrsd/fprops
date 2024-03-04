@@ -79,7 +79,7 @@ if(DOXYGEN_FOUND)
             doxygen Doxyfile
         DEPENDS
             ${PROJECT_BINARY_DIR}/docs/Doxyfile
-            ${PROJECT_SOURCE_DIR}/include/*.h
+            ${PROJECT_SOURCE_DIR}/include/fprops/*.h
     )
 
     add_custom_command(
