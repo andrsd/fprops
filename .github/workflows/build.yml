@@ -13,21 +13,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-11]
+        os: [ubuntu-22.04, macos-13]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Install dependencies (linux)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt-get update -qq
-          sudo apt install lcov libfmt-dev libhdf5-dev libeigen3-dev python3-pybind11
-
-      - name: Install dependencies (macos)
-        if: startsWith(matrix.os, 'macos')
-        run: brew install cmake llvm@14 lcov fmt hdf5 eigen pybind11
+      - name: Install dependencies
+        uses: ConorMacBride/install-package@v1
+        with:
+          apt: lcov libfmt-dev libhdf5-dev libeigen3-dev python3-pybind11
+          brew: cmake lcov fmt hdf5@1.10 eigen pybind11
 
       - name: Install python dependencies
         run: |
@@ -37,7 +33,8 @@ jobs:
       - name: Set up env (macos)
         if: startsWith(matrix.os, 'macos')
         run: |
-          echo "$(brew --cellar)/llvm@14/14.0.6/bin" >> $GITHUB_PATH
+          echo "/usr/local/opt/hdf5@1.10/bin" >> $GITHUB_PATH
+          echo "CMAKE_PREFIX_PATH=/usr/local/opt/hdf5@1.10" >> $GITHUB_ENV
 
       - name: Configure
         run: |
