@@ -45,6 +45,9 @@ jobs:
       - name: Build
         run: make -C ${{ github.workspace }}/build
 
+      - name: Install
+        run: sudo make -C ${{ github.workspace }}/build install
+
       - name: Run tests
         run: make -C ${{ github.workspace }}/build test ARGS='-V'
 
