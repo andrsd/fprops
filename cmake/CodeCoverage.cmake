@@ -25,9 +25,9 @@ if(FPROPS_CODE_COVERAGE)
         set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_CLEAN_FILES "${CODE_COVERAGE_PROFRAWS}")
 
         set(EXCLUDE_REGEX
-                --ignore-filename-regex=/contrib/
-                --ignore-filename-regex=/include/eigen3/
-                --ignore-filename-regex=/include/fmt/
+            --ignore-filename-regex=/contrib/
+            --ignore-filename-regex=/include/eigen3/
+            --ignore-filename-regex=/include/fmt/
         )
 
         set(CODE_COVERAGE_BINS
