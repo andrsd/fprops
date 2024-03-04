@@ -2,6 +2,8 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 find_program(PYTHON "python" REQUIRED)
 
 configure_file(setup.py.in setup.py)
+configure_file(src/fprops/__init__.py src/fprops/__init__.py)
+configure_file(src/fprops/_version.py.in src/fprops/_version.py)
 install(CODE "execute_process(COMMAND ${PYTHON} -m pip install ${CMAKE_CURRENT_BINARY_DIR})")
 
 add_subdirectory(src)
