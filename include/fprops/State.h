@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace fprops {
 
 /// Computed properties referring to a thermodynamical state
@@ -56,6 +58,8 @@ struct State {
           double k,
           double h,
           double w);
+
+    [[nodiscard]] auto to_string() const -> std::string;
 };
 
 } // namespace fprops

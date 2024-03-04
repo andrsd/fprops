@@ -31,7 +31,8 @@ PYBIND11_MODULE(fprops, m)
         .def_readwrite("s", &State::s)
         .def_readwrite("k", &State::k)
         .def_readwrite("h", &State::h)
-        .def_readwrite("w", &State::w);
+        .def_readwrite("w", &State::w)
+        .def("__repr__", &State::to_string);
 
     py::class_<Air>(m, "Air")
         .def(py::init())
