@@ -10,6 +10,7 @@ target_include_directories(
         ${CMAKE_BINARY_DIR}
         ${CMAKE_SOURCE_DIR}/include
         ${EIGEN3_INCLUDE_DIR}
+        ${PROJECT_BINARY_DIR}
 )
 
 target_link_libraries(
@@ -17,6 +18,8 @@ target_link_libraries(
     PUBLIC
         libfprops
 )
+
+configure_file(version.h.in version.h)
 
 install(
     TARGETS fprops
