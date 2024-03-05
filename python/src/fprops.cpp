@@ -6,6 +6,7 @@
 #include "fprops/Nitrogen.h"
 #include "fprops/Helium.h"
 #include "fprops/CarbonDioxide.h"
+#include "version.h"
 
 using namespace fprops;
 
@@ -14,6 +15,7 @@ namespace py = pybind11;
 PYBIND11_MODULE(fprops, m)
 {
     m.doc() = "pybind11 plugin for fprops";
+    py::setattr(m, "version", py::str(FPROPS_VERSION));
 
     py::class_<SinglePhaseFluidProperties> spfp(m, "SinglePhaseFluidProperties");
 
