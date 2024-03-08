@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "ExceptionTestMacros.h"
 #include "fprops/Helium.h"
 
 using namespace fprops;
@@ -95,7 +96,7 @@ TEST(HeliumTest, v_u)
     double p = 1.0e6;
     auto state0 = fp.p_T(p, T);
 
-    EXPECT_THROW(auto f = fp.v_u(state0.v, state0.u), std::runtime_error);
+    EXPECT_THROW_MSG(auto f = fp.v_u(state0.v, state0.u), "Newton's method failed to converge");
     /*
         State state = fp.v_u(state0.v, state0.u);
 

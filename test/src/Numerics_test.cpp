@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "ExceptionTestMacros.h"
 #include "fprops/Numerics.h"
 
 using namespace fprops;
@@ -46,5 +47,5 @@ TEST(NumericsTest, newton_root_diverge)
         return 3 * x * x - 2;
     };
 
-    EXPECT_THROW(newton::root(0, f, df), std::runtime_error);
+    EXPECT_THROW_MSG(newton::root(0, f, df), "Newton's method failed to converge");
 }
