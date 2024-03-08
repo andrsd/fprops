@@ -1,7 +1,7 @@
 #include "fprops/Helmholtz.h"
 #include "fprops/Numerics.h"
+#include "fprops/Exception.h"
 #include <cmath>
-#include <stdexcept>
 
 namespace fprops {
 
@@ -18,9 +18,9 @@ State
 Helmholtz::rho_T(double rho, double T) const
 {
     if (rho < 0)
-        throw std::domain_error("Negative density");
+        throw Exception("Negative density");
     if (T < 0)
-        throw std::domain_error("Negative temperature");
+        throw Exception("Negative temperature");
 
     const double delta = rho / this->rho_c;
     const double tau = this->T_c / T;
@@ -50,7 +50,7 @@ State
 Helmholtz::rho_p(double rho, double p) const
 {
     if (rho < 0)
-        throw std::domain_error("Negative density");
+        throw Exception("Negative density");
 
     const double T = T_from_rho_p(rho, p);
 
@@ -81,7 +81,7 @@ State
 Helmholtz::p_T(double p, double T) const
 {
     if (T < 0)
-        throw std::domain_error("Negative temperature");
+        throw Exception("Negative temperature");
 
     const double rho = rho_from_p_T(p, T);
 
@@ -112,9 +112,9 @@ State
 Helmholtz::v_u(double v, double u) const
 {
     if (v <= 0.)
-        throw std::domain_error("Negative specific volume");
+        throw Exception("Negative specific volume");
     if (u <= 0.)
-        throw std::domain_error("Negative internal energy");
+        throw Exception("Negative internal energy");
 
     const double rho = 1. / v;
     const double delta = rho / this->rho_c;
@@ -143,7 +143,7 @@ Helmholtz::v_u(double v, double u) const
 State
 Helmholtz::h_s(double h, double s) const
 {
-    throw std::domain_error("Not implemented");
+    throw Exception("Not implemented");
 }
 
 double

@@ -1,6 +1,6 @@
 #include "fprops/IdealGas.h"
+#include "fprops/Exception.h"
 #include <cmath>
-#include <stdexcept>
 
 namespace fprops {
 
@@ -35,9 +35,9 @@ State
 IdealGas::rho_T(double rho, double T) const
 {
     if (rho < 0)
-        throw std::domain_error("Negative density");
+        throw Exception("Negative density");
     if (T < 0)
-        throw std::domain_error("Negative temperature");
+        throw Exception("Negative temperature");
 
     State state;
     state.rho = rho;
@@ -51,7 +51,7 @@ IdealGas::rho_T(double rho, double T) const
     state.v = 1. / state.rho;
     const double n = std::pow(T, this->gamma) / std::pow(state.p, this->gamma - 1.0);
     if (n <= 0)
-        throw std::domain_error("Invalid log base for computing entropy");
+        throw Exception("Invalid log base for computing entropy");
     state.s = this->cv * std::log(n);
     state.h = this->cp * T;
     state.w = std::sqrt(this->cp * R * T / (this->cv * this->molar_mass));
@@ -62,7 +62,7 @@ State
 IdealGas::rho_p(double rho, double p) const
 {
     if (rho < 0)
-        throw std::domain_error("Negative density");
+        throw Exception("Negative density");
 
     State state;
     state.rho = rho;
@@ -76,7 +76,7 @@ IdealGas::rho_p(double rho, double p) const
     state.v = 1. / state.rho;
     const double n = std::pow(state.T, this->gamma) / std::pow(state.p, this->gamma - 1.0);
     if (n <= 0)
-        throw std::domain_error("Invalid log base for computing entropy");
+        throw Exception("Invalid log base for computing entropy");
     state.s = this->cv * std::log(n);
     state.h = this->cp * state.T;
     state.w = std::sqrt(this->cp * R * state.T / (this->cv * this->molar_mass));
@@ -87,7 +87,7 @@ State
 IdealGas::p_T(double p, double T) const
 {
     if (T < 0)
-        throw std::domain_error("Negative temperature");
+        throw Exception("Negative temperature");
 
     State state;
     state.p = p;
@@ -101,7 +101,7 @@ IdealGas::p_T(double p, double T) const
     state.v = 1. / state.rho;
     const double n = std::pow(T, this->gamma) / std::pow(p, this->gamma - 1.0);
     if (n <= 0)
-        throw std::domain_error("Invalid log base for computing entropy");
+        throw Exception("Invalid log base for computing entropy");
     state.s = this->cv * std::log(n);
     state.h = this->cp * T;
     state.w = std::sqrt(this->cp * R * T / (this->cv * this->molar_mass));
@@ -112,9 +112,9 @@ State
 IdealGas::v_u(double v, double u) const
 {
     if (v <= 0.)
-        throw std::domain_error("Negative specific volume");
+        throw Exception("Negative specific volume");
     if (u <= 0.)
-        throw std::domain_error("Negative internal energy");
+        throw Exception("Negative internal energy");
 
     State state;
     state.v = v;
@@ -128,7 +128,7 @@ IdealGas::v_u(double v, double u) const
     state.T = u / this->cv;
     const double n = std::pow(state.T, this->gamma) / std::pow(state.p, this->gamma - 1.0);
     if (n <= 0)
-        throw std::domain_error("Invalid log base for computing entropy");
+        throw Exception("Invalid log base for computing entropy");
     state.s = this->cv * std::log(n);
     state.h = this->cp * state.T;
     state.w = std::sqrt(this->gamma * this->R_specific * state.T);
@@ -154,7 +154,7 @@ IdealGas::h_s(double h, double s) const
     state.v = 1. / state.rho;
     const double n = std::pow(state.T, this->gamma) / std::pow(state.p, this->gamma - 1.0);
     if (n <= 0)
-        throw std::domain_error("Invalid log base for computing entropy");
+        throw Exception("Invalid log base for computing entropy");
     state.w = std::sqrt(this->gamma * this->R_specific * state.T);
     return state;
 }

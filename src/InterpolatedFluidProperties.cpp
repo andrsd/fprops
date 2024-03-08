@@ -1,6 +1,7 @@
 #include "fprops/InterpolatedFluidProperties.h"
 #include "fprops/Utils.h"
 #include "fprops/Numerics.h"
+#include "fprops/Exception.h"
 #include "h5pp/h5pp.h"
 #include "fmt/printf.h"
 #include "Eigen/Dense"
@@ -50,7 +51,7 @@ InterpolatedFluidProperties::load(const std::string & file_name)
         this->hs_data = read_data(file, "h_s", { H, S }, { U, V, P, T, RHO, MU, CP, CV, K, W });
     }
     else
-        throw std::runtime_error(fmt::format("File '{}' does not exist.", file_name));
+        throw Exception("File '{}' does not exist.", file_name);
 }
 
 State
@@ -62,7 +63,7 @@ InterpolatedFluidProperties::p_T(double p, double T) const
                  vals[CP], vals[CV], vals[S],   vals[K], vals[H], vals[W] };
     }
     else
-        throw std::runtime_error("'p_T' data set is missing.");
+        throw Exception("'p_T' data set is missing.");
 }
 
 State
@@ -74,7 +75,7 @@ InterpolatedFluidProperties::rho_T(double rho, double T) const
                  vals[CP], vals[CV], vals[S], vals[K], vals[H], vals[W] };
     }
     else
-        throw std::runtime_error("'rho_T' data set is missing.");
+        throw Exception("'rho_T' data set is missing.");
 }
 
 State
@@ -86,7 +87,7 @@ InterpolatedFluidProperties::rho_p(double rho, double p) const
                  vals[CP], vals[CV], vals[S], vals[K], vals[H], vals[W] };
     }
     else
-        throw std::runtime_error("'rho_p' data set is missing.");
+        throw Exception("'rho_p' data set is missing.");
 }
 
 State
@@ -98,7 +99,7 @@ InterpolatedFluidProperties::v_u(double v, double u) const
                  vals[CP], vals[CV], vals[S],   vals[K], vals[H], vals[W] };
     }
     else
-        throw std::runtime_error("'v_u' data set is missing.");
+        throw Exception("'v_u' data set is missing.");
 }
 
 State
@@ -110,7 +111,7 @@ InterpolatedFluidProperties::h_s(double h, double s) const
                  vals[CP], vals[CV], s,         vals[K], h,       vals[W] };
     }
     else
-        throw std::runtime_error("'h_s' data set is missing.");
+        throw Exception("'h_s' data set is missing.");
 }
 
 void
@@ -120,7 +121,7 @@ InterpolatedFluidProperties::check_unit(const h5pp::File & file,
 {
     auto attr = file.readAttribute<std::string>(dataset_name, "unit");
     if (attr != unit)
-        throw std::runtime_error(fmt::format("Expected unit '{}' for '{}'.", unit, dataset_name));
+        throw Exception("Expected unit '{}' for '{}'.", unit, dataset_name);
 }
 
 Eigen::VectorXd
@@ -133,7 +134,7 @@ InterpolatedFluidProperties::read_var_range(const h5pp::File & file,
     check_unit(file, nm, this->var_units[var_idx]);
     file.readDataset(range, nm);
     if (range.size() < 2)
-        throw std::runtime_error(
+        throw Exception(
             fmt::format("'{}' range must have 2 or more grid points.", this->var_names[var_idx]));
     return range;
 }

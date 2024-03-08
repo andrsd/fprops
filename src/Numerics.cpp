@@ -1,6 +1,6 @@
 #include "fprops/Numerics.h"
+#include "fprops/Exception.h"
 #include <cmath>
-#include <stdexcept>
 
 namespace fprops {
 
@@ -29,7 +29,7 @@ root(double x0,
         x0 = x1;
     }
 
-    throw std::runtime_error("Newton's method failed to converge");
+    throw Exception("Newton's method failed to converge");
 }
 
 } // namespace newton

@@ -1,4 +1,5 @@
 #include "gmock/gmock.h"
+#include "ExceptionTestMacros.h"
 #include "fprops/InterpolatedFluidProperties.h"
 #include <filesystem>
 
@@ -123,13 +124,13 @@ TEST(InterpolatedFluidPropertiesTest, h_s)
 
     double h = 288084;
     double s = 6083;
-    EXPECT_THROW({ fp.h_s(h, s); }, std::runtime_error);
+    EXPECT_THROW_MSG(auto st = fp.h_s(h, s), "'h_s' data set is missing.");
 }
 
 TEST(InterpolatedFluidPropertiesTest, non_existent_file)
 {
     InterpolatedFluidProperties fp;
-    EXPECT_THROW({ fp.load("non-existent-file"); }, std::runtime_error);
+    EXPECT_THROW_MSG(fp.load("non-existent-file"), "File 'non-existent-file' does not exist.");
 }
 
 TEST(InterpolatedFluidPropertiesTest, empty_file)
@@ -137,23 +138,23 @@ TEST(InterpolatedFluidPropertiesTest, empty_file)
     auto file_name = path(FPROPS_UNIT_TESTS_ROOT) / path("assets") / path("empty.fprops.h5");
     InterpolatedFluidProperties fp;
     fp.load(file_name);
-    EXPECT_THROW({ fp.p_T(1e6, 280); }, std::runtime_error);
-    EXPECT_THROW({ fp.rho_T(0.1, 280); }, std::runtime_error);
-    EXPECT_THROW({ fp.rho_p(0.1, 1e6); }, std::runtime_error);
-    EXPECT_THROW({ fp.v_u(1, 1e5); }, std::runtime_error);
-    EXPECT_THROW({ fp.h_s(1e4, 1.1e4); }, std::runtime_error);
+    EXPECT_THROW_MSG(auto st = fp.p_T(1e6, 280), "'p_T' data set is missing.");
+    EXPECT_THROW_MSG(auto st = fp.rho_T(0.1, 280), "'rho_T' data set is missing.");
+    EXPECT_THROW_MSG(auto st = fp.rho_p(0.1, 1e6), "'rho_p' data set is missing.");
+    EXPECT_THROW_MSG(auto st = fp.v_u(1, 1e5), "'v_u' data set is missing.");
+    EXPECT_THROW_MSG(auto st = fp.h_s(1e4, 1.1e4), "'h_s' data set is missing.");
 }
 
 TEST(InterpolatedFluidPropertiesTest, grid_1_by_1_file)
 {
     auto file_name = path(FPROPS_UNIT_TESTS_ROOT) / path("assets") / path("grid-1x1.fprops.h5");
     InterpolatedFluidProperties fp;
-    EXPECT_THROW({ fp.load(file_name); }, std::runtime_error);
+    EXPECT_THROW_MSG(fp.load(file_name), "'p' range must have 2 or more grid points.");
 }
 
 TEST(InterpolatedFluidPropertiesTest, wrong_units_file)
 {
     auto file_name = path(FPROPS_UNIT_TESTS_ROOT) / path("assets") / path("wrong-units.fprops.h5");
     InterpolatedFluidProperties fp;
-    EXPECT_THROW({ fp.load(file_name); }, std::runtime_error);
+    EXPECT_THROW_MSG(fp.load(file_name), "Expected unit 'Pa' for '/p_T/p'.");
 }

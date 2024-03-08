@@ -1,4 +1,5 @@
 #include "gmock/gmock.h"
+#include "ExceptionTestMacros.h"
 #include "fprops/Helmholtz.h"
 
 using namespace fprops;
@@ -26,37 +27,37 @@ TEST(HelmholtzTest, rho_T_incorrect)
 {
     MockHelmholtz fp;
 
-    EXPECT_THROW(auto p = fp.rho_T(-1, 300), std::domain_error);
-    EXPECT_THROW(auto p = fp.rho_T(1, -1), std::domain_error);
+    EXPECT_THROW_MSG(auto p = fp.rho_T(-1, 300), "Negative density");
+    EXPECT_THROW_MSG(auto p = fp.rho_T(1, -1), "Negative temperature");
 }
 
 TEST(HelmholtzTest, rho_p_incorrect)
 {
     MockHelmholtz fp;
 
-    EXPECT_THROW(auto p = fp.rho_p(-1, 300), std::domain_error);
+    EXPECT_THROW_MSG(auto p = fp.rho_p(-1, 300), "Negative density");
 }
 
 TEST(HelmholtzTest, h_s)
 {
     MockHelmholtz fp;
 
-    EXPECT_THROW(auto p = fp.h_s(1, 1), std::domain_error);
+    EXPECT_THROW_MSG(auto p = fp.h_s(1, 1), "Not implemented");
 }
 
 TEST(HelmholtzTest, p_T_incorrect)
 {
     MockHelmholtz fp;
 
-    EXPECT_THROW(auto p = fp.p_T(1e5, -1), std::domain_error);
+    EXPECT_THROW_MSG(auto p = fp.p_T(1e5, -1), "Negative temperature");
 }
 
 TEST(HelmholtzTest, v_u_incorrect)
 {
     MockHelmholtz fp;
 
-    EXPECT_THROW(auto p = fp.v_u(-1, 1), std::domain_error);
-    EXPECT_THROW(auto p = fp.v_u(1, -1), std::domain_error);
+    EXPECT_THROW_MSG(auto st = fp.v_u(-1, 1), "Negative specific volume");
+    EXPECT_THROW_MSG(auto st = fp.v_u(1, -1), "Negative internal energy");
 }
 
 TEST(HelmholtzTest, ideal_gas_lead)
