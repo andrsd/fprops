@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2022 David Andrs <andrsd@gmail.com>
+// SPDX-License-Identifier: MIT
+
 #include "fprops/InterpolatedFluidProperties.h"
 #include "fprops/Utils.h"
 #include "fprops/Numerics.h"

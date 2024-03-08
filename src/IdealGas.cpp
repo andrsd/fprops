@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2022 David Andrs <andrsd@gmail.com>
+// SPDX-License-Identifier: MIT
+
 #include "fprops/IdealGas.h"
 #include "fprops/Exception.h"
 #include <cmath>
