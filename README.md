@@ -3,6 +3,7 @@
 [![qa](https://github.com/andrsd/godzilla/actions/workflows/qa.yml/badge.svg)](https://github.com/andrsd/godzilla/actions/workflows/qa.yml)
 [![build](https://github.com/andrsd/godzilla/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/andrsd/godzilla/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/andrsd/fprops/branch/main/graph/badge.svg?token=R9YNBXHEY3)](https://codecov.io/gh/andrsd/fprops)
+[![License](http://img.shields.io/:license-mit-blue.svg)](https://andrsd.mit-license.org/)
 [![Scc Count Badge](https://sloc.xyz/github/andrsd/fprops/)](https://github.com/andrsd/fprops/)
 
 ### Prerequisites
