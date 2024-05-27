@@ -26,6 +26,13 @@ target_include_directories(
         ${HDF5_INCLUDE_DIR}
         ${EIGEN3_INCLUDE_DIR}
 )
+if (HDF5_IS_PARALLEL)
+    target_include_directories(
+        libfprops
+        PRIVATE
+            ${MPI_C_INCLUDE_DIRS}
+    )
+endif()
 
 target_link_libraries(
     libfprops
