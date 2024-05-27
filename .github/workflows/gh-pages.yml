@@ -35,14 +35,14 @@ jobs:
             sphinx \
             sphinx_rtd_theme \
             sphinxcontrib-bibtex \
-            breathe \
+            breathe==4.35.0 \
             sphinx-tabs \
             coolprop \
             pybind11 \
             pytest \
             hdf5 \
             eigen \
-            fmt
+            fmt==9.1.0
 
       - name: Build doco
         run: |
