@@ -19,7 +19,11 @@ include(Sanitization)
 option(FPROPS_WITH_PYTHON "Build python wrapper" YES)
 option(FPROPS_BUILD_TESTS "Build tests" NO)
 
+set(HDF5_PREFER_PARALLEL YES)
 find_package(HDF5 1.8 COMPONENTS C HL REQUIRED)
+if (HDF5_IS_PARALLEL)
+    find_package(MPI REQUIRED)
+endif()
 find_package(Eigen3 3.3.4 REQUIRED)
 find_package(fmt 8.0 REQUIRED)
 if (FPROPS_WITH_PYTHON)
@@ -28,9 +32,9 @@ endif()
 
 if (FPROPS_BUILD_TESTS)
     FetchContent_Declare(
-      googletest
-      GIT_REPOSITORY https://github.com/google/googletest.git
-      GIT_TAG        release-1.11.0
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG        release-1.11.0
     )
     set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
     mark_as_advanced(FORCE
