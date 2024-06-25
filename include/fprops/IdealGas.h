@@ -22,10 +22,35 @@ public:
     /// @return Adiabatic index (ratio of specific heats cp/cv)
     double get_gamma() const;
 
+    /// Get molar mass
+    ///
+    /// @return Molar mass \f$[kg/mol]\f$
+    double get_molar_mass() const;
+
     /// Get specific gas constant
     ///
     /// @return Specific gas constant
     double get_specific_gas_constant() const;
+
+    /// Get specific heat at constant pressure
+    ///
+    /// @return Specific heat at constant pressure \f$[J/(kg-K)]\f$
+    double get_cp() const;
+
+    /// Specific heat at constant volume \f$[J/(kg-K)]\f$
+    ///
+    /// @return Specific heat at constant volume \f$[J/(kg-K)]\f$
+    double get_cv() const;
+
+    /// Get dynamic viscosity
+    ///
+    /// @return Dynamic viscosity \f$[Pa-s]\f$
+    double get_mu() const;
+
+    /// Get thermal conductivity
+    ///
+    /// @return Thermal conductivity \f$[W/(m-K)]\f$
+    double get_k() const;
 
     /// Set dynamic viscosity
     ///
