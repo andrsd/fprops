@@ -43,12 +43,11 @@ target_link_libraries(
 )
 
 configure_package_config_file(
-    ${PROJECT_SOURCE_DIR}/cmake/fpropsConfig.cmake.in
-    fpropsConfig.cmake
+    ${PROJECT_SOURCE_DIR}/cmake/fprops-config.cmake.in fprops-config.cmake
     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fprops
     NO_SET_AND_CHECK_MACRO
 )
-write_basic_package_version_file(fpropsConfigVersion.cmake
+write_basic_package_version_file(fprops-config-version.cmake
     VERSION ${PROJECT_VERSION}
     COMPATIBILITY AnyNewerVersion
 )
@@ -71,14 +70,14 @@ install(
 
 install(
     EXPORT fpropsTargets
-    FILE fpropsTargets.cmake
+    FILE fprops-targets.cmake
     NAMESPACE fprops::
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fprops
 )
 
 install(
     FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/fpropsConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/fpropsConfigVersion.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/fprops-config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/fprops-config-version.cmake"
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fprops
 )
