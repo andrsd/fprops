@@ -25,9 +25,19 @@ TEST(IdealGas, api)
 {
     double gamma = 1.4;
     double molar_mass = 29.0e-3;
+    double mu = 18.23e-6;
+    double k = 25.68e-3;
     IdealGas fp(gamma, molar_mass);
+    fp.set_mu(mu);
+    fp.set_k(k);
+
     EXPECT_DOUBLE_EQ(fp.get_gamma(), gamma);
-    EXPECT_DOUBLE_EQ(fp.get_specific_gas_constant(), 286.70551034482759);
+    EXPECT_NEAR(fp.get_specific_gas_constant(), 286.7055103448, 1e-10);
+    EXPECT_DOUBLE_EQ(fp.get_molar_mass(), molar_mass);
+    EXPECT_NEAR(fp.get_cp(), 1003.4692862068, 1e-10);
+    EXPECT_NEAR(fp.get_cv(), 716.7637758620, 1e-10);
+    EXPECT_DOUBLE_EQ(fp.get_mu(), mu);
+    EXPECT_DOUBLE_EQ(fp.get_k(), k);
 }
 
 TEST(IdealGas, rho_T)

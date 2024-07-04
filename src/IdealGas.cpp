@@ -29,9 +29,39 @@ IdealGas::get_gamma() const
 }
 
 double
+IdealGas::get_molar_mass() const
+{
+    return this->molar_mass;
+}
+
+double
 IdealGas::get_specific_gas_constant() const
 {
     return this->R_specific;
+}
+
+double
+IdealGas::get_cp() const
+{
+    return this->cp;
+}
+
+double
+IdealGas::get_cv() const
+{
+    return this->cv;
+}
+
+double
+IdealGas::get_mu() const
+{
+    return this->mu;
+}
+
+double
+IdealGas::get_k() const
+{
+    return this->k;
 }
 
 State
