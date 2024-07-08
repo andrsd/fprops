@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         uses: ConorMacBride/install-package@v1
@@ -54,7 +54,7 @@ jobs:
 
       - name: Upload coverage artifact
         if: startsWith(matrix.os, 'ubuntu')
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.os }}
           path: ${{ github.workspace }}/build/coverage.info
@@ -64,10 +64,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v4
