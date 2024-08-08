@@ -107,7 +107,6 @@ private:
     /// @return Thermal conductivity \f$[W/(m-K)]\f$
     [[nodiscard]] virtual double k_from_rho_T(double rho, double T) const = 0;
 
-protected:
     /// Universal gas constant \f$[J/(mol-K)]\f$
     const double R;
     /// Molar mass \f$[kg/mol]\f$
@@ -995,6 +994,11 @@ protected:
         std::vector<T> D;
     };
 
+protected:
+    double delta(double rho) const;
+    double tau(double T) const;
+
+private:
     double temperature(double u, double tau, double da_dt) const;
     double pressure(double rho, double T, double delta, double da_dd) const;
     double internal_energy(double T, double tau, double da_dt) const;

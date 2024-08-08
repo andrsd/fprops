@@ -173,10 +173,10 @@ CarbonDioxide::d2alpha_ddeltatau(double delta, double tau) const
 double
 CarbonDioxide::mu_from_rho_T(double rho, double T) const
 {
-    const double delta = rho / this->rho_c;
-    const double tau = this->T_c / T;
+    const double d = delta(rho);
+    const double t = tau(T);
 
-    double eta = this->eta_0.value(T) + this->eta_r.value(delta, tau);
+    double eta = this->eta_0.value(T) + this->eta_r.value(d, t);
     // [Pa-s]
     return eta * 1.0e-6;
 }
@@ -184,10 +184,10 @@ CarbonDioxide::mu_from_rho_T(double rho, double T) const
 double
 CarbonDioxide::k_from_rho_T(double rho, double T) const
 {
-    const double delta = rho / this->rho_c;
-    const double tau = this->T_c / T;
+    const double d = delta(rho);
+    const double t = tau(T);
 
-    double lambda = this->lambda_r.value(delta, tau);
+    double lambda = this->lambda_r.value(d, t);
     // [W/(m-K)]
     return lambda * 1.0e-3;
 }
