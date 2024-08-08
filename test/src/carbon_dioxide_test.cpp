@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "fprops/CarbonDioxide.h"
+#include "fprops/carbon_dioxide.h"
 
 using namespace fprops;
 

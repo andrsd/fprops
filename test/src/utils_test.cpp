@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "fprops/Utils.h"
+#include "fprops/utils.h"
 
 using namespace fprops;
 

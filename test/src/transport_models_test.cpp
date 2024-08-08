@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "fprops/TransportModels.h"
+#include "fprops/transport_models.h"
 
 using namespace fprops;
 

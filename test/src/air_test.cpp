@@ -1,32 +1,32 @@
 #include "gtest/gtest.h"
-#include "fprops/Nitrogen.h"
+#include "fprops/air.h"
 
 using namespace fprops;
 
 namespace {
 
-// T = 280 K, p = 1 MPa
-State gold1 = { 205267.70993394594,
-                0.082815779905282,
-                12.074993451051515,
-                1.0e6,
-                280.0,
-                1.7090507109297636e-05,
-                1058.6154681901673,
-                745.56949823705611,
-                6083.1854964583363,
-                0.024857419011067187,
-                288083.48983922758,
-                342.35848437431741 };
+// T = 300 K, p = 101325 Pa
+State gold1 = { 340138.96058601438,
+                0.84965298744304329,
+                1.1769510785919943,
+                101325,
+                300,
+                1.8537852519143559e-05,
+                1006.1967213037287,
+                717.95390122400988,
+                3923.025553321696,
+                26.386197401795309e-3,
+                426230.04953868076,
+                347.30666259109006 };
 
 } // namespace
 
-TEST(NitrogenTest, rho_T)
+TEST(Air, rho_T)
 {
-    Nitrogen fp;
+    Air fp;
 
-    double rho = 12.074993451051515;
-    double T = 280.0;
+    double rho = 1.1769510785919943;
+    double T = 300;
     auto state = fp.rho_T(rho, T);
 
     EXPECT_DOUBLE_EQ(state.rho, gold1.rho);
@@ -37,18 +37,18 @@ TEST(NitrogenTest, rho_T)
     EXPECT_DOUBLE_EQ(state.cp, gold1.cp);
     EXPECT_DOUBLE_EQ(state.mu, gold1.mu);
     EXPECT_DOUBLE_EQ(state.k, gold1.k);
-    EXPECT_NEAR(state.v, gold1.v, 1e-9);
+    EXPECT_DOUBLE_EQ(state.v, gold1.v);
     EXPECT_DOUBLE_EQ(state.s, gold1.s);
     EXPECT_DOUBLE_EQ(state.h, gold1.h);
     EXPECT_DOUBLE_EQ(state.w, gold1.w);
 }
 
-TEST(NitrogenTest, rho_p)
+TEST(Air, rho_p)
 {
-    Nitrogen fp;
+    Air fp;
 
-    double rho = 12.074993451051515;
-    double p = 1.0e6;
+    double rho = 1.1769510785919943;
+    double p = 101325;
     auto state = fp.rho_p(rho, p);
 
     EXPECT_DOUBLE_EQ(state.rho, gold1.rho);
@@ -59,18 +59,18 @@ TEST(NitrogenTest, rho_p)
     EXPECT_DOUBLE_EQ(state.cp, gold1.cp);
     EXPECT_DOUBLE_EQ(state.mu, gold1.mu);
     EXPECT_DOUBLE_EQ(state.k, gold1.k);
-    EXPECT_NEAR(state.v, gold1.v, 1e-9);
+    EXPECT_DOUBLE_EQ(state.v, gold1.v);
     EXPECT_DOUBLE_EQ(state.s, gold1.s);
     EXPECT_DOUBLE_EQ(state.h, gold1.h);
     EXPECT_DOUBLE_EQ(state.w, gold1.w);
 }
 
-TEST(NitrogenTest, p_T)
+TEST(Air, p_T)
 {
-    Nitrogen fp;
+    Air fp;
 
-    double T = 280.0;
-    double p = 1.0e6;
+    double T = 300;
+    double p = 101325;
     auto state = fp.p_T(p, T);
 
     EXPECT_DOUBLE_EQ(state.rho, gold1.rho);
@@ -81,23 +81,23 @@ TEST(NitrogenTest, p_T)
     EXPECT_DOUBLE_EQ(state.cp, gold1.cp);
     EXPECT_DOUBLE_EQ(state.mu, gold1.mu);
     EXPECT_DOUBLE_EQ(state.k, gold1.k);
-    EXPECT_NEAR(state.v, gold1.v, 1e-9);
+    EXPECT_DOUBLE_EQ(state.v, gold1.v);
     EXPECT_DOUBLE_EQ(state.s, gold1.s);
     EXPECT_DOUBLE_EQ(state.h, gold1.h);
     EXPECT_DOUBLE_EQ(state.w, gold1.w);
 }
 
-TEST(NitrogenTest, v_u)
+TEST(Air, v_u)
 {
-    Nitrogen fp;
+    Air fp;
 
-    double v = 0.082815779905282;
-    double u = 205267.70993394594;
+    double v = 0.84965298744304329;
+    double u = 340138.96058601438;
     auto state = fp.v_u(v, u);
 
-    EXPECT_NEAR(state.rho, gold1.rho, 1e-9);
+    EXPECT_DOUBLE_EQ(state.rho, gold1.rho);
     EXPECT_DOUBLE_EQ(state.T, gold1.T);
-    EXPECT_NEAR(state.p, gold1.p, 1e-8);
+    EXPECT_DOUBLE_EQ(state.p, gold1.p);
     EXPECT_DOUBLE_EQ(state.u, gold1.u);
     EXPECT_DOUBLE_EQ(state.cv, gold1.cv);
     EXPECT_DOUBLE_EQ(state.cp, gold1.cp);

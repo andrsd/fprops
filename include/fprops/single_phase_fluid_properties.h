@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "fprops/State.h"
+#include "fprops/state.h"
 
 namespace fprops {
 

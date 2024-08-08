@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "ExceptionTestMacros.h"
-#include "fprops/IdealGas.h"
+#include "exception_test_macros.h"
+#include "fprops/ideal_gas.h"
 
 using namespace fprops;
 

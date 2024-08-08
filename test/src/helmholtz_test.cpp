@@ -1,6 +1,6 @@
 #include "gmock/gmock.h"
-#include "ExceptionTestMacros.h"
-#include "fprops/Helmholtz.h"
+#include "exception_test_macros.h"
+#include "fprops/helmholtz.h"
 
 using namespace fprops;
 

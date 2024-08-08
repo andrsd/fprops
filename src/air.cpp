@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2022 David Andrs <andrsd@gmail.com>
 // SPDX-License-Identifier: MIT
 
-#include "fprops/Air.h"
+#include "fprops/air.h"
 
 namespace fprops {
 

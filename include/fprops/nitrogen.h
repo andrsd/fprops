@@ -3,25 +3,22 @@
 
 #pragma once
 
-#include "fprops/Helmholtz.h"
-#include "fprops/TransportModels.h"
+#include "fprops/helmholtz.h"
+#include "fprops/transport_models.h"
 
 namespace fprops {
 
-/// Carbon dioxide fluid properties
+/// Nitrogen (N2) fluid properties
 ///
 /// References:
-/// 1. R. Span and W. Wagner. A New Equation of State for Carbon Dioxide Covering the Fluid Region
-///    from the Triple Point Temperature to 1100 K at Pressures up to 800 MPa. J. Phys. Chem. Ref.
-///    Data, 25:1509–1596, 1996. doi:10.1063/1.555991.
-/// 2. G. Scalabrin, P. Marchi, F. Finezzo, and R. Span. A Reference Multiparameter Thermal
-///    Conductivity Equation for Carbon Dioxide with an Optimized Functional Form. J. Phys. Chem.
-///    Ref. Data, 35(4):1549–1575, 2006. doi:10.1063/1.2213631.
-/// 3. A. Fenghour, W.A. Wakeham, and V. Vesovic. The viscosity of carbon dioxide. J. Phys. Chem.
-///    Ref. Data, 27(1):31–44, 1998. 5. doi:10.1063/1.556013.
-class CarbonDioxide : public Helmholtz {
+/// 1. Span,. Lemmon, Jacobsen, Wagner and Yokozeki, A reference equation of state for the
+///    thermodynamic properties of nitrogen for temperatures from 63.151 to 1000 K and pressures to
+///    2200 MPa, Journal of Physical and Chemical Reference Data, 29, 1361--1433 (2000)
+/// 2. E. W. Lemmon and R. T Jacobsen. Viscosity and Thermal Conductivity Equations for Nitrogen,
+///    Oxygen, Argon, and Air. Int. J. Thermophys., 25(1):21–69, 2004.
+class Nitrogen : public Helmholtz {
 public:
-    CarbonDioxide();
+    Nitrogen();
 
 private:
     [[nodiscard]] double alpha(double delta, double tau) const override;
@@ -35,16 +32,15 @@ private:
 
     IdealGasLead<double> lead;
     IdealGasLogTau<double> log_tau;
-    IdealGasPlanckEinstein<double> pe;
-    IdealEnthalpyEntropyOffset<double> offset;
-
+    IdealGasPower<double> power_0;
+    IdealGasPlanckEinsteinFunctionT<double> pefnt;
     ResidualPower<double> power_r;
     ResidualPowerExp<double, unsigned int> power_exp_r;
     ResidualGaussian<double> gauss;
-    ResidualNonAnalytic<double> noan;
 
     LennardJones<double> eta_0;
     ModifiedBatshinskiHildebrand<double> eta_r;
+    Eta0AndPoly<double> lambda_0;
     ModifiedBatshinskiHildebrand<double> lambda_r;
 };
 

@@ -3,11 +3,10 @@
 
 #pragma once
 
-#include "fprops/SinglePhaseFluidProperties.h"
+#include "fprops/single_phase_fluid_properties.h"
 #include <string>
 
 namespace fprops {
-
 /// Construct fluid properties from a fluid name
 ///
 /// @param name Fluid name

@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: MIT
 
 #include "fprops/fprops.h"
-#include "fprops/Air.h"
-#include "fprops/CarbonDioxide.h"
-#include "fprops/Helium.h"
-#include "fprops/Nitrogen.h"
-#include "fprops/Exception.h"
+#include "fprops/air.h"
+#include "fprops/carbon_dioxide.h"
+#include "fprops/helium.h"
+#include "fprops/nitrogen.h"
+#include "fprops/exception.h"
 
 namespace fprops {
 
