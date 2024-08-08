@@ -20,7 +20,7 @@ class Air : public Helmholtz {
 public:
     Air();
 
-protected:
+private:
     [[nodiscard]] double alpha(double delta, double tau) const override;
     [[nodiscard]] double dalpha_ddelta(double delta, double tau) const override;
     [[nodiscard]] double dalpha_dtau(double delta, double tau) const override;
@@ -31,7 +31,6 @@ protected:
     [[nodiscard]] double mu_from_rho_T(double rho, double T) const override;
     [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
 
-private:
     IdealGasLead<double> lead;
     IdealGasPower<double> power_0;
     IdealGasLogTau<double> log_tau;

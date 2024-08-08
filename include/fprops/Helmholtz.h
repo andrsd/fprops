@@ -29,7 +29,7 @@ public:
     [[nodiscard]] State v_u(double v, double u) const override;
     [[nodiscard]] State h_s(double h, double s) const override;
 
-protected:
+private:
     /// Helmholtz free energy
     ///
     /// @param delta Scaled density \f$[-]\f$
@@ -107,6 +107,7 @@ protected:
     /// @return Thermal conductivity \f$[W/(m-K)]\f$
     [[nodiscard]] virtual double k_from_rho_T(double rho, double T) const = 0;
 
+protected:
     /// Universal gas constant \f$[J/(mol-K)]\f$
     const double R;
     /// Molar mass \f$[kg/mol]\f$
@@ -116,6 +117,7 @@ protected:
     /// Critical temperature \f$[K]\f$
     const double T_c;
 
+protected:
     /// The leading term in the EOS used to set the desired reference state
     ///
     /// @tparam T The basic data type
