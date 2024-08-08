@@ -4,14 +4,14 @@
 
 using namespace fprops;
 
-TEST(NumericsTest, sqr)
+TEST(NumericsTest, pow2)
 {
-    EXPECT_DOUBLE_EQ(sqr(2.), 4.);
+    EXPECT_DOUBLE_EQ(math::pow<2>(2.), 4.);
 }
 
-TEST(NumericsTest, cb)
+TEST(NumericsTest, pow3)
 {
-    EXPECT_DOUBLE_EQ(cb(2.), 8.);
+    EXPECT_DOUBLE_EQ(math::pow<3>(2.), 8.);
 }
 
 TEST(NumericsTest, pow)

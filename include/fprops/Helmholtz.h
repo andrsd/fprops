@@ -205,7 +205,7 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i)
-                sum += this->n[i] * std::pow(tau, this->t[i]);
+                sum += this->n[i] * math::pow(tau, this->t[i]);
             return sum;
         }
 
@@ -214,7 +214,7 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < n.size(); ++i)
-                sum += this->n[i] * this->t[i] * std::pow(tau, this->t[i] - 1);
+                sum += this->n[i] * this->t[i] * math::pow(tau, this->t[i] - 1);
             return sum;
         }
 
@@ -223,7 +223,7 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i)
-                sum += this->n[i] * this->t[i] * (this->t[i] - 1) * std::pow(tau, this->t[i] - 2);
+                sum += this->n[i] * this->t[i] * (this->t[i] - 1) * math::pow(tau, this->t[i] - 2);
             return sum;
         }
 
@@ -309,8 +309,8 @@ protected:
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i) {
                 double exp_theta_tau = std::exp(this->theta[i] * tau);
-                sum += this->n[i] * sqr(this->theta[i]) * this->c[i] * this->d[i] * exp_theta_tau /
-                       sqr(this->c[i] + this->d[i] * exp_theta_tau);
+                sum += this->n[i] * math::pow<2>(this->theta[i]) * this->c[i] * this->d[i] *
+                       exp_theta_tau / math::pow<2>(this->c[i] + this->d[i] * exp_theta_tau);
             }
             return sum;
         }
@@ -429,7 +429,7 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i]);
+                sum += this->n[i] * math::pow(delta, this->d[i]) * math::pow(tau, this->t[i]);
             return sum;
         }
 
@@ -438,8 +438,8 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * this->d[i] * std::pow(delta, this->d[i] - 1) *
-                       std::pow(tau, this->t[i]);
+                sum += this->n[i] * this->d[i] * math::pow(delta, this->d[i] - 1) *
+                       math::pow(tau, this->t[i]);
             return sum;
         }
 
@@ -448,8 +448,8 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * std::pow(delta, this->d[i]) * this->t[i] *
-                       std::pow(tau, this->t[i] - 1);
+                sum += this->n[i] * math::pow(delta, this->d[i]) * this->t[i] *
+                       math::pow(tau, this->t[i] - 1);
             return sum;
         }
 
@@ -459,7 +459,7 @@ protected:
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
                 sum += this->n[i] * this->d[i] * (this->d[i] - 1) *
-                       std::pow(delta, this->d[i] - 2) * std::pow(tau, this->t[i]);
+                       math::pow(delta, this->d[i] - 2) * math::pow(tau, this->t[i]);
             return sum;
         }
 
@@ -468,8 +468,8 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * std::pow(delta, this->d[i]) * this->t[i] * (this->t[i] - 1) *
-                       std::pow(tau, this->t[i] - 2);
+                sum += this->n[i] * math::pow(delta, this->d[i]) * this->t[i] * (this->t[i] - 1) *
+                       math::pow(tau, this->t[i] - 2);
             return sum;
         }
 
@@ -478,8 +478,8 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * this->d[i] * std::pow(delta, this->d[i] - 1) * this->t[i] *
-                       std::pow(tau, this->t[i] - 1);
+                sum += this->n[i] * this->d[i] * math::pow(delta, this->d[i] - 1) * this->t[i] *
+                       math::pow(tau, this->t[i] - 1);
             return sum;
         }
 
@@ -551,7 +551,7 @@ protected:
                 sum +=
                     this->n[i] * std::pow(delta, this->d[i] - 2) * std::pow(tau, this->t[i]) *
                     std::exp(-std::pow(delta, this->l[i])) *
-                    (sqr(this->l[i]) * std::pow(delta, 2 * this->l[i]) +
+                    (math::pow<2>(this->l[i]) * std::pow(delta, 2 * this->l[i]) +
                      (this->d[i] - 1) * this->d[i] -
                      this->l[i] * (2 * this->d[i] + this->l[i] - 1) * std::pow(delta, this->l[i]));
             return sum;
@@ -623,8 +623,8 @@ protected:
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
                 sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i]) *
-                       std::exp(-this->eta[i] * sqr(delta - this->epsilon[i]) -
-                                this->beta[i] * sqr(tau - this->gamma[i]));
+                       std::exp(-this->eta[i] * math::pow<2>(delta - this->epsilon[i]) -
+                                this->beta[i] * math::pow<2>(tau - this->gamma[i]));
             return sum;
         }
 
@@ -635,8 +635,8 @@ protected:
             for (std::size_t i = 0; i < this->n.size(); i++)
                 sum += this->n[i] * std::pow(delta, this->d[i] - 1) * std::pow(tau, this->t[i]) *
                        (this->d[i] - 2.0 * delta * this->eta[i] * (delta - this->epsilon[i])) *
-                       std::exp(-this->eta[i] * sqr(delta - this->epsilon[i]) -
-                                this->beta[i] * sqr(tau - this->gamma[i]));
+                       std::exp(-this->eta[i] * math::pow<2>(delta - this->epsilon[i]) -
+                                this->beta[i] * math::pow<2>(tau - this->gamma[i]));
             return sum;
         }
 
@@ -647,8 +647,8 @@ protected:
             for (std::size_t i = 0; i < this->n.size(); i++)
                 sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i] - 1) *
                        (2.0 * this->beta[i] * (this->gamma[i] - tau) * tau + this->t[i]) *
-                       std::exp(-this->eta[i] * sqr(delta - this->epsilon[i]) -
-                                this->beta[i] * sqr(tau - this->gamma[i]));
+                       std::exp(-this->eta[i] * math::pow<2>(delta - this->epsilon[i]) -
+                                this->beta[i] * math::pow<2>(tau - this->gamma[i]));
             return sum;
         }
 
@@ -658,12 +658,12 @@ protected:
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
                 sum += this->n[i] * std::pow(delta, this->d[i] - 2) * std::pow(tau, this->t[i]) *
-                       (2 * sqr(delta) * this->eta[i] *
-                            (2 * this->eta[i] * sqr(delta - this->epsilon[i]) - 1) +
-                        sqr(this->d[i]) +
+                       (2 * math::pow<2>(delta) * this->eta[i] *
+                            (2 * this->eta[i] * math::pow<2>(delta - this->epsilon[i]) - 1) +
+                        math::pow<2>(this->d[i]) +
                         this->d[i] * (4 * delta * this->eta[i] * (this->epsilon[i] - delta) - 1)) *
-                       std::exp(-this->eta[i] * sqr(delta - this->epsilon[i]) -
-                                this->beta[i] * sqr(tau - this->gamma[i]));
+                       std::exp(-this->eta[i] * math::pow<2>(delta - this->epsilon[i]) -
+                                this->beta[i] * math::pow<2>(tau - this->gamma[i]));
             return sum;
         }
 
@@ -673,12 +673,12 @@ protected:
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
                 sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i] - 2) *
-                       (2 * this->beta[i] * sqr(tau) *
-                            (2 * this->beta[i] * sqr(this->gamma[i] - tau) - 1) +
-                        sqr(this->t[i]) +
+                       (2 * this->beta[i] * math::pow<2>(tau) *
+                            (2 * this->beta[i] * math::pow<2>(this->gamma[i] - tau) - 1) +
+                        math::pow<2>(this->t[i]) +
                         this->t[i] * (4 * this->beta[i] * (this->gamma[i] - tau) * tau - 1)) *
-                       std::exp(-this->eta[i] * sqr(delta - this->epsilon[i]) -
-                                this->beta[i] * sqr(tau - this->gamma[i]));
+                       std::exp(-this->eta[i] * math::pow<2>(delta - this->epsilon[i]) -
+                                this->beta[i] * math::pow<2>(tau - this->gamma[i]));
             return sum;
         }
 
@@ -691,8 +691,8 @@ protected:
                        std::pow(tau, this->t[i] - 1) *
                        (2. * this->beta[i] * (this->gamma[i] - tau) * tau + this->t[i]) *
                        (2. * delta * this->eta[i] * (this->epsilon[i] - delta) + this->d[i]) *
-                       std::exp(-this->beta[i] * sqr(this->gamma[i] - tau) -
-                                this->eta[i] * sqr(delta - this->epsilon[i]));
+                       std::exp(-this->beta[i] * math::pow<2>(this->gamma[i] - tau) -
+                                this->eta[i] * math::pow<2>(delta - this->epsilon[i]));
             return sum;
         }
 
@@ -837,13 +837,13 @@ protected:
         theta(std::size_t i, T delta, T tau) const
         {
             return (1.0 - tau) +
-                   this->A[i] * std::pow(sqr(delta - 1.0), 1.0 / (2.0 * this->beta[i]));
+                   this->A[i] * std::pow(math::pow<2>(delta - 1.0), 1.0 / (2.0 * this->beta[i]));
         }
 
         T
         dtheta_ddelta(std::size_t i, T delta, T tau) const
         {
-            return this->A[i] * std::pow(sqr(delta - 1), 1. / (2. * this->beta[i])) /
+            return this->A[i] * std::pow(math::pow<2>(delta - 1), 1. / (2. * this->beta[i])) /
                    (this->beta[i] * (delta - 1));
         }
 
@@ -858,14 +858,15 @@ protected:
         {
             return -1 *
                    (this->A[i] * (this->beta[i] - 1) *
-                    std::pow(sqr(delta - 1), 1. / (2 * this->beta[i]) - 1.)) /
-                   (sqr(this->beta[i]));
+                    std::pow(math::pow<2>(delta - 1), 1. / (2 * this->beta[i]) - 1.)) /
+                   (math::pow<2>(this->beta[i]));
         }
 
         T
         DELTA(std::size_t i, T delta, T tau) const
         {
-            return sqr(theta(i, delta, tau)) + this->B[i] * std::pow(sqr(delta - 1.0), this->a[i]);
+            return math::pow<2>(theta(i, delta, tau)) +
+                   this->B[i] * std::pow(math::pow<2>(delta - 1.0), this->a[i]);
         }
 
         T
@@ -884,8 +885,8 @@ protected:
         T
         d2DELTA_ddelta2(std::size_t i, T delta, T tau) const
         {
-            return 2. * (sqr(dtheta_ddelta(i, delta, tau) +
-                             theta(i, delta, tau) * d2theta_ddelta2(i, delta, tau))) +
+            return 2. * (math::pow<2>(dtheta_ddelta(i, delta, tau) +
+                                      theta(i, delta, tau) * d2theta_ddelta2(i, delta, tau))) +
                    2 * this->a[i] * (2 * this->a[i] - 1) * this->B[i] *
                        std::pow(delta - 1, 2 * this->a[i] - 2);
         }
@@ -893,7 +894,7 @@ protected:
         T
         d2DELTA_dtau2(std::size_t i, T delta, T tau) const
         {
-            return 2. * sqr(dtheta_dtau(i, delta, tau));
+            return 2. * math::pow<2>(dtheta_dtau(i, delta, tau));
         }
 
         T
@@ -946,42 +947,48 @@ protected:
         T
         PSI(std::size_t i, T delta, T tau) const
         {
-            return std::exp(-this->C[i] * sqr(delta - 1.0) - this->D[i] * sqr(tau - 1.0));
+            return std::exp(-this->C[i] * math::pow<2>(delta - 1.0) -
+                            this->D[i] * math::pow<2>(tau - 1.0));
         }
 
         T
         dPSI_ddelta(std::size_t i, T delta, T tau) const
         {
             return -2 * this->C[i] * (delta - 1) *
-                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+                   std::exp(-this->C[i] * math::pow<2>(delta - 1) -
+                            this->D[i] * math::pow<2>(tau - 1));
         }
 
         T
         dPSI_dtau(std::size_t i, T delta, T tau) const
         {
             return -2 * this->D[i] * (tau - 1) *
-                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+                   std::exp(-this->C[i] * math::pow<2>(delta - 1) -
+                            this->D[i] * math::pow<2>(tau - 1));
         }
 
         T
         d2PSI_ddelta2(std::size_t i, T delta, T tau) const
         {
-            return 2 * this->C[i] * (2 * this->C[i] * sqr(delta - 1) - 1) *
-                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+            return 2 * this->C[i] * (2 * this->C[i] * math::pow<2>(delta - 1) - 1) *
+                   std::exp(-this->C[i] * math::pow<2>(delta - 1) -
+                            this->D[i] * math::pow<2>(tau - 1));
         }
 
         T
         d2PSI_dtau2(std::size_t i, T delta, T tau) const
         {
-            return 2 * this->D[i] * (2 * this->D[i] * sqr(tau - 1) - 1) *
-                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+            return 2 * this->D[i] * (2 * this->D[i] * math::pow<2>(tau - 1) - 1) *
+                   std::exp(-this->C[i] * math::pow<2>(delta - 1) -
+                            this->D[i] * math::pow<2>(tau - 1));
         }
 
         T
         d2PSI_ddeltatau(std::size_t i, T delta, T tau) const
         {
             return 4. * this->C[i] * (delta - 1) * this->D[i] * (tau - 1) *
-                   std::exp(-this->C[i] * sqr(delta - 1) - this->D[i] * sqr(tau - 1));
+                   std::exp(-this->C[i] * math::pow<2>(delta - 1) -
+                            this->D[i] * math::pow<2>(tau - 1));
         }
 
         std::vector<T> n;

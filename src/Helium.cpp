@@ -148,14 +148,14 @@ Helium::mu_from_rho_T(double rho, double T) const
         x = std::log(300.0);
 
     // Evaluate the terms B, C, D
-    double B =
-        -47.5295259 / x + 87.6799309 - 42.0741589 * x + 8.33128289 * sqr(x) - 0.589252385 * cb(x);
-    double C =
-        547.309267 / x - 904.870586 + 431.404928 * x - 81.4504854 * sqr(x) + 5.37008433 * cb(x);
-    double D =
-        -1684.39324 / x + 3331.08630 - 1632.19172 * x + 308.804413 * sqr(x) - 20.2936367 * cb(x);
-    double eta_0_slash =
-        -0.135311743 / x + 1.00347841 + 1.20654649 * x - 0.149564551 * sqr(x) + 0.012520841 * cb(x);
+    double B = -47.5295259 / x + 87.6799309 - 42.0741589 * x + 8.33128289 * math::pow<2>(x) -
+               0.589252385 * math::pow<3>(x);
+    double C = 547.309267 / x - 904.870586 + 431.404928 * x - 81.4504854 * math::pow<2>(x) +
+               5.37008433 * math::pow<3>(x);
+    double D = -1684.39324 / x + 3331.08630 - 1632.19172 * x + 308.804413 * math::pow<2>(x) -
+               20.2936367 * math::pow<3>(x);
+    double eta_0_slash = -0.135311743 / x + 1.00347841 + 1.20654649 * x -
+                         0.149564551 * math::pow<2>(x) + 0.012520841 * math::pow<3>(x);
     double eta_E_slash = rho * B + rho * rho * C + rho * rho * rho * D;
 
     double eta;

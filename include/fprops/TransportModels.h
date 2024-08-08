@@ -3,8 +3,8 @@
 
 #pragma once
 
+#include "Numerics.h"
 #include <vector>
-#include <cmath>
 #include <cassert>
 
 namespace fprops {
@@ -39,7 +39,7 @@ public:
     {
         T sum = this->A[0] * eta0;
         for (unsigned int i = 1; i < A.size(); i++)
-            sum += this->A[i] * std::pow(tau, this->t[i]);
+            sum += this->A[i] * math::pow(tau, this->t[i]);
         return sum;
     }
 
@@ -94,7 +94,7 @@ public:
         double log_T_star = std::log(temperature / this->epsilon_over_k);
         double Omega_T_star = 0;
         for (unsigned int i = 0; i < this->b.size(); i++)
-            Omega_T_star += this->b[i] * std::pow(log_T_star, i);
+            Omega_T_star += this->b[i] * math::pow(log_T_star, i);
         Omega_T_star = std::exp(Omega_T_star);
         return this->C * std::sqrt(1000.0 * this->M * temperature) /
                (this->sigma * this->sigma * Omega_T_star);
@@ -146,8 +146,8 @@ public:
     {
         double sum = 0.0;
         for (unsigned int i = 0; i < n.size(); i++)
-            sum += this->n[i] * std::pow(tau, this->t[i]) * std::pow(delta, this->d[i]) *
-                   std::exp(-this->gamma[i] * std::pow(delta, this->l[i]));
+            sum += this->n[i] * math::pow(tau, this->t[i]) * math::pow(delta, this->d[i]) *
+                   std::exp(-this->gamma[i] * math::pow(delta, this->l[i]));
         return sum;
     }
 
