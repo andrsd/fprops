@@ -214,6 +214,18 @@ Helmholtz::tau_from_v_u(double v, double u) const
 }
 
 double
+Helmholtz::delta(double rho) const
+{
+    return rho / this->rho_c;
+}
+
+double
+Helmholtz::tau(double T) const
+{
+    return this->T_c / T;
+}
+
+double
 Helmholtz::temperature(double u, double tau, double da_dt) const
 {
     return u * this->M / (this->R * tau * da_dt);

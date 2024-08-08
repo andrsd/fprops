@@ -22,18 +22,16 @@ class Helium : public Helmholtz {
 public:
     Helium();
 
-protected:
+private:
     [[nodiscard]] double alpha(double delta, double tau) const override;
     [[nodiscard]] double dalpha_ddelta(double delta, double tau) const override;
     [[nodiscard]] double dalpha_dtau(double delta, double tau) const override;
     [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const override;
     [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const override;
     [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const override;
-
     [[nodiscard]] double mu_from_rho_T(double rho, double T) const override;
     [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
 
-private:
     IdealGasLead<double> lead;
     IdealGasLogTau<double> log_tau;
     IdealEnthalpyEntropyOffset<double> offset;

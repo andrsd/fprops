@@ -29,7 +29,7 @@ public:
     [[nodiscard]] State v_u(double v, double u) const override;
     [[nodiscard]] State h_s(double h, double s) const override;
 
-protected:
+private:
     /// Helmholtz free energy
     ///
     /// @param delta Scaled density \f$[-]\f$
@@ -116,6 +116,7 @@ protected:
     /// Critical temperature \f$[K]\f$
     const double T_c;
 
+protected:
     /// The leading term in the EOS used to set the desired reference state
     ///
     /// @tparam T The basic data type
@@ -993,6 +994,11 @@ protected:
         std::vector<T> D;
     };
 
+protected:
+    double delta(double rho) const;
+    double tau(double T) const;
+
+private:
     double temperature(double u, double tau, double da_dt) const;
     double pressure(double rho, double T, double delta, double da_dd) const;
     double internal_energy(double T, double tau, double da_dt) const;
