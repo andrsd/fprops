@@ -20,37 +20,37 @@ public:
     /// Get adiabatic index
     ///
     /// @return Adiabatic index (ratio of specific heats cp/cv)
-    double get_gamma() const;
+    double gamma() const;
 
     /// Get molar mass
     ///
     /// @return Molar mass \f$[kg/mol]\f$
-    double get_molar_mass() const;
+    double molar_mass() const;
 
     /// Get specific gas constant
     ///
     /// @return Specific gas constant
-    double get_specific_gas_constant() const;
+    double R_specific() const;
 
     /// Get specific heat at constant pressure
     ///
     /// @return Specific heat at constant pressure \f$[J/(kg-K)]\f$
-    double get_cp() const;
+    double cp() const;
 
     /// Specific heat at constant volume \f$[J/(kg-K)]\f$
     ///
     /// @return Specific heat at constant volume \f$[J/(kg-K)]\f$
-    double get_cv() const;
+    double cv() const;
 
     /// Get dynamic viscosity
     ///
     /// @return Dynamic viscosity \f$[Pa-s]\f$
-    double get_mu() const;
+    double mu() const;
 
     /// Get thermal conductivity
     ///
     /// @return Thermal conductivity \f$[W/(m-K)]\f$
-    double get_k() const;
+    double k() const;
 
     /// Set dynamic viscosity
     ///
@@ -68,21 +68,21 @@ public:
     [[nodiscard]] State v_u(double v, double u) const override;
     [[nodiscard]] State h_s(double h, double s) const override;
 
-protected:
+private:
     /// Adiabatic index (ratio of specific heats cp/cv)
-    double gamma;
+    double m_gamma;
     /// Molar mass \f$[kg/mol]\f$
-    double molar_mass;
+    double m_molar_mass;
     /// Specific gas constant (R / molar mass)
-    double R_specific;
+    double m_R_specific;
     /// Specific heat at constant pressure \f$[J/(kg-K)]\f$
-    double cp;
+    double m_cp;
     /// Specific heat at constant volume \f$[J/(kg-K)]\f$
-    double cv;
+    double m_cv;
     /// Dynamic viscosity \f$[Pa-s]\f$
-    double mu;
+    double m_mu;
     /// Thermal conductivity \f$[W/(m-K)]\f$
-    double k;
+    double m_k;
 };
 
 } // namespace fprops
