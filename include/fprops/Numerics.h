@@ -4,25 +4,57 @@
 #pragma once
 
 #include <functional>
+#include <stdexcept>
+#include <type_traits>
 
 namespace fprops {
 
-inline double
-sqr(double x)
-{
-    return x * x;
-}
-
-inline double
-cb(double x)
-{
-    return x * x * x;
-}
-
 namespace math {
 
+template <int N, typename T>
+struct pow_impl {
+    static inline T
+    value(T x)
+    {
+        if (N % 2)
+            return x * pow_impl<N - 1, T>::value(x);
+        T x_n_half = pow_impl<N / 2, T>::value(x);
+        return x_n_half * x_n_half;
+    }
+};
+
 template <typename T>
-T
+struct pow_impl<1, T> {
+    static inline T
+    value(T x)
+    {
+        return x;
+    }
+};
+
+template <typename T>
+struct pow_impl<0, T> {
+    static inline T
+    value(T)
+    {
+        return 1;
+    }
+};
+
+template <int N, typename T>
+inline T
+pow(T x)
+{
+    return pow_impl<N, T>::value(x);
+}
+
+/// Compute `e` power of `x`
+///
+/// @param x Operand
+/// @param e Exponent (integer)
+/// @return `x` to the power of `e`
+template <typename T>
+inline T
 pow(T x, int e)
 {
     bool neg = false;
