@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "SinglePhaseFluidProperties.h"
+#include "fprops/SinglePhaseFluidProperties.h"
 
 namespace fprops {
 
