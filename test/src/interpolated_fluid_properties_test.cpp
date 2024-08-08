@@ -1,6 +1,6 @@
 #include "gmock/gmock.h"
-#include "ExceptionTestMacros.h"
-#include "fprops/InterpolatedFluidProperties.h"
+#include "exception_test_macros.h"
+#include "fprops/interpolated_fluid_properties.h"
 #include <filesystem>
 
 using namespace fprops;

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "fprops/SinglePhaseFluidProperties.h"
+#include "fprops/single_phase_fluid_properties.h"
 #include <Eigen/Dense>
 #include <vector>
 #include <array>

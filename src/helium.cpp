@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2022 David Andrs <andrsd@gmail.com>
 // SPDX-License-Identifier: MIT
 
-#include "fprops/Helium.h"
+#include "fprops/helium.h"
 
 namespace fprops {
 

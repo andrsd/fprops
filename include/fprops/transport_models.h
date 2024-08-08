@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "fprops/Numerics.h"
+#include "fprops/numerics.h"
 #include <vector>
 #include <cassert>
 

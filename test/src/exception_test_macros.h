@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "fprops/Exception.h"
+#include "fprops/exception.h"
 
 /// Test that the `cmd` will throw `fprops::Exception` with message `msg`
 #define EXPECT_THROW_MSG(cmd, msg)   \

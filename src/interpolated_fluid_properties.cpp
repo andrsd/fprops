@@ -1,10 +1,10 @@
 // SPDX-FileCopyrightText: 2022 David Andrs <andrsd@gmail.com>
 // SPDX-License-Identifier: MIT
 
-#include "fprops/InterpolatedFluidProperties.h"
-#include "fprops/Utils.h"
-#include "fprops/Numerics.h"
-#include "fprops/Exception.h"
+#include "fprops/interpolated_fluid_properties.h"
+#include "fprops/utils.h"
+#include "fprops/numerics.h"
+#include "fprops/exception.h"
 #include "h5pp/h5pp.h"
 #include "fmt/printf.h"
 #include "Eigen/Dense"

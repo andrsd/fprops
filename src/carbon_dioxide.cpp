@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2022 David Andrs <andrsd@gmail.com>
 // SPDX-License-Identifier: MIT
 
-#include "fprops/CarbonDioxide.h"
+#include "fprops/carbon_dioxide.h"
 
 namespace fprops {
 
