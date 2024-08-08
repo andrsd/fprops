@@ -342,6 +342,8 @@ protected:
             this->generalized = new IdealPlanckEinsteinGeneralized<T>(n, theta, c, d);
         }
 
+        ~IdealGasPlanckEinsteinFunctionT() { delete this->generalized; }
+
         T
         alpha(T delta, T tau) const
         {
@@ -382,6 +384,8 @@ protected:
             std::vector<T> d(n.size(), -1);
             this->generalized = new IdealPlanckEinsteinGeneralized<T>(n, theta, c, d);
         }
+
+        ~IdealGasPlanckEinstein() { delete this->generalized; }
 
         T
         alpha(T delta, T tau) const
