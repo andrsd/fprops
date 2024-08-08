@@ -205,7 +205,7 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i)
-                sum += this->n[i] * std::pow(tau, this->t[i]);
+                sum += this->n[i] * math::pow(tau, this->t[i]);
             return sum;
         }
 
@@ -214,7 +214,7 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < n.size(); ++i)
-                sum += this->n[i] * this->t[i] * std::pow(tau, this->t[i] - 1);
+                sum += this->n[i] * this->t[i] * math::pow(tau, this->t[i] - 1);
             return sum;
         }
 
@@ -223,7 +223,7 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i)
-                sum += this->n[i] * this->t[i] * (this->t[i] - 1) * std::pow(tau, this->t[i] - 2);
+                sum += this->n[i] * this->t[i] * (this->t[i] - 1) * math::pow(tau, this->t[i] - 2);
             return sum;
         }
 
@@ -429,7 +429,7 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i]);
+                sum += this->n[i] * math::pow(delta, this->d[i]) * math::pow(tau, this->t[i]);
             return sum;
         }
 
@@ -438,8 +438,8 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * this->d[i] * std::pow(delta, this->d[i] - 1) *
-                       std::pow(tau, this->t[i]);
+                sum += this->n[i] * this->d[i] * math::pow(delta, this->d[i] - 1) *
+                       math::pow(tau, this->t[i]);
             return sum;
         }
 
@@ -448,8 +448,8 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * std::pow(delta, this->d[i]) * this->t[i] *
-                       std::pow(tau, this->t[i] - 1);
+                sum += this->n[i] * math::pow(delta, this->d[i]) * this->t[i] *
+                       math::pow(tau, this->t[i] - 1);
             return sum;
         }
 
@@ -459,7 +459,7 @@ protected:
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
                 sum += this->n[i] * this->d[i] * (this->d[i] - 1) *
-                       std::pow(delta, this->d[i] - 2) * std::pow(tau, this->t[i]);
+                       math::pow(delta, this->d[i] - 2) * math::pow(tau, this->t[i]);
             return sum;
         }
 
@@ -468,8 +468,8 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * std::pow(delta, this->d[i]) * this->t[i] * (this->t[i] - 1) *
-                       std::pow(tau, this->t[i] - 2);
+                sum += this->n[i] * math::pow(delta, this->d[i]) * this->t[i] * (this->t[i] - 1) *
+                       math::pow(tau, this->t[i] - 2);
             return sum;
         }
 
@@ -478,8 +478,8 @@ protected:
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); i++)
-                sum += this->n[i] * this->d[i] * std::pow(delta, this->d[i] - 1) * this->t[i] *
-                       std::pow(tau, this->t[i] - 1);
+                sum += this->n[i] * this->d[i] * math::pow(delta, this->d[i] - 1) * this->t[i] *
+                       math::pow(tau, this->t[i] - 1);
             return sum;
         }
 

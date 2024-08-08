@@ -6,6 +6,7 @@
 #include <functional>
 #include <stdexcept>
 #include <type_traits>
+#include <cmath>
 
 namespace fprops {
 
@@ -76,6 +77,14 @@ pow(T x, int e)
     }
 
     return neg ? 1.0 / result : result;
+}
+
+/// Alias for covenience, or potentially for better implementation
+template <typename T, typename EXP>
+inline T
+pow(T x, EXP exp)
+{
+    return std::pow(x, exp);
 }
 
 } // namespace math
