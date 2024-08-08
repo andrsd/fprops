@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "Helmholtz.h"
-#include "TransportModels.h"
+#include "fprops/Helmholtz.h"
+#include "fprops/TransportModels.h"
 
 namespace fprops {
 
