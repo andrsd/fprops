@@ -20,3 +20,9 @@ TEST(TransportTest, modified_batshinski_hildebrand)
     ModifiedBatshinskiHildebrand<double> mbh({ 2, 3 }, { 3, 4 }, { 4, 5 }, { 4, 3 }, { 2, 3 });
     EXPECT_DOUBLE_EQ(mbh.value(2., 3.), 0.000097523945419603);
 }
+
+TEST(TransportTest, powers_of_T_reduced)
+{
+    PowersOfTreduced<double> potr(300, { 3. }, { 5. });
+    EXPECT_DOUBLE_EQ(potr.value(600), 96.);
+}
