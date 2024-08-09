@@ -5,6 +5,7 @@
 
 #include "fprops/numerics.h"
 #include <vector>
+#include <array>
 #include <cassert>
 
 namespace fprops {
@@ -288,6 +289,72 @@ private:
     std::vector<double> b;
     /// Exponents t_i
     std::vector<double> t;
+};
+
+/// Quadratic general friction theory model
+template <typename TYPE>
+class QuadraticGeneralFrictionTheory {
+public:
+    /// Quadratic general friction theory (FT) model
+    ///
+    /// @param a Coefficients a [(Pa*s)/bar]
+    /// @param b Coefficients b [(Pa*s)/bar]
+    /// @param c Coefficients c [(Pa*s)/bar]
+    /// @param A Coefficients A [(Pa*s)/bar^2]
+    /// @param B Coefficients B [(Pa*s)/bar^2]
+    /// @param C Coefficients C [(Pa*s)/bar^2]
+    QuadraticGeneralFrictionTheory(const std::array<double, 3> & a,
+                                   const std::array<double, 3> & b,
+                                   const std::array<double, 3> & c,
+                                   const std::array<double, 3> & A,
+                                   const std::array<double, 3> & B,
+                                   const std::array<double, 3> & C) :
+        a(a),
+        b(b),
+        c(c),
+        A(A),
+        B(B),
+        C(C)
+    {
+    }
+
+    TYPE
+    value(double tau, double p_a, double p_r, double p_id) const
+    {
+        // to match the convention in the paper
+        TYPE Gamma = tau;
+        TYPE psi1 = std::exp(tau) - 1;
+        TYPE psi2 = std::exp(math::pow(tau, 2)) - 1;
+        std::array<TYPE, 3> psi = { 1., psi1, psi2 };
+        TYPE kappa_a = dot(psi, this->a) * Gamma;
+        TYPE kappa_aa = dot(psi, this->A) * math::pow<3>(Gamma);
+        TYPE kappa_r = dot(psi, this->b) * Gamma;
+        TYPE kappa_rr = dot(psi, this->B) * math::pow<3>(Gamma);
+        TYPE kappa_i = dot(psi, this->c) * Gamma;
+        TYPE kappa_ii = dot(psi, this->C) * math::pow<3>(Gamma);
+        TYPE Delta_p_r = p_r - p_id;
+        return kappa_i * p_id + kappa_r * Delta_p_r + kappa_a * p_a +
+               kappa_ii * math::pow<2>(p_id) + kappa_rr * math::pow<2>(Delta_p_r) +
+               kappa_aa * math::pow<2>(p_a);
+    }
+
+private:
+    template <auto N>
+    inline TYPE
+    dot(const std::array<TYPE, N> & a, const std::array<TYPE, N> & b) const
+    {
+        TYPE prod = 0.;
+        for (auto i = 0; i < N; i++)
+            prod += a[i] * b[i];
+        return prod;
+    }
+
+    std::array<double, 3> a;
+    std::array<double, 3> b;
+    std::array<double, 3> c;
+    std::array<double, 3> A;
+    std::array<double, 3> B;
+    std::array<double, 3> C;
 };
 
 } // namespace fprops
