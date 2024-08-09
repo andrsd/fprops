@@ -56,6 +56,17 @@ if(DOXYGEN_FOUND)
         co2_err_u.png
         co2_err_w.png
     )
+    set(O2_ERR_IMGS
+        o2_err_c_p.png
+        o2_err_c_v.png
+        o2_err_h.png
+        o2_err_k.png
+        o2_err_mu.png
+        o2_err_rho.png
+        o2_err_s.png
+        o2_err_u.png
+        o2_err_w.png
+    )
 
     add_custom_command(
         OUTPUT
@@ -70,6 +81,7 @@ if(DOXYGEN_FOUND)
             ${AIR_ERR_IMGS}
             ${HE_ERR_IMGS}
             ${CO2_ERR_IMGS}
+            ${O2_ERR_IMGS}
     )
 
     add_custom_command(
@@ -132,6 +144,19 @@ if(DOXYGEN_FOUND)
         DEPENDS
             ${PROJECT_SOURCE_DIR}/docs/pyplots/plot_err.py
             ${PROJECT_SOURCE_DIR}/docs/pyplots/co2.yml
+    )
+
+    add_custom_command(
+        OUTPUT
+            ${O2_ERR_IMGS}
+        COMMAND
+            ${CMAKE_COMMAND} -E env "PYTHONPATH=${PROJECT_BINARY_DIR}/python/src:$ENV{PYTHONPATH}"
+            python3 plot_err.py o2.yml
+        WORKING_DIRECTORY
+            ${PROJECT_SOURCE_DIR}/docs/pyplots
+        DEPENDS
+            ${PROJECT_SOURCE_DIR}/docs/pyplots/plot_err.py
+            ${PROJECT_SOURCE_DIR}/docs/pyplots/o2.yml
     )
 
     add_custom_command(

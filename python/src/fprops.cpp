@@ -9,6 +9,7 @@
 #include "fprops/nitrogen.h"
 #include "fprops/helium.h"
 #include "fprops/carbon_dioxide.h"
+#include "fprops/oxygen.h"
 #include "version.h"
 
 using namespace fprops;
@@ -78,4 +79,11 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &CarbonDioxide::rho_p)
         .def("p_T", &CarbonDioxide::p_T)
         .def("v_u", &CarbonDioxide::v_u);
+
+    py::class_<Oxygen>(m, "Oxygen")
+        .def(py::init())
+        .def("rho_T", &Oxygen::rho_T)
+        .def("rho_p", &Oxygen::rho_p)
+        .def("p_T", &Oxygen::p_T)
+        .def("v_u", &Oxygen::v_u);
 }
