@@ -9,6 +9,16 @@ TEST(TransportTest, polynomial)
     EXPECT_DOUBLE_EQ(poly.value(12., 2.), 4091904.);
 }
 
+TEST(TransportTest, polynomial_exponential)
+{
+    PolynomialAndExponential<double> polyexp({ 2, 3 },
+                                             { 3, 4 },
+                                             { 5, 6 },
+                                             { -1, -1 },
+                                             { 1e-3, 1e-4 });
+    EXPECT_DOUBLE_EQ(polyexp.value(12., 2.), 11123907.004194513);
+}
+
 TEST(TransportTest, eta0_and_poly)
 {
     Eta0AndPoly<double> eta0p({ 2, 3 }, { 3, 4 });
