@@ -149,6 +149,49 @@ private:
     std::vector<double> t;
 };
 
+/// Polynomial ratio model
+///
+/// \f$ lambda = \frac{\displaystyle\sum_{i} A_i \cdot T_r^{n_i}}{\displaystyle\sum_{j} B_j \cdot
+/// T_r^{m_j}}\f$
+template <typename TYPE>
+class PolynomialRatio {
+public:
+    PolynomialRatio(const std::vector<double> & A,
+                    const std::vector<double> & n,
+                    const std::vector<double> & B,
+                    const std::vector<double> & m) :
+        A(A),
+        n(n),
+        B(B),
+        m(m)
+    {
+        assert(A.size() == n.size());
+        assert(B.size() == m.size());
+    }
+
+    /// Evaluate model
+    ///
+    /// @param Tr Reduced temperature [K]
+    /// @return The computed value
+    TYPE
+    value(double Tr) const
+    {
+        TYPE numerator = 0.;
+        for (std::size_t i = 0; i < this->A.size(); i++)
+            numerator += this->A[i] * math::pow(Tr, this->n[i]);
+        TYPE denominator = 0.;
+        for (std::size_t i = 0; i < this->B.size(); i++)
+            denominator += this->B[i] * math::pow(Tr, this->m[i]);
+        return numerator / denominator;
+    }
+
+private:
+    std::vector<double> A;
+    std::vector<double> n;
+    std::vector<double> B;
+    std::vector<double> m;
+};
+
 /// Lennard-Jones model for computing viscosity
 ///
 /// @tparam T The basic data type
