@@ -50,6 +50,7 @@ if(DOXYGEN_FOUND)
     add_fluid(co2 co2.yml)
     add_fluid(o2 o2.yml)
     add_fluid(ch4 ch4.yml)
+    add_fluid(nh3 nh3.yml)
 
     add_custom_command(
         OUTPUT
