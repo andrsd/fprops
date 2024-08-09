@@ -518,6 +518,12 @@ public:
     {
     }
 
+    /// Evaluate the model
+    ///
+    /// @param tau
+    /// @param p_a Pressure [bar]
+    /// @param p_r Pressure [bar]
+    /// @param p_id Pressure [bar]
     TYPE
     value(double tau, double p_a, double p_r, double p_id) const
     {
@@ -555,6 +561,153 @@ private:
     std::array<double, 3> A;
     std::array<double, 3> B;
     std::array<double, 3> C;
+};
+
+template <typename TYPE>
+class PowersOfTr {
+public:
+    ///
+    ///
+    /// @param T_reducing Reducing temperature [K]
+    /// @param a \f$a_i\f$
+    /// @param t \f$t_i\f$
+    PowersOfTr(double T_reducing, const std::vector<double> & a, const std::vector<double> & t) :
+        T_reducing(T_reducing),
+        a(a),
+        t(t)
+    {
+    }
+
+    TYPE
+    value(TYPE T) const
+    {
+        TYPE Tr = T / this->T_reducing;
+        TYPE summer = 0;
+        for (std::size_t i = 0; i < a.size(); ++i)
+            summer += this->a[i] * pow(Tr, this->t[i]);
+        return summer;
+    }
+
+private:
+    double T_reducing;
+    std::vector<double> a;
+    std::vector<double> t;
+};
+
+///
+template <typename TYPE>
+class FrictionTheory {
+public:
+    FrictionTheory(double c1,
+                   double c2,
+                   const std::vector<double> & Ai,
+                   const std::vector<double> & Aa,
+                   double Na,
+                   const std::vector<double> & Ar,
+                   double Nr,
+                   const std::vector<double> & Aaa,
+                   double Naa,
+                   const std::vector<double> & Arr,
+                   const std::vector<double> & Adrdr,
+                   double Nrr,
+                   const std::vector<double> & Aii,
+                   double Nii,
+                   const std::vector<double> & Arrr,
+                   double Nrrr,
+                   const std::vector<double> & Aaaa,
+                   double Naaa) :
+        c1(c1),
+        c2(c2),
+        Ai(Ai),
+        Aa(Aa),
+        Na(Na),
+        Ar(Ar),
+        Nr(Nr),
+        Aaa(Aaa),
+        Naa(Naa),
+        Arr(Arr),
+        Adrdr(Adrdr),
+        Nrr(Nrr),
+        Aii(Aii),
+        Nii(Nii),
+        Arrr(Arrr),
+        Nrrr(Nrrr),
+        Aaaa(Aaaa),
+        Naaa(Naaa)
+    {
+    }
+
+    TYPE
+    value(double tau, double p, double pr, double pid) const
+    {
+        TYPE kii = 0, krrr = 0, kaaa = 0, krr, kdrdr;
+
+        TYPE psi1 = std::exp(tau) - this->c1;
+        TYPE psi2 = std::exp(math::pow(tau, 2)) - this->c2;
+
+        TYPE ki = (this->Ai[0] + this->Ai[1] * psi1 + this->Ai[2] * psi2) * tau;
+
+        TYPE ka =
+            (this->Aa[0] + this->Aa[1] * psi1 + this->Aa[2] * psi2) * math::pow(tau, this->Na);
+        TYPE kr =
+            (this->Ar[0] + this->Ar[1] * psi1 + this->Ar[2] * psi2) * math::pow(tau, this->Nr);
+        TYPE kaa =
+            (this->Aaa[0] + this->Aaa[1] * psi1 + this->Aaa[2] * psi2) * math::pow(tau, this->Naa);
+        if (this->Arr.empty()) {
+            krr = 0;
+            kdrdr = (this->Adrdr[0] + this->Adrdr[1] * psi1 + this->Adrdr[2] * psi2) *
+                    math::pow(tau, this->Nrr);
+        }
+        else {
+            krr = (this->Arr[0] + this->Arr[1] * psi1 + this->Arr[2] * psi2) *
+                  math::pow(tau, this->Nrr);
+            kdrdr = 0;
+        }
+        if (!this->Aii.empty()) {
+            kii = (this->Aii[0] + this->Aii[1] * psi1 + this->Aii[2] * psi2) *
+                  math::pow(tau, this->Nii);
+        }
+        if (!this->Arrr.empty() && !this->Aaaa.empty()) {
+            krrr = (this->Arrr[0] + this->Arrr[1] * psi1 + this->Arrr[2] * psi2) *
+                   math::pow(tau, this->Nrrr);
+            kaaa = (this->Aaaa[0] + this->Aaaa[1] * psi1 + this->Aaaa[2] * psi2) *
+                   math::pow(tau, this->Naaa);
+        }
+
+        TYPE pa = p - pr;
+        TYPE deltapr = pr - pid;
+        TYPE eta_f = ka * pa + kr * deltapr + ki * pid + kaa * pa * pa + kdrdr * deltapr * deltapr +
+                     krr * pr * pr + kii * pid * pid + krrr * pr * pr * pr + kaaa * pa * pa * pa;
+        return eta_f;
+    }
+
+private:
+    double c1;
+    double c2;
+
+    std::vector<double> Ai;
+
+    std::vector<double> Aa;
+    double Na;
+
+    std::vector<double> Ar;
+    double Nr;
+
+    std::vector<double> Aaa;
+    double Naa;
+
+    std::vector<double> Arr;
+    std::vector<double> Adrdr;
+    double Nrr;
+
+    std::vector<double> Aii;
+    double Nii;
+
+    std::vector<double> Arrr;
+    double Nrrr;
+
+    std::vector<double> Aaaa;
+    double Naaa;
 };
 
 } // namespace fprops
