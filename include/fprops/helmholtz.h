@@ -1005,6 +1005,169 @@ protected:
         std::vector<T> D;
     };
 
+    template <typename TYPE>
+    class ResidualGaoB {
+    public:
+        ResidualGaoB(const std::vector<double> & n,
+                     const std::vector<double> & d,
+                     const std::vector<double> & t,
+                     const std::vector<double> & eta,
+                     const std::vector<double> & beta,
+                     const std::vector<double> & gamma,
+                     const std::vector<double> & epsilon,
+                     const std::vector<double> & b) :
+            n(n),
+            d(d),
+            t(t),
+            eta(eta),
+            beta(beta),
+            gamma(gamma),
+            epsilon(epsilon),
+            b(b)
+        {
+        }
+
+        TYPE
+        alpha(TYPE delta, TYPE tau) const
+        {
+            TYPE a = 0.;
+            for (std::size_t i = 0; i < this->n.size(); i++)
+                a += this->n[i] * f_tau(i, tau) * f_delta(i, delta);
+            return a;
+        }
+
+        TYPE
+        ddelta(TYPE delta, TYPE tau) const
+        {
+            TYPE da_ddelta = 0.;
+            for (std::size_t i = 0; i < this->n.size(); i++) {
+                da_ddelta += this->n[i] * f_tau(i, tau) * delta_df_delta_ddelta(i, delta) / delta;
+            }
+            return da_ddelta;
+        }
+
+        TYPE
+        dtau(TYPE delta, TYPE tau) const
+        {
+            TYPE da_dtau = 0.;
+            for (std::size_t i = 0; i < this->n.size(); i++) {
+                da_dtau += this->n[i] * f_delta(i, delta) * tau_df_tau_dtau(i, tau) / tau;
+            }
+            return da_dtau;
+        }
+
+        TYPE
+        d2delta(TYPE delta, TYPE tau) const
+        {
+            TYPE d2a_ddelta2 = 0.;
+            for (std::size_t i = 0; i < this->n.size(); i++)
+                d2a_ddelta2 += this->n[i] * f_tau(i, tau) * delta2_d2f_delta_ddelta2(i, delta) /
+                               math::pow<2>(delta);
+            return d2a_ddelta2;
+        }
+
+        TYPE
+        d2tau(TYPE delta, TYPE tau) const
+        {
+            TYPE d2a_dtau2 = 0.;
+            for (std::size_t i = 0; i < this->n.size(); i++)
+                d2a_dtau2 +=
+                    this->n[i] * f_delta(i, delta) * tau2_d2f_tau_dtau2(i, tau) / math::pow<2>(tau);
+            return d2a_dtau2;
+        }
+
+        TYPE
+        d2deltatau(TYPE delta, TYPE tau) const
+        {
+            TYPE d2a_ddeltatau = 0.;
+            for (std::size_t i = 0; i < this->n.size(); i++)
+                d2a_ddeltatau += this->n[i] * tau_df_tau_dtau(i, tau) *
+                                 delta_df_delta_ddelta(i, delta) / tau / delta;
+            return d2a_ddeltatau;
+        }
+
+    private:
+        TYPE
+        f_tau(std::size_t i, double tau) const
+        {
+            return math::pow(tau, this->t[i]) *
+                   std::exp(1.0 /
+                            (this->b[i] + this->beta[i] * math::pow<2>(-this->gamma[i] + tau)));
+        }
+
+        TYPE
+        f_delta(std::size_t i, double delta) const
+        {
+            return math::pow(delta, this->d[i]) *
+                   std::exp(this->eta[i] * math::pow<2>(delta - this->epsilon[i]));
+        }
+
+        TYPE
+        delta_df_delta_ddelta(std::size_t i, double delta) const
+        {
+            return (this->d[i] * math::pow(delta, this->d[i]) +
+                    2. * math::pow(delta, this->d[i] + 1) * this->eta[i] *
+                        (delta - this->epsilon[i])) *
+                   std::exp(this->eta[i] * math::pow<2>(delta - this->epsilon[i]));
+        }
+
+        TYPE
+        tau_df_tau_dtau(std::size_t i, double tau) const
+        {
+            return (2. * this->beta[i] * math::pow(tau, this->t[i] + 1) * (this->gamma[i] - tau) +
+                    this->t[i] * math::pow(tau, this->t[i]) *
+                        math::pow<2>(this->b[i] +
+                                     this->beta[i] * math::pow<2>(this->gamma[i] - tau))) *
+                   std::exp(1.0 /
+                            (this->b[i] + this->beta[i] * math::pow<2>(this->gamma[i] - tau))) /
+                   math::pow<2>(this->b[i] + this->beta[i] * math::pow<2>(this->gamma[i] - tau));
+        }
+
+        TYPE
+        delta2_d2f_delta_ddelta2(std::size_t i, double delta) const
+        {
+            return math::pow(delta, this->d[i]) *
+                   (4. * this->d[i] * delta * this->eta[i] * (delta - this->epsilon[i]) +
+                    this->d[i] * (this->d[i] - 1) +
+                    2. * math::pow<2>(delta) * this->eta[i] *
+                        (2. * this->eta[i] * math::pow<2>(delta - this->epsilon[i]) + 1)) *
+                   std::exp(this->eta[i] * math::pow<2>(delta - this->epsilon[i]));
+        }
+
+        TYPE
+        tau2_d2f_tau_dtau2(std::size_t i, double tau) const
+        {
+            return math::pow(tau, this->t[i]) *
+                   (4 * this->beta[i] * this->t[i] * tau *
+                        math::pow<2>(this->b[i] +
+                                     this->beta[i] * math::pow<2>(this->gamma[i] - tau)) *
+                        (this->gamma[i] - tau) +
+                    2 * this->beta[i] * math::pow<2>(tau) *
+                        (4 * this->beta[i] *
+                             (this->b[i] + this->beta[i] * math::pow<2>(this->gamma[i] - tau)) *
+                             math::pow<2>(this->gamma[i] - tau) +
+                         2 * this->beta[i] * math::pow<2>(this->gamma[i] - tau) -
+                         math::pow<2>(this->b[i] +
+                                      this->beta[i] * math::pow<2>(this->gamma[i] - tau))) +
+                    this->t[i] *
+                        math::pow(this->b[i] + this->beta[i] * math::pow<2>(this->gamma[i] - tau),
+                                  4) *
+                        (this->t[i] - 1)) *
+                   std::exp(1.0 /
+                            (this->b[i] + this->beta[i] * math::pow<2>(this->gamma[i] - tau))) /
+                   math::pow(this->b[i] + this->beta[i] * math::pow<2>(this->gamma[i] - tau), 4);
+        }
+
+        std::vector<double> n;
+        std::vector<double> d;
+        std::vector<double> t;
+        std::vector<double> eta;
+        std::vector<double> beta;
+        std::vector<double> gamma;
+        std::vector<double> epsilon;
+        std::vector<double> b;
+    };
+
 protected:
     double delta(double rho) const;
     double tau(double T) const;

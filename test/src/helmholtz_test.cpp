@@ -264,3 +264,32 @@ TEST(HelmholtzTest, non_analytic)
 
     Test t;
 }
+
+TEST(HelmholtzTest, gao_b)
+{
+    class Test : public MockHelmholtz {
+    public:
+        Test() :
+            MockHelmholtz(),
+            a({ 2, 3 },
+              { 3e-6, 4e-6 },
+              { 4e-8, 5e-8 },
+              { 5e-3, 6e-3 },
+              { 3e-3, 2e-3 },
+              { -1, -1 },
+              { 5, 3.5 },
+              { 6, 5 })
+        {
+            EXPECT_NEAR(a.alpha(2., 3.), 6.1775192553314868, 1e-4);
+            EXPECT_NEAR(a.ddelta(2., 3.), -0.14081376086772296, 1e-4);
+            EXPECT_NEAR(a.dtau(2., 3.), -0.0039559049775617985, 1e-4);
+            EXPECT_NEAR(a.d2delta(2., 3.), 0.072616934598270066, 1e-4);
+            EXPECT_NEAR(a.d2tau(2., 3.), -0.00096300874805364724, 1e-4);
+            EXPECT_NEAR(a.d2deltatau(2., 3.), 9.0610104341487708e-05, 1e-4);
+        }
+
+        Helmholtz::ResidualGaoB<double> a;
+    };
+
+    Test t;
+}
