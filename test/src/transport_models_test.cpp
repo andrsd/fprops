@@ -49,12 +49,6 @@ TEST(TransportTest, powers_of_T)
     EXPECT_DOUBLE_EQ(pot.value(2), 96.);
 }
 
-TEST(TransportTest, powers_of_T_reduced)
-{
-    PowersOfTreduced<double> potr(300, { 3. }, { 5. });
-    EXPECT_DOUBLE_EQ(potr.value(600), 96.);
-}
-
 TEST(TransportTest, rainwater_friend)
 {
     RainwaterFriend<double> rf(10, 3e-5, { 4, 5 }, { 2, 3 });

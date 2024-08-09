@@ -112,10 +112,10 @@ private:
 
 /// Model for computing viscosity (eta_0)
 ///
-/// @tparam T The basic data type
+/// @tparam TYPE The basic data type
 ///
 /// \f$ lambda_0 = A_0 * \eta_0 + \displaystyle\sum_{i=1}^{n} A_i \cdot \tau^{t_i} \f$
-template <typename T>
+template <typename TYPE>
 class Eta0AndPoly {
 public:
     /// Eta0 and polynomial model
@@ -135,10 +135,10 @@ public:
     /// @param eta0 \f$\eta_0\f$
     /// @param tau  \f$\tau\f$
     /// @return The computed value
-    T
+    TYPE
     value(double eta0, double tau) const
     {
-        T sum = this->A[0] * eta0;
+        TYPE sum = this->A[0] * eta0;
         for (unsigned int i = 1; i < A.size(); i++)
             sum += this->A[i] * math::pow(tau, this->t[i]);
         return sum;
@@ -194,7 +194,7 @@ private:
 
 /// Lennard-Jones model for computing viscosity
 ///
-/// @tparam T The basic data type
+/// @tparam TYPE The basic data type
 ///
 /// \f$ \eta_0(T) = \frac{C \sqrt{M T}}{\sigma^2 \Omega(T^*)} \f$
 ///
@@ -205,7 +205,7 @@ private:
 ///
 /// where \f$T^* = T / (\epsilon / k)) \f$ and \f$\epsilon / k\f$ is the Lennard-Jones
 /// energy parameter.
-template <typename T>
+template <typename TYPE>
 class LennardJones {
 public:
     /// Lennard-Jones model
@@ -232,7 +232,7 @@ public:
     ///
     /// @param temperature Temperature \f$[K]\f$
     /// @return The computed value
-    T
+    TYPE
     value(double temperature) const
     {
         double log_T_star = std::log(temperature / this->epsilon_over_k);
@@ -257,7 +257,7 @@ private:
 /// @tparam T The basic data type
 ///
 /// \f$ v = \displaystyle\sum_{i=0}^{n} N_i \tau^{t_i} \delta^{d_i} \exp(-\gamma_i \delta^{l_i})\f$
-template <typename T>
+template <typename TYPE>
 class ModifiedBatshinskiHildebrand {
 public:
     /// Modified Batshinki-Hildebrand
@@ -285,7 +285,7 @@ public:
     /// @param delta \f$\delta\f$
     /// @param tau \f$\tau\f$
     /// @return Computed value
-    T
+    TYPE
     value(double delta, double tau) const
     {
         double sum = 0.0;
@@ -305,7 +305,7 @@ private:
 
 /// Powers of temperature
 ///
-/// @tparam T The basic data type
+/// @tparam TYPE The basic data type
 ///
 /// \f$ v = \displaystyle\sum_{i=0}^{n} a_i T^{t_i}\f$
 template <typename TYPE>
@@ -333,51 +333,6 @@ public:
     }
 
 private:
-    /// a_i coefficients
-    std::vector<double> a;
-    /// t_i exponents
-    std::vector<double> t;
-};
-
-/// Powers of T reduced
-///
-/// @tparam T The basic data type
-///
-/// \f$ v = \displaystyle\sum_{i=0}^{n} a_i T_{r}^{t_i}\f$
-template <typename TYPE>
-class PowersOfTreduced {
-public:
-    ///
-    ///
-    /// @param T_critical Critical temperature [K]
-    /// @param a Array of \f$a_i\f$ coefficients
-    /// @param t Array of \f$t_i\f$ exponents
-    PowersOfTreduced(double T_critical,
-                     const std::vector<double> & a,
-                     const std::vector<double> & t) :
-        T_crit(T_critical),
-        a(a),
-        t(t)
-    {
-    }
-
-    /// Evaluate the model
-    ///
-    /// @param T Temperature
-    /// @return Computed value
-    TYPE
-    value(TYPE T) const
-    {
-        TYPE Tr = T / this->T_crit;
-        TYPE sum = 0;
-        for (std::size_t i = 0; i < a.size(); ++i)
-            sum += this->a[i] * math::pow(Tr, this->t[i]);
-        return sum;
-    }
-
-private:
-    /// Critical temperature [K]
-    double T_crit;
     /// a_i coefficients
     std::vector<double> a;
     /// t_i exponents
