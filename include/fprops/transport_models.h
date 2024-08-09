@@ -54,6 +54,62 @@ private:
     std::vector<double> d;
 };
 
+/// Polynomial-exponential model
+///
+/// @tparam TYPE The basic data type
+///
+/// \f$ lambda_0 = \displaystyle\sum_{i=1}^{n} A_i \cdot \tau^{t_i} \cdot \delta^{d_i} \cdot
+/// exp(-\gamma_i*\delta^{l_i})\f$
+template <typename TYPE>
+class PolynomialAndExponential {
+public:
+    /// Polynomial model
+    ///
+    /// @param A Coefficients A
+    /// @param t Exponents t
+    /// @param d Exponents d
+    /// @param gamma Coefficents gamma
+    /// @param l Exponents l
+    PolynomialAndExponential(const std::vector<double> & A,
+                             const std::vector<double> & t,
+                             const std::vector<double> & d,
+                             const std::vector<double> & gamma,
+                             const std::vector<double> & l) :
+        A(A),
+        t(t),
+        d(d),
+        gamma(gamma),
+        l(l)
+    {
+        assert(A.size() == t.size());
+        assert(A.size() == d.size());
+        assert(A.size() == gamma.size());
+        assert(A.size() == l.size());
+    }
+
+    /// Evaluate the model
+    ///
+    /// @param delta \f$delta\f$
+    /// @param tau \f$\tau\f$
+    /// @return The computed value
+    TYPE
+    value(double tau, double delta) const
+    {
+        TYPE sum = 0.;
+        for (std::size_t i = 0; i < this->A.size(); ++i)
+            sum += this->A[i] * math::pow(tau, this->t[i]) * math::pow(delta, this->d[i]) *
+                   std::exp(-this->gamma[i] * math::pow(delta, this->l[i]));
+        return sum;
+    }
+
+private:
+    std::vector<double> A;
+    std::vector<double> t;
+    std::vector<double> d;
+    std::vector<double> gamma;
+    std::vector<double> l;
+};
+
 /// Model for computing viscosity (eta_0)
 ///
 /// @tparam T The basic data type
