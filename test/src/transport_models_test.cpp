@@ -65,3 +65,9 @@ TEST(TransportTest, quadratic_general_ft)
                                                 { 11, 17, 3 });
     EXPECT_DOUBLE_EQ(qgft.value(1e-4, 1.5, 2., 5.4), 0.0019802334193187326);
 }
+
+TEST(TransportTest, collision_integral)
+{
+    CollisionIntegral<double> ci(2.6e-8, 32e-3, 120., 3e-13, { 1, 2 }, { 3, 4 });
+    EXPECT_DOUBLE_EQ(ci.value(200.), 17.651749781424474);
+}
