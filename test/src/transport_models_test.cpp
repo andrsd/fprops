@@ -25,6 +25,12 @@ TEST(TransportTest, eta0_and_poly)
     EXPECT_DOUBLE_EQ(eta0p.value(12., 2.), 72.);
 }
 
+TEST(TransportTest, polynomial_ration)
+{
+    PolynomialRatio<double> polyr({ 2, 3 }, { 3, 4 }, { 5, 6, 7 }, { 3, 4, 5 });
+    EXPECT_DOUBLE_EQ(polyr.value(12.), 0.035023041474654376);
+}
+
 TEST(TransportTest, lennard_jones)
 {
     LennardJones<double> lj(0.0266958, 2.e-3, 3., 2., { 2, 3 });
