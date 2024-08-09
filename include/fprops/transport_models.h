@@ -159,6 +159,42 @@ private:
     std::vector<double> l;
 };
 
+/// Powers of temperature
+///
+/// @tparam T The basic data type
+///
+/// \f$ v = \displaystyle\sum_{i=0}^{n} a_i T^{t_i}\f$
+template <typename TYPE>
+class PowersOfTemperature {
+public:
+    ///
+    ///
+    /// @param a Array of \f$a_i\f$ coefficients
+    /// @param t Array of \f$t_i\f$ exponents
+    PowersOfTemperature(const std::vector<double> & a, const std::vector<double> & t) : a(a), t(t)
+    {
+    }
+
+    /// Evaluate the model
+    ///
+    /// @param T Temperature
+    /// @return Computed value
+    TYPE
+    value(TYPE T) const
+    {
+        TYPE sum = 0;
+        for (std::size_t i = 0; i < a.size(); ++i)
+            sum += this->a[i] * math::pow(T, this->t[i]);
+        return sum;
+    }
+
+private:
+    /// a_i coefficients
+    std::vector<double> a;
+    /// t_i exponents
+    std::vector<double> t;
+};
+
 /// Powers of T reduced
 ///
 /// @tparam T The basic data type
