@@ -38,3 +38,14 @@ TEST(TransportTest, rainwater_friend)
     RainwaterFriend<double> rf(10, 3e-5, { 4, 5 }, { 2, 3 });
     EXPECT_DOUBLE_EQ(rf.value(25), 1676789965434.375);
 }
+
+TEST(TransportTest, quadratic_general_ft)
+{
+    QuadraticGeneralFrictionTheory<double> qgft({ 2, 3, 4 },
+                                                { 3, 4, 5 },
+                                                { 5, 6, 7 },
+                                                { 1, 3, 5 },
+                                                { 5, 7, 9 },
+                                                { 11, 17, 3 });
+    EXPECT_DOUBLE_EQ(qgft.value(1e-4, 1.5, 2., 5.4), 0.0019802334193187326);
+}
