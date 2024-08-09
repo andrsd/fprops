@@ -305,7 +305,7 @@ private:
 
 /// Powers of temperature
 ///
-/// @tparam T The basic data type
+/// @tparam TYPE The basic data type
 ///
 /// \f$ v = \displaystyle\sum_{i=0}^{n} a_i T^{t_i}\f$
 template <typename TYPE>
@@ -333,51 +333,6 @@ public:
     }
 
 private:
-    /// a_i coefficients
-    std::vector<double> a;
-    /// t_i exponents
-    std::vector<double> t;
-};
-
-/// Powers of T reduced
-///
-/// @tparam T The basic data type
-///
-/// \f$ v = \displaystyle\sum_{i=0}^{n} a_i T_{r}^{t_i}\f$
-template <typename TYPE>
-class PowersOfTreduced {
-public:
-    ///
-    ///
-    /// @param T_critical Critical temperature [K]
-    /// @param a Array of \f$a_i\f$ coefficients
-    /// @param t Array of \f$t_i\f$ exponents
-    PowersOfTreduced(double T_critical,
-                     const std::vector<double> & a,
-                     const std::vector<double> & t) :
-        T_crit(T_critical),
-        a(a),
-        t(t)
-    {
-    }
-
-    /// Evaluate the model
-    ///
-    /// @param T Temperature
-    /// @return Computed value
-    TYPE
-    value(TYPE T) const
-    {
-        TYPE Tr = T / this->T_crit;
-        TYPE sum = 0;
-        for (std::size_t i = 0; i < a.size(); ++i)
-            sum += this->a[i] * math::pow(Tr, this->t[i]);
-        return sum;
-    }
-
-private:
-    /// Critical temperature [K]
-    double T_crit;
     /// a_i coefficients
     std::vector<double> a;
     /// t_i exponents
