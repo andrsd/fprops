@@ -1,8 +1,8 @@
 // SPDX-FileCopyrightText: 2022 David Andrs <andrsd@gmail.com>
 // SPDX-License-Identifier: MIT
 
-#include "fprops/Numerics.h"
-#include "fprops/Exception.h"
+#include "fprops/numerics.h"
+#include "fprops/exception.h"
 #include <cmath>
 
 namespace fprops {

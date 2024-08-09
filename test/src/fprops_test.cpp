@@ -1,9 +1,9 @@
 #include "gmock/gmock.h"
 #include "fprops/fprops.h"
-#include "fprops/Air.h"
-#include "fprops/CarbonDioxide.h"
-#include "fprops/Helium.h"
-#include "fprops/Nitrogen.h"
+#include "fprops/air.h"
+#include "fprops/carbon_dioxide.h"
+#include "fprops/helium.h"
+#include "fprops/nitrogen.h"
 
 using namespace fprops;
 using namespace testing;

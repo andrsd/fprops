@@ -3,24 +3,22 @@
 
 #pragma once
 
-#include "fprops/Helmholtz.h"
-#include "fprops/TransportModels.h"
+#include "fprops/helmholtz.h"
+#include "fprops/transport_models.h"
 
 namespace fprops {
 
-/// Helium (He) fluid properties
+/// Air fluid properties
 ///
 /// References:
-/// 1. D. O. Ortiz-Vega, K. R. Hall, J. C. Holste, V. D. Arp, A. H. Harvey, and E. W. Lemmon.
-///    Equation of state for Helium-4. Unpublished.
-/// 2. B.A. Hands and V.D. Arp. A Correlation of Thermal Conductivity Data for Helium. Cryogenics,
-///    21(12):697–703, 1981. doi:10.1016/0011-2275(81)90211-3.
-/// 3. V.D. Arp, R.D. McCarty, and D.G Friend. Thermophysical Properties of Helium-4 from 0.8 to
-///    1500 K with Pressures to 2000 MPa - NIST Technical Note 1334 (revised). Technical Report,
-///    NIST, 1998.
-class Helium : public Helmholtz {
+/// 1. Eric W. Lemmon, Richard T. Jacobsen, Steven G. Penoncello, and Daniel G. Friend.
+///    Thermodynamic Properties of Air and Mixtures of Nitrogen, Argon, and Oxygen from 60 to
+///    2000 K at Pressures to 2000 MPa. J. Phys. Chem. Ref. Data, 29(3):331–385, 2000.
+/// 2. E. W. Lemmon and R. T Jacobsen. Viscosity and Thermal Conductivity Equations for Nitrogen,
+///    Oxygen, Argon, and Air. Int. J. Thermophys., 25(1):21–69, 2004.
+class Air : public Helmholtz {
 public:
-    Helium();
+    Air();
 
 private:
     [[nodiscard]] double alpha(double delta, double tau) const override;
@@ -33,11 +31,18 @@ private:
     [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
 
     IdealGasLead<double> lead;
+    IdealGasPower<double> power_0;
     IdealGasLogTau<double> log_tau;
+    IdealGasPlanckEinstein<double> pe;
+    IdealPlanckEinsteinGeneralized<double> pegen;
     IdealEnthalpyEntropyOffset<double> offset;
     ResidualPower<double> power_r;
     ResidualPowerExp<double, unsigned int> power_exp_r;
-    ResidualGaussian<double> gauss;
+
+    LennardJones<double> eta_0;
+    ModifiedBatshinskiHildebrand<double> eta_r;
+    Eta0AndPoly<double> lambda_0;
+    ModifiedBatshinskiHildebrand<double> lambda_r;
 };
 
 } // namespace fprops

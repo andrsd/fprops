@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "ExceptionTestMacros.h"
-#include "fprops/Numerics.h"
+#include "exception_test_macros.h"
+#include "fprops/numerics.h"
 
 using namespace fprops;
 

@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "fprops/SinglePhaseFluidProperties.h"
-#include "fprops/Numerics.h"
+#include "fprops/single_phase_fluid_properties.h"
+#include "fprops/numerics.h"
 #include <cmath>
 #include <vector>
 #include <cassert>
