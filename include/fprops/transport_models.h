@@ -240,4 +240,54 @@ private:
     std::vector<double> t;
 };
 
+/// Rainwater-Friend transport model
+///
+template <typename TYPE>
+class RainwaterFriend {
+public:
+    /// Rainwater-Friend transport model
+    ///
+    /// @param epsilon_over_k \f$\epsilon\over k\f$ \f$[K]\f$
+    /// @param sigma_eta \f$\sigma \eta\f$ \f$[m]\f$
+    /// @param b Coefficients \f$b_i\f$
+    /// @param t Exponents \f$t_i\f$
+    RainwaterFriend(double epsilon_over_k,
+                    double sigma_eta,
+                    const std::vector<double> & b,
+                    const std::vector<double> & t) :
+        epsilon_over_k(epsilon_over_k),
+        sigma_eta(sigma_eta),
+        b(b),
+        t(t)
+    {
+    }
+
+    /// Evaluate the model
+    ///
+    /// @param T Temperature [K]
+    /// @return Computed value [m^3/mol]
+    TYPE
+    value(TYPE T) const
+    {
+        TYPE Tstar = T / this->epsilon_over_k;
+        TYPE sigma = this->sigma_eta;
+        // [no units]
+        TYPE B_eta_star = 0;
+        for (std::size_t i = 0; i < this->b.size(); ++i)
+            B_eta_star += b[i] * math::pow(Tstar, this->t[i]);
+        auto B_eta = 6.02214129e23 * math::pow<3>(sigma) * B_eta_star;
+        return B_eta;
+    }
+
+private:
+    /// Units are [K]
+    double epsilon_over_k;
+    /// Units are [m]
+    double sigma_eta;
+    /// Coefficients b_i
+    std::vector<double> b;
+    /// Exponents t_i
+    std::vector<double> t;
+};
+
 } // namespace fprops
