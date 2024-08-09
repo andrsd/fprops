@@ -151,10 +151,26 @@ Methane::d2alpha_ddeltatau(double delta, double tau) const
 double
 Methane::mu_from_rho_T(double rho, double T) const
 {
-    // auto d = delta(rho);
+    // [bar]; 1e5 for conversion from Pa -> bar
+    auto p = 1;
+    auto p_bar = p / 1e5;
+    // auto dp_dT = HEOS.first_partial_deriv(CoolProp::iP, CoolProp::iT, CoolProp::iDmolar);
+
+    auto rho_molar = rho / MOLAR_MASS;
+    // delta = delta(T)
+    // tau = tau(T)
+    // da_dd = dalpha_ddelta(delta, tau);
+    // p = return this->R * rho_molar * T * delta * da_dd;
+
+    auto dp_dT = 0;
+
+    auto pr_bar = T * dp_dT / 1e5;
+    auto pid_bar = rho_molar * GAS_CONSTANT * T / 1e5;
+    auto deltapr = pr_bar - pid_bar;
+
     auto t = tau(T);
 
-    double eta = this->eta_0.value(T) + this->eta_f.value(t);
+    double eta = this->eta_0.value(T) + this->eta_f.value(t, p_bar, pr_bar, pid_bar);
     // [Pa-s]
     return eta * 1.0e-6;
 }

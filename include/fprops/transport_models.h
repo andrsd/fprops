@@ -234,7 +234,7 @@ public:
     }
 
     TYPE
-    value(double tau) const
+    value(double tau, double p, double pr, double pid) const
     {
         TYPE kii = 0, krrr = 0, kaaa = 0, krr, kdrdr;
 
@@ -270,23 +270,8 @@ public:
                    math::pow(tau, this->Naaa);
         }
 
-        // // [bar/K]; 1e5 for conversion from Pa -> bar
-        // TYPE p = HEOS.p() / 1e5;
-        // // [bar/K]; 1e5 for conversion from Pa -> bar
-        // TYPE pr = HEOS.T() *
-        //           HEOS.first_partial_deriv(CoolProp::iP, CoolProp::iT, CoolProp::iDmolar) / 1e5;
-        // // [bar]
-        // TYPE pa = p - pr;
-        // // [bar]; 1e5 for conversion from Pa -> bar
-        // TYPE pid = HEOS.rhomolar() * HEOS.gas_constant() * HEOS.T() / 1e5;
-        // TYPE deltapr = pr - pid;
-
-        TYPE p = 0;
-        TYPE pr = 0;
         TYPE pa = p - pr;
-        TYPE pid = 0;
         TYPE deltapr = pr - pid;
-
         TYPE eta_f = ka * pa + kr * deltapr + ki * pid + kaa * pa * pa + kdrdr * deltapr * deltapr +
                      krr * pr * pr + kii * pid * pid + krrr * pr * pr * pr + kaaa * pa * pa * pa;
         return eta_f;
