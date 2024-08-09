@@ -3,6 +3,12 @@
 
 using namespace fprops;
 
+TEST(TransportTest, polynomial)
+{
+    Polynomial<double> poly({ 2, 3 }, { 3, 4 }, { 5, 6 });
+    EXPECT_DOUBLE_EQ(poly.value(12., 2.), 4091904.);
+}
+
 TEST(TransportTest, eta0_and_poly)
 {
     Eta0AndPoly<double> eta0p({ 2, 3 }, { 3, 4 });
