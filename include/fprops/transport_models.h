@@ -252,6 +252,70 @@ private:
     std::vector<double> b;
 };
 
+/// Collision integral
+template <typename TYPE>
+class CollisionIntegral {
+public:
+    /// Collision integral
+    ///
+    /// @param C
+    /// @param M Molar mass [kg/mol]
+    /// @param epsilon_over_k [K]
+    /// @param sigma_eta [m]
+    CollisionIntegral(double C,
+                      double M,
+                      double epsilon_over_k,
+                      double sigma_eta,
+                      const std::vector<double> & a,
+                      const std::vector<double> & t) :
+        C(C),
+        M(M),
+        epsilon_over_k(epsilon_over_k),
+        sigma_eta(sigma_eta),
+        a(a),
+        t(t)
+    {
+    }
+
+    /// Evaluate the model
+    ///
+    /// @param T Temperature [K]
+    /// @return Computed value
+    TYPE
+    value(double T) const
+    {
+        TYPE Tstar = T / this->epsilon_over_k;
+        // 1e9 to convert from m to nm
+        TYPE sigma_nm = this->sigma_eta * 1e9;
+        // 1000 to convert from kg/mol to kg/kmol
+        TYPE molar_mass_kgkmol = this->M * 1000;
+
+        /// Both the collision integral \f$\mathfrak{S}^*\f$ and effective cross section
+        /// \f$\Omega^{(2,2)}\f$ have the same form, in general we don't care which is used.  The
+        /// are related through \f$\Omega^{(2,2)} = (5/4)\mathfrak{S}^*\f$ see Vesovic(JPCRD, 1990)
+        /// for CO\f$_2\f$ for further information
+        TYPE lnTstar = std::log(Tstar);
+        TYPE S = 0;
+        for (std::size_t i = 0; i < this->a.size(); i++)
+            S += this->a[i] * math::pow(lnTstar, this->t[i]);
+        S = std::exp(S);
+
+        // The dilute gas component [Pa-s]
+        return this->C * std::sqrt(molar_mass_kgkmol * T) / (math::pow<2>(sigma_nm) * S);
+    }
+
+private:
+    double C;
+    /// Molar mass [kg/mol]
+    double M;
+    double epsilon_over_k;
+    double sigma_eta;
+    /// Coefficients a_i
+    std::vector<double> a;
+    /// Exponents t_i
+    std::vector<double> t;
+};
+
 /// Modified Batshinski-Hildebrand model
 ///
 /// @tparam T The basic data type
