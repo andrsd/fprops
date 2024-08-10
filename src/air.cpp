@@ -49,14 +49,26 @@ Air::Air() :
                 { 1, 3, 5, 6, 1, 3, 11, 1, 3 },
                 { 1.6, 0.8, 0.95, 1.25, 3.6, 6, 3.25, 3.5, 15 },
                 { 1, 1, 1, 1, 2, 2, 2, 3, 3 }),
-    eta_0(0.0266958, MOLAR_MASS, 103.3, 0.360, { 0.431, -0.4623, 0.08406, 0.005341, -0.00331 }),
-    eta_r({ 10.72, 1.122, 0.002019, -8.876, -0.02916 },
-          { 0.2, 0.05, 2.4, 0.6, 3.6 },
+    eta_0(2.66958e-08,
+          0.0289586,
+          103.3,
+          3.6e-10,
+          { 0.431, -0.4623, 0.08406, 0.005341, -0.00331 },
+          { 0, 1, 2, 3, 4 }),
+    eta_r({ 1.072e-05, 1.122e-06, 2.019e-09, -8.876e-06, -2.916e-08 },
           { 1, 4, 9, 1, 8 },
+          { 0.2, 0.05, 2.4, 0.6, 3.6 },
+          { 0, 0, 0, -1, -1 },
           { 0, 0, 0, 1, 1 },
-          { 0, 0, 0, 1, 1 }),
-    lambda_0({ 1.308, 1.405, -1.036 }, { 0, -1.1, -0.3 }),
-    lambda_r({ 8.743, 14.76, -16.62, 3.793, -6.142, -0.3778 },
+          { 0 },
+          { 1 },
+          { 0 },
+          { 1 },
+          { 0 },
+          { 1 },
+          { 0 }),
+    lambda_0({ 0.001308, 0.001405, -0.001036 }, { 0, -1.1, -0.3 }),
+    lambda_r({ 0.008743, 0.01476, -0.01662, 0.003793, -0.006142, -0.0003778 },
              { 0.1, 0.0, 0.5, 2.7, 0.3, 1.3 },
              { 1, 2, 3, 7, 7, 11 },
              { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 },
@@ -147,10 +159,8 @@ Air::mu_from_rho_T(double rho, double T) const
 {
     auto d = delta(rho);
     auto t = tau(T);
-
     double eta = this->eta_0.value(T) + this->eta_r.value(d, t);
-    // [Pa-s]
-    return eta * 1.0e-6;
+    return eta;
 }
 
 double
@@ -158,13 +168,9 @@ Air::k_from_rho_T(double rho, double T) const
 {
     const double d = delta(rho);
     const double t = tau(T);
-
     double eta0 = this->eta_0.value(T);
-    double lambda = 0;
-    lambda += this->lambda_0.value(eta0, t);
-    lambda += this->lambda_r.value(d, t);
-    // [W/(m-K)]
-    return lambda * 1.0e-3;
+    // FIXME: add the critical part
+    return this->lambda_0.value(eta0, t) + this->lambda_r.value(t, d);
 }
 
 } // namespace fprops
