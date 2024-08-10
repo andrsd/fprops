@@ -46,8 +46,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../fluids.html">Fluids</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="air.html">Air</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ammonia.html">Ammonia</a></li>
 <li class="toctree-l2"><a class="reference internal" href="carbon-dioxide.html">Carbon Dioxide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helium.html">Helium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methane.html">Methane</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nitrogen.html">Nitrogen</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Oxygen</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#verification-against-coolprop-package">Verification against CoolProp package</a></li>
@@ -60,10 +62,12 @@
 <p class="caption" role="heading"><span class="caption-text">API (C++)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../classes/air.html">Air</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classes/ammonia.html">Ammonia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../classes/carbon-dioxide.html">Carbon Dioxide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../classes/helium.html">Helium</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../classes/helmholtz.html">Helmholtz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../classes/ideal-gas.html">IdealGas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classes/methane.html">Methane</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../classes/nitrogen.html">Nitrogen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../classes/oxygen.html">Oxygen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../classes/single-phase-fluid-properties.html">SinglePhaseFluidProperties</a></li>
@@ -105,7 +109,7 @@
 <li><p>Temperature: <cite>54 - 300 K</cite></p></li>
 <li><p>Pressure: to <cite>80 MPa</cite></p></li>
 </ul>
-<p>Computation of thermodynamic properties is based on <span id="id1">Schmidt and Wagner [<a class="reference internal" href="../references.html#id11" title="R. Schmidt and W. Wagner. A new form of the equation of state for pure substances and its application to oxygen. Fluid Phase Equilibria, 19(3):175-200, 1985. URL: https://www.sciencedirect.com/science/article/pii/0378381285870163, doi:https://doi.org/10.1016/0378-3812(85)87016-3.">10</a>]</span> and <span id="id2">Stewart <em>et al.</em> [<a class="reference internal" href="../references.html#id12" title="Richard B. Stewart, Richard T Jacobsen, and W. Wagner. Thermodynamic Properties of Oxygen from the Triple Point to 300 K with Pressures to 80 MPa. Journal of Physical and Chemical Reference Data, 20(5):917-1021, 09 1991. URL: https://doi.org/10.1063/1.555897, arXiv:https://pubs.aip.org/aip/jpr/article-pdf/20/5/917/9766717/917\_1\_online.pdf, doi:10.1063/1.555897.">11</a>]</span>.
+<p>Computation of thermodynamic properties is based on <span id="id1">Schmidt and Wagner [<a class="reference internal" href="../references.html#id11" title="R. Schmidt and W. Wagner. A new form of the equation of state for pure substances and its application to oxygen. Fluid Phase Equilibria, 19(3):175-200, 1985. URL: https://www.sciencedirect.com/science/article/pii/0378381285870163, doi:https://doi.org/10.1016/0378-3812(85)87016-3.">16</a>]</span> and <span id="id2">Stewart <em>et al.</em> [<a class="reference internal" href="../references.html#id12" title="Richard B. Stewart, Richard T Jacobsen, and W. Wagner. Thermodynamic Properties of Oxygen from the Triple Point to 300 K with Pressures to 80 MPa. Journal of Physical and Chemical Reference Data, 20(5):917-1021, 09 1991. URL: https://doi.org/10.1063/1.555897, arXiv:https://pubs.aip.org/aip/jpr/article-pdf/20/5/917/9766717/917\_1\_online.pdf, doi:10.1063/1.555897.">17</a>]</span>.
 Viscosity and thermal conductivity is based on <span id="id3">Lemmon and Jacobsen [<a class="reference internal" href="../references.html#id4" title="Eric W Lemmon and Richard T Jacobsen. Viscosity and thermal conductivity equations for nitrogen, oxygen, argon, and air. International journal of thermophysics, 25(1):21–69, 2004.">2</a>]</span>.</p>
 <section id="verification-against-coolprop-package">
 <h2>Verification against CoolProp package<a class="headerlink" href="#verification-against-coolprop-package" title="Permalink to this headline"></a></h2>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carbon Dioxide &mdash; fprops  documentation</title>
+  <title>Ammonia &mdash; fprops  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Helium" href="helium.html" />
-    <link rel="prev" title="Ammonia" href="ammonia.html" /> 
+    <link rel="next" title="Carbon Dioxide" href="carbon-dioxide.html" />
+    <link rel="prev" title="Air" href="air.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,11 +46,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../fluids.html">Fluids</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="air.html">Air</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ammonia.html">Ammonia</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Carbon Dioxide</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ammonia</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#verification-against-coolprop-package">Verification against CoolProp package</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="carbon-dioxide.html">Carbon Dioxide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helium.html">Helium</a></li>
 <li class="toctree-l2"><a class="reference internal" href="methane.html">Methane</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nitrogen.html">Nitrogen</a></li>
@@ -93,7 +93,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../fluids.html">Fluids</a></li>
-      <li class="breadcrumb-item active">Carbon Dioxide</li>
+      <li class="breadcrumb-item active">Ammonia</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -102,27 +102,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="carbon-dioxide">
-<h1>Carbon Dioxide<a class="headerlink" href="#carbon-dioxide" title="Permalink to this headline"></a></h1>
+  <section id="ammonia">
+<h1>Ammonia<a class="headerlink" href="#ammonia" title="Permalink to this headline"></a></h1>
 <p>Range of validity:</p>
 <ul class="simple">
-<li><p>Temperature: <cite>216.592 - 1100 K</cite></p></li>
-<li><p>Pressure: to <cite>800 MPa</cite></p></li>
+<li><p>Temperature: <cite>melting line - 725 K</cite></p></li>
+<li><p>Pressure: to <cite>1000 MPa</cite></p></li>
 </ul>
-<p>Computation of thermodynamic properties is based on <span id="id1">Span and Wagner [<a class="reference internal" href="../references.html#id8" title="Roland Span and Wolfgang Wagner. A New Equation of State for Carbon Dioxide Covering the Fluid Region from the Triple‐Point Temperature to 1100 K at Pressures up to 800 MPa. Journal of Physical and Chemical Reference Data, 25(6):1509–1596, 1996. doi:10.1063/1.555991.">6</a>]</span>.
-Viscosity is based on <span id="id2">Fenghour <em>et al.</em> [<a class="reference internal" href="../references.html#id9" title="A Fenghour, William A Wakeham, and V Vesovic. The Viscosity of Carbon Dioxide. Journal of Physical and Chemical Reference Data, 27(1):31–44, 1998. doi:10.1063/1.556013.">7</a>]</span> and
-thermal conductivity is based on <span id="id3">Scalabrin <em>et al.</em> [<a class="reference internal" href="../references.html#id10" title="G. Scalabrin, P. Marchi, F. Finezzo, and R. Span. A Reference Multiparameter Thermal Conductivity Equation for Carbon Dioxide with an Optimized Functional Form. Journal of Physical and Chemical Reference Data, 35(4):1549–1575, 2006. doi:10.1063/1.2213631.">8</a>]</span>.</p>
+<p>Computation of thermodynamic properties is based on <span id="id1">Gao <em>et al.</em> [<a class="reference internal" href="../references.html#id16" title="K Gao, J Wu, IH Bell, and EW Lemmon. Thermodynamic properties of ammonia for temperatures from the melting line to 725 k and pressures to 1000 mpa. In J. Phys. Chem. Ref. Data. 2020.">3</a>]</span>.
+Viscosity and thermal conductivity is based on <span id="id2">Fenghour <em>et al.</em> [<a class="reference internal" href="../references.html#id18" title="A Fenghour, William A Wakeham, V Vesovic, JTR Watson, J Millat, and E Vogel. The viscosity of ammonia. Journal of Physical and Chemical Reference Data, 24(5):1649–1667, 1995.">4</a>]</span> and <span id="id3">Tufeu <em>et al.</em> [<a class="reference internal" href="../references.html#id17" title="R Tufeu, DY Ivanov, Y Garrabos, and B Le Neindre. Thermal conductivity of ammonia in a large temperature and pressure range including the critical region. Berichte der Bunsengesellschaft für physikalische Chemie, 88(4):422–427, 1984.">5</a>]</span>.</p>
 <section id="verification-against-coolprop-package">
 <h2>Verification against CoolProp package<a class="headerlink" href="#verification-against-coolprop-package" title="Permalink to this headline"></a></h2>
-<img alt="../_images/co2_err_rho.png" src="../_images/co2_err_rho.png" />
-<img alt="../_images/co2_err_u.png" src="../_images/co2_err_u.png" />
-<img alt="../_images/co2_err_h.png" src="../_images/co2_err_h.png" />
-<img alt="../_images/co2_err_s.png" src="../_images/co2_err_s.png" />
-<img alt="../_images/co2_err_w.png" src="../_images/co2_err_w.png" />
-<img alt="../_images/co2_err_c_p.png" src="../_images/co2_err_c_p.png" />
-<img alt="../_images/co2_err_c_v.png" src="../_images/co2_err_c_v.png" />
-<img alt="../_images/co2_err_mu.png" src="../_images/co2_err_mu.png" />
-<img alt="../_images/co2_err_k.png" src="../_images/co2_err_k.png" />
+<img alt="../_images/nh3_err_rho.png" src="../_images/nh3_err_rho.png" />
+<img alt="../_images/nh3_err_u.png" src="../_images/nh3_err_u.png" />
+<img alt="../_images/nh3_err_h.png" src="../_images/nh3_err_h.png" />
+<img alt="../_images/nh3_err_s.png" src="../_images/nh3_err_s.png" />
+<img alt="../_images/nh3_err_w.png" src="../_images/nh3_err_w.png" />
+<img alt="../_images/nh3_err_c_p.png" src="../_images/nh3_err_c_p.png" />
+<img alt="../_images/nh3_err_c_v.png" src="../_images/nh3_err_c_v.png" />
+<img alt="../_images/nh3_err_mu.png" src="../_images/nh3_err_mu.png" />
+<img alt="../_images/nh3_err_k.png" src="../_images/nh3_err_k.png" />
 </section>
 </section>
 
@@ -130,8 +129,8 @@ thermal conductivity is based on <span id="id3">Scalabrin <em>et al.</em> [<a cl
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="ammonia.html" class="btn btn-neutral float-left" title="Ammonia" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="helium.html" class="btn btn-neutral float-right" title="Helium" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="air.html" class="btn btn-neutral float-left" title="Air" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="carbon-dioxide.html" class="btn btn-neutral float-right" title="Carbon Dioxide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
