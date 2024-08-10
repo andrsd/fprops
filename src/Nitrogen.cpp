@@ -41,14 +41,26 @@ Nitrogen::Nitrogen() :
           { 325, 325, 300, 275 },
           { 1.16, 1.16, 1.13, 1.25 }),
 
-    eta_0(0.0266958, MOLAR_MASS, 98.94, 0.3656, { 0.431, -0.4623, 0.08406, 0.005341, -0.00331 }),
-    eta_r({ 10.72, 0.03989, 0.001208, -7.402, 4.62 },
-          { 0.1, 0.25, 3.2, 0.9, 0.3 },
+    eta_0(2.66958e-08,
+          0.02801348,
+          98.94,
+          3.656e-10,
+          { 0.431, -0.4623, 0.08406, 0.005341, -0.00331 },
+          { 0, 1, 2, 3, 4 }),
+    eta_r({ 1.072e-05, 3.989e-08, 1.208e-09, -7.402e-06, 4.62e-06 },
           { 2, 10, 12, 2, 1 },
-          { 0.0, 1.0, 1.0, 1.0, 1.0 },
-          { 0, 1, 1, 2, 3 }),
-    lambda_0({ 1.511, 2.117, -3.332 }, { 0, -1, -0.7 }),
-    lambda_r({ 8.862, 31.11, -73.13, 20.03, -0.7096, 0.2672 },
+          { 0.1, 0.25, 3.2, 0.9, 0.3 },
+          { 0, -1, -1, -1, -1 },
+          { 0, 1, 1, 2, 3 },
+          { 0 },
+          { 1 },
+          { 0 },
+          { 1 },
+          { 0 },
+          { 1 },
+          { 0 }),
+    lambda_0({ 0.001511, 0.002117, -0.003332 }, { 0, -1, -0.7 }),
+    lambda_r({ 0.008862, 0.03111, -0.07313, 0.02003, -0.0007096, 0.0002672 },
              { 0.0, 0.03, 0.2, 0.8, 0.6, 1.9 },
              { 1, 2, 3, 4, 8, 10 },
              { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 },
@@ -145,10 +157,7 @@ Nitrogen::mu_from_rho_T(double rho, double T) const
 {
     const double d = delta(rho);
     const double t = tau(T);
-
-    double eta = this->eta_0.value(T) + this->eta_r.value(d, t);
-    // [Pa-s]
-    return eta * 1.0e-6;
+    return this->eta_0.value(T) + this->eta_r.value(d, t);
 }
 
 double
@@ -158,11 +167,8 @@ Nitrogen::k_from_rho_T(double rho, double T) const
     const double t = tau(T);
 
     double eta0 = this->eta_0.value(T);
-    double lambda = 0;
-    lambda += this->lambda_0.value(eta0, t);
-    lambda += this->lambda_r.value(d, t);
-    // [W/(m-K)]
-    return lambda * 1.0e-3;
+    // FIXME: add the critical part
+    return this->lambda_0.value(eta0, t) + this->lambda_r.value(t, d);
 }
 
 } // namespace fprops
