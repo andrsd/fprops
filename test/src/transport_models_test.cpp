@@ -39,8 +39,19 @@ TEST(TransportTest, lennard_jones)
 
 TEST(TransportTest, modified_batshinski_hildebrand)
 {
-    ModifiedBatshinskiHildebrand<double> mbh({ 2, 3 }, { 3, 4 }, { 4, 5 }, { 4, 3 }, { 2, 3 });
-    EXPECT_DOUBLE_EQ(mbh.value(2., 3.), 0.000097523945419603);
+    ModifiedBatshinskiHildebrand<double> mbh({ 2, 3 },
+                                             { 3, 4 },
+                                             { 4, 5 },
+                                             { 4, 3 },
+                                             { 2, 3 },
+                                             { 1 },
+                                             { 2 },
+                                             { 3 },
+                                             { 4 },
+                                             { 5 },
+                                             { 1 },
+                                             { 2 });
+    EXPECT_DOUBLE_EQ(mbh.value(2., 3.), 308980636921728.81);
 }
 
 TEST(TransportTest, powers_of_T)
