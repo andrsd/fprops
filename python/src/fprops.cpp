@@ -5,6 +5,7 @@
 
 #include "fprops/single_phase_fluid_properties.h"
 #include "fprops/air.h"
+#include "fprops/ammonia.h"
 #include "fprops/ideal_gas.h"
 #include "fprops/nitrogen.h"
 #include "fprops/helium.h"
@@ -47,6 +48,13 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &Air::rho_p)
         .def("p_T", &Air::p_T)
         .def("v_u", &Air::v_u);
+
+    py::class_<Ammonia>(m, "Ammonia")
+        .def(py::init())
+        .def("rho_T", &Ammonia::rho_T)
+        .def("rho_p", &Ammonia::rho_p)
+        .def("p_T", &Ammonia::p_T)
+        .def("v_u", &Ammonia::v_u);
 
     py::class_<IdealGas>(m, "IdealGas")
         .def(py::init<double, double>())
