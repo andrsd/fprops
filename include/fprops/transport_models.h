@@ -138,7 +138,7 @@ public:
     TYPE
     value(double eta0, double tau) const
     {
-        TYPE sum = this->A[0] * eta0;
+        TYPE sum = this->A[0] * eta0 * 1e6;
         for (unsigned int i = 1; i < A.size(); i++)
             sum += this->A[i] * math::pow(tau, this->t[i]);
         return sum;

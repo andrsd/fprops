@@ -22,7 +22,7 @@ TEST(TransportTest, polynomial_exponential)
 TEST(TransportTest, eta0_and_poly)
 {
     Eta0AndPoly<double> eta0p({ 2, 3 }, { 3, 4 });
-    EXPECT_DOUBLE_EQ(eta0p.value(12., 2.), 72.);
+    EXPECT_DOUBLE_EQ(eta0p.value(12., 2.), 24000048);
 }
 
 TEST(TransportTest, polynomial_ration)
