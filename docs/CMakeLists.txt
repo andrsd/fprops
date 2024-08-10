@@ -18,8 +18,6 @@ if(DOXYGEN_FOUND)
             ${NAME}_err_u.png
             ${NAME}_err_w.png
         )
-        message(STATUS ${NAME}_ERR_IMGS)
-        message(STATUS ${${NAME}_ERR_IMGS})
 
         add_custom_command(
             OUTPUT
