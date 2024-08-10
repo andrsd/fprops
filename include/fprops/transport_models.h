@@ -138,7 +138,7 @@ public:
     TYPE
     value(double eta0, double tau) const
     {
-        TYPE sum = this->A[0] * eta0;
+        TYPE sum = this->A[0] * eta0 * 1e6;
         for (unsigned int i = 1; i < A.size(); i++)
             sum += this->A[i] * math::pow(tau, this->t[i]);
         return sum;
@@ -318,30 +318,44 @@ private:
 
 /// Modified Batshinski-Hildebrand model
 ///
-/// @tparam T The basic data type
-///
-/// \f$ v = \displaystyle\sum_{i=0}^{n} N_i \tau^{t_i} \delta^{d_i} \exp(-\gamma_i \delta^{l_i})\f$
+/// @tparam TYPE The basic data type
 template <typename TYPE>
 class ModifiedBatshinskiHildebrand {
 public:
     /// Modified Batshinki-Hildebrand
-    ///
-    /// @param n \f$N_i\f$
-    /// @param t \f$t_i\f$
-    /// @param d \f$d_i\f$
-    /// @param gamma \f$\gamma_i\f$
-    /// @param l \f$l_i\f$
-    ModifiedBatshinskiHildebrand(const std::vector<double> & n,
-                                 const std::vector<double> & t,
-                                 const std::vector<double> & d,
+    ModifiedBatshinskiHildebrand(const std::vector<double> & a,
+                                 const std::vector<double> & d1,
+                                 const std::vector<double> & t1,
                                  const std::vector<double> & gamma,
-                                 const std::vector<double> & l) :
-        n(n),
-        t(t),
-        d(d),
+                                 const std::vector<double> & l,
+                                 const std::vector<double> & f,
+                                 const std::vector<double> & d2,
+                                 const std::vector<double> & t2,
+                                 const std::vector<double> & g,
+                                 const std::vector<double> & h,
+                                 const std::vector<double> & p,
+                                 const std::vector<double> & q) :
+        a(a),
+        d1(d1),
+        t1(t1),
         gamma(gamma),
-        l(l)
+        l(l),
+        f(f),
+        d2(d2),
+        t2(t2),
+        g(g),
+        h(h),
+        p(p),
+        q(q)
     {
+        assert(this->a.size() == this->d1.size());
+        assert(this->a.size() == this->t1.size());
+        assert(this->a.size() == this->gamma.size());
+        assert(this->a.size() == this->l.size());
+        assert(this->f.size() == this->d2.size());
+        assert(this->f.size() == this->t2.size());
+        assert(this->g.size() == this->h.size());
+        assert(this->p.size() == this->q.size());
     }
 
     /// Evaluate the model
@@ -352,19 +366,43 @@ public:
     TYPE
     value(double delta, double tau) const
     {
-        double sum = 0.0;
-        for (unsigned int i = 0; i < n.size(); i++)
-            sum += this->n[i] * math::pow(tau, this->t[i]) * math::pow(delta, this->d[i]) *
-                   std::exp(-this->gamma[i] * math::pow(delta, this->l[i]));
-        return sum;
+        // The first term that is formed of powers of tau (Tc/T) and delta (rho/rhoc)
+        TYPE S = 0;
+        for (std::size_t i = 0; i < this->a.size(); ++i)
+            S += this->a[i] * math::pow(delta, this->d1[i]) * math::pow(tau, this->t1[i]) *
+                 std::exp(this->gamma[i] * math::pow(delta, this->l[i]));
+
+        // For the terms that multiplies the bracketed term with delta and delta0
+        TYPE F = 0;
+        for (std::size_t i = 0; i < this->f.size(); ++i)
+            F += this->f[i] * math::pow(delta, this->d2[i]) * math::pow(tau, this->t2[i]);
+
+        // for delta_0
+        TYPE numer = 0;
+        for (std::size_t i = 0; i < this->g.size(); i++)
+            numer += this->g[i] * pow(tau, this->h[i]);
+        TYPE denom = 0;
+        for (std::size_t i = 0; i < this->p.size(); i++)
+            denom += this->p[i] * pow(tau, this->q[i]);
+        TYPE delta0 = numer / denom;
+
+        // The higher-order-term component [Pa-s]
+        return S + F * (1. / (delta0 - delta) - 1 / delta0);
     }
 
 private:
-    std::vector<double> n;
-    std::vector<double> t;
-    std::vector<double> d;
+    std::vector<double> a;
+    std::vector<double> d1;
+    std::vector<double> t1;
     std::vector<double> gamma;
     std::vector<double> l;
+    std::vector<double> f;
+    std::vector<double> d2;
+    std::vector<double> t2;
+    std::vector<double> g;
+    std::vector<double> h;
+    std::vector<double> p;
+    std::vector<double> q;
 };
 
 /// Powers of temperature

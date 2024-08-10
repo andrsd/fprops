@@ -38,10 +38,10 @@ private:
     ResidualPowerExp<double, unsigned int> power_exp_r;
     ResidualGaussian<double> gauss;
 
-    LennardJones<double> eta_0;
+    CollisionIntegral<double> eta_0;
     ModifiedBatshinskiHildebrand<double> eta_r;
     Eta0AndPoly<double> lambda_0;
-    ModifiedBatshinskiHildebrand<double> lambda_r;
+    PolynomialAndExponential<double> lambda_r;
 };
 
 } // namespace fprops

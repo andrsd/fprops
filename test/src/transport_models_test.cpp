@@ -22,7 +22,7 @@ TEST(TransportTest, polynomial_exponential)
 TEST(TransportTest, eta0_and_poly)
 {
     Eta0AndPoly<double> eta0p({ 2, 3 }, { 3, 4 });
-    EXPECT_DOUBLE_EQ(eta0p.value(12., 2.), 72.);
+    EXPECT_DOUBLE_EQ(eta0p.value(12., 2.), 24000048);
 }
 
 TEST(TransportTest, polynomial_ration)
@@ -39,8 +39,19 @@ TEST(TransportTest, lennard_jones)
 
 TEST(TransportTest, modified_batshinski_hildebrand)
 {
-    ModifiedBatshinskiHildebrand<double> mbh({ 2, 3 }, { 3, 4 }, { 4, 5 }, { 4, 3 }, { 2, 3 });
-    EXPECT_DOUBLE_EQ(mbh.value(2., 3.), 0.000097523945419603);
+    ModifiedBatshinskiHildebrand<double> mbh({ 2, 3 },
+                                             { 3, 4 },
+                                             { 4, 5 },
+                                             { 4, 3 },
+                                             { 2, 3 },
+                                             { 1 },
+                                             { 2 },
+                                             { 3 },
+                                             { 4 },
+                                             { 5 },
+                                             { 1 },
+                                             { 2 });
+    EXPECT_DOUBLE_EQ(mbh.value(2., 3.), 308980636921728.81);
 }
 
 TEST(TransportTest, powers_of_T)

@@ -43,9 +43,9 @@ private:
     ResidualGaussian<double> gauss;
     ResidualNonAnalytic<double> noan;
 
-    LennardJones<double> eta_0;
+    CollisionIntegral<double> eta_0;
     ModifiedBatshinskiHildebrand<double> eta_r;
-    ModifiedBatshinskiHildebrand<double> lambda_r;
+    PolynomialAndExponential<double> lambda_r;
 };
 
 } // namespace fprops
