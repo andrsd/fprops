@@ -1009,7 +1009,6 @@ protected:
     double delta(double rho) const;
     double tau(double T) const;
 
-private:
     double temperature(double u, double tau, double da_dt) const;
     double pressure(double rho, double T, double delta, double da_dd) const;
     double internal_energy(double T, double tau, double da_dt) const;
