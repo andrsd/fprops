@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TransportModels &mdash; fprops  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -91,14 +94,14 @@
            <div itemprop="articleBody">
              
   <section id="transportmodels">
-<h1>TransportModels<a class="headerlink" href="#transportmodels" title="Permalink to this headline"></a></h1>
+<h1>TransportModels<a class="headerlink" href="#transportmodels" title="Permalink to this heading"></a></h1>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN6fprops11Eta0AndPolyE">
 <span id="_CPPv3I0EN6fprops11Eta0AndPolyE"></span><span id="_CPPv2I0EN6fprops11Eta0AndPolyE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TYPE</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_eta0_and_poly"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Eta0AndPoly</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops11Eta0AndPolyE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Model for computing viscosity (eta_0) </p>
 <p><span class="math notranslate nohighlight">\( lambda_0 = A_0 * \eta_0 + \displaystyle\sum_{i=1}^{n} A_i \cdot \tau^{t_i} \)</span> </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>TYPE</strong> – The basic data type</p>
 </dd>
 </dl>
@@ -111,7 +114,7 @@
 <p>
 Note that coefficient <span class="math notranslate nohighlight">\(t_0\)</span> is not used </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> – <span class="math notranslate nohighlight">\(A_i\)</span> coefficients </p></li>
 <li><p><strong>t</strong> – <span class="math notranslate nohighlight">\(t_i\)</span> coefficients</p></li>
@@ -125,13 +128,13 @@ Note that coefficient <span class="math notranslate nohighlight">\(t_0\)</span> 
 <span id="_CPPv3NK6fprops11Eta0AndPoly5valueEdd"></span><span id="_CPPv2NK6fprops11Eta0AndPoly5valueEdd"></span><span id="fprops::Eta0AndPoly::value__double.doubleC"></span><span class="target" id="classfprops_1_1_eta0_and_poly_1a3cee699f6ac4b8f2d6b5c1932d0c2303"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6fprops11Eta0AndPolyE" title="fprops::Eta0AndPoly::TYPE"><span class="n"><span class="pre">TYPE</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">eta0</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tau</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6fprops11Eta0AndPoly5valueEdd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Evaluate the model. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>eta0</strong> – <span class="math notranslate nohighlight">\(\eta_0\)</span></p></li>
 <li><p><strong>tau</strong> – <span class="math notranslate nohighlight">\(\tau\)</span></p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The computed value </p>
 </dd>
 </dl>
@@ -149,7 +152,7 @@ Note that coefficient <span class="math notranslate nohighlight">\(t_0\)</span> 
 <p><span class="math notranslate nohighlight">\( \Omega(T^*) = \exp(\displaystyle\sum_{i=0}^n b_i \ln(T^*))^i \)</span></p>
 <p>where <span class="math notranslate nohighlight">\(T^* = T / (\epsilon / k)) \)</span> and <span class="math notranslate nohighlight">\(\epsilon / k\)</span> is the Lennard-Jones energy parameter. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>TYPE</strong> – The basic data type</p>
 </dd>
 </dl>
@@ -160,7 +163,7 @@ Note that coefficient <span class="math notranslate nohighlight">\(t_0\)</span> 
 <span id="_CPPv3N6fprops12LennardJones12LennardJonesEddddRKNSt6vectorIdEE"></span><span id="_CPPv2N6fprops12LennardJones12LennardJonesEddddRKNSt6vectorIdEE"></span><span id="fprops::LennardJones::LennardJones__double.double.double.double.std::vector:double:CR"></span><span class="target" id="classfprops_1_1_lennard_jones_1aefb27fbe44740f91d8d2bdff1c359bac"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LennardJones</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">C</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">M</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">epsilon_over_k</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sigma</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6fprops12LennardJones12LennardJonesEddddRKNSt6vectorIdEE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Lennard-Jones model. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>C</strong> – Constant in front of term </p></li>
 <li><p><strong>M</strong> – Molar mass <span class="math notranslate nohighlight">\([{kg\over mol}]\)</span></p></li>
@@ -177,10 +180,10 @@ Note that coefficient <span class="math notranslate nohighlight">\(t_0\)</span> 
 <span id="_CPPv3NK6fprops12LennardJones5valueEd"></span><span id="_CPPv2NK6fprops12LennardJones5valueEd"></span><span id="fprops::LennardJones::value__doubleC"></span><span class="target" id="classfprops_1_1_lennard_jones_1ad55ba0022e1022f10397e919261987b4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6fprops12LennardJonesE" title="fprops::LennardJones::TYPE"><span class="n"><span class="pre">TYPE</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">temperature</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6fprops12LennardJones5valueEd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Evaluate the model. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>temperature</strong> – Temperature <span class="math notranslate nohighlight">\([K]\)</span></p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The computed value </p>
 </dd>
 </dl>
@@ -194,7 +197,7 @@ Note that coefficient <span class="math notranslate nohighlight">\(t_0\)</span> 
 <span id="_CPPv3I0EN6fprops28ModifiedBatshinskiHildebrandE"></span><span id="_CPPv2I0EN6fprops28ModifiedBatshinskiHildebrandE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TYPE</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classfprops_1_1_modified_batshinski_hildebrand"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModifiedBatshinskiHildebrand</span></span></span><a class="headerlink" href="#_CPPv4I0EN6fprops28ModifiedBatshinskiHildebrandE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Modified Batshinski-Hildebrand model. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>TYPE</strong> – The basic data type </p>
 </dd>
 </dl>
@@ -211,13 +214,13 @@ Note that coefficient <span class="math notranslate nohighlight">\(t_0\)</span> 
 <span id="_CPPv3NK6fprops28ModifiedBatshinskiHildebrand5valueEdd"></span><span id="_CPPv2NK6fprops28ModifiedBatshinskiHildebrand5valueEdd"></span><span id="fprops::ModifiedBatshinskiHildebrand::value__double.doubleC"></span><span class="target" id="classfprops_1_1_modified_batshinski_hildebrand_1a6fbe39518e2bcec45c501a290f08c37f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6fprops28ModifiedBatshinskiHildebrandE" title="fprops::ModifiedBatshinskiHildebrand::TYPE"><span class="n"><span class="pre">TYPE</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">delta</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tau</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6fprops28ModifiedBatshinskiHildebrand5valueEdd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Evaluate the model. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>delta</strong> – <span class="math notranslate nohighlight">\(\delta\)</span></p></li>
 <li><p><strong>tau</strong> – <span class="math notranslate nohighlight">\(\tau\)</span></p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Computed value </p>
 </dd>
 </dl>
