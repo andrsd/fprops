@@ -13,3 +13,9 @@ find_package_handle_standard_args(
     REQUIRED_VARS FPROPS_LIBRARY FPROPS_INCLUDE_DIR
     VERSION_VAR FPROPS_VERSION
 )
+
+mark_as_advanced(
+    FPROPS_INCLUDE_DIR
+    FPROPS_LIBRARY
+    FPROPS_VERSION
+)
