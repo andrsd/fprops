@@ -41,7 +41,10 @@ if(DOXYGEN_FOUND)
     configure_file(Doxyfile.in Doxyfile)
     configure_file(conf.py.in conf.py)
 
-    add_custom_target(doc DEPENDS ${PROJECT_BINARY_DIR}/docs/html/index.html)
+    add_custom_target(doc
+        DEPENDS ${PROJECT_BINARY_DIR}/docs/html/index.html
+        COMMENT "Open ${PROJECT_BINARY_DIR}/docs/html/index.html in your browser to view the documentation."
+    )
 
     file(GLOB_RECURSE RST_FILES ${PROJECT_SOURCE_DIR}/docs/*.rst)
     add_fluid(air air.yml)
@@ -72,14 +75,6 @@ if(DOXYGEN_FOUND)
         DEPENDS
             ${PROJECT_BINARY_DIR}/docs/Doxyfile
             ${PROJECT_SOURCE_DIR}/include/fprops/*.h
-    )
-
-    add_custom_command(
-        TARGET doc
-        POST_BUILD
-        COMMAND ;
-        COMMENT
-           "Open ${PROJECT_BINARY_DIR}/docs/html/index.html in your browser to view the documentation."
     )
 
 endif()
