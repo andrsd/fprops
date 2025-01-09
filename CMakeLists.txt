@@ -34,12 +34,13 @@ if (FPROPS_BUILD_TESTS)
     FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG        release-1.11.0
+        GIT_TAG        v1.15.2
     )
     set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
     mark_as_advanced(FORCE
         BUILD_GMOCK
         INSTALL_GTEST
+        GTEST_HAS_ABSL
         FETCHCONTENT_SOURCE_DIR_GOOGLETEST
         FETCHCONTENT_UPDATES_DISCONNECTED_GOOGLETEST
     )
