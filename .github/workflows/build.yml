@@ -10,58 +10,82 @@ on:
 
 jobs:
   build:
+    defaults:
+      run:
+        shell: bash -el {0}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-13]
+        include:
+          - os: ubuntu-22.04
+            python-version: "3.9"
+          - os: ubuntu-22.04
+            python-version: "3.10"
+          - os: ubuntu-22.04
+            python-version: "3.11"
+          - os: macos-13
+            python-version: "3.9"
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Set up miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          auto-update-conda: false
+          channels: andrsd,defaults
+
       - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        uses: ConorMacBride/install-package@v1
-        with:
-          apt: lcov libfmt-dev libhdf5-dev libeigen3-dev python3-pybind11
-          brew: cmake lcov fmt hdf5@1.10 eigen pybind11
-
-      - name: Install python dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          pip3 install flake8 pytest
-
-      - name: Set up env (macos)
-        if: startsWith(matrix.os, 'macos')
-        run: |
-          echo "/usr/local/opt/hdf5@1.10/bin" >> $GITHUB_PATH
-          echo "CMAKE_PREFIX_PATH=/usr/local/opt/hdf5@1.10" >> $GITHUB_ENV
+          conda install \
+            cmake \
+            make \
+            fmt==9.1.0 \
+            hdf5 \
+            eigen \
+            pybind11 \
+            flake8 \
+            pytest \
+            lcov
 
       - name: Configure
         run: |
           cmake -S . -B ${{ github.workspace }}/build \
+            -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
             -DFPROPS_BUILD_TESTS=YES \
+            -DFPROPS_WITH_PYTHON=YES \
             -DFPROPS_CODE_COVERAGE=YES
 
       - name: Build
-        run: make -C ${{ github.workspace }}/build
+        run: cmake --build ${{ github.workspace }}/build
 
-      - name: Run tests
-        run: make -C ${{ github.workspace }}/build test ARGS='-V'
+      - name: Install
+        run: cmake --install ${{ github.workspace }}/build
+
+      - name: Run unit tests
+        run: |
+          ${{ github.workspace }}/build/test/fprops-test
+
+      - name: Run python tests
+        run: |
+          pytest ${{ github.workspace }}/python/tests
 
       - name: Generate code coverage
         if: startsWith(matrix.os, 'ubuntu')
-        run: make -C ${{ github.workspace }}/build coverage
+        run: cmake --build ${{ github.workspace }}/build --target coverage
 
       - name: Upload coverage artifact
         if: startsWith(matrix.os, 'ubuntu')
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-${{ matrix.os }}
+          name: coverage-${{ matrix.os }}-${{ matrix.python-version }}
           path: ${{ github.workspace }}/build/coverage.info
 
   upload-to-codecov:
     needs: [build]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
