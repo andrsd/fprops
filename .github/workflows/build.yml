@@ -64,20 +64,13 @@ jobs:
       - name: Install
         run: cmake --install ${{ github.workspace }}/build
 
-      - name: Run tests
+      - name: Run unit tests
         run: |
-          echo "### Test results" >> $GITHUB_STEP_SUMMARY
-          ctest --test-dir ${{ github.workspace }}/build -O test.log
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          awk 's;/^\[HANDLER_OUTPUT\]/{s=1}' test.log >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          ${{ github.workspace }}/build/test/fprops-test
 
-      - name: Upload test result
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ matrix.os }}-${{ matrix.python-version }}
-          path: ${{ github.workspace }}/build/Testing/Temporary/LastTest.log
+      - name: Run python tests
+        run: |
+          pytest ${{ github.workspace }}/python/tests
 
       - name: Generate code coverage
         if: startsWith(matrix.os, 'ubuntu')
