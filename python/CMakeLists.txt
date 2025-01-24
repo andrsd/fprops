@@ -12,5 +12,4 @@ if (FPROPS_BUILD_TESTS)
         NAME python-tests
         COMMAND ${PYTEST} ${CMAKE_CURRENT_SOURCE_DIR}
     )
-    set_tests_properties(python-tests PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/src:$ENV{PYTHONPATH}")
 endif()
