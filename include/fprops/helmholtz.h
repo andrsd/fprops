@@ -5,6 +5,7 @@
 
 #include "fprops/single_phase_fluid_properties.h"
 #include "fprops/numerics.h"
+#include "fprops/exception.h"
 #include <cmath>
 #include <vector>
 #include <cassert>
@@ -15,19 +16,27 @@ namespace fprops {
 ///
 /// This class is based on `HelmholtzFluidProperties.h` from `idaholab/moose/fluid_properties`
 /// module
+template <typename FLUID>
 class Helmholtz : public SinglePhaseFluidProperties {
 public:
     /// @param R Universal gas constant \f$[J/(mol-K)]\f$
     /// @param M Molar mass \f$[kg/mol]\f$
     /// @param rho_c Critical density \f$[kg/m^3]\f$
     /// @param T_c Critical temperature \f$[K]\f$
-    Helmholtz(double R, double M, double rho_c, double T_c);
+    Helmholtz(double R, double M, double rho_c, double T_c) :
+        SinglePhaseFluidProperties(),
+        R(R),
+        M(M),
+        rho_c(rho_c),
+        T_c(T_c)
+    {
+    }
 
-    [[nodiscard]] State rho_T(double rho, double T) const override;
-    [[nodiscard]] State rho_p(double rho, double p) const override;
-    [[nodiscard]] State p_T(double p, double T) const override;
-    [[nodiscard]] State v_u(double v, double u) const override;
-    [[nodiscard]] State h_s(double h, double s) const override;
+    [[nodiscard]] State rho_T(double rho, double T) const;
+    [[nodiscard]] State rho_p(double rho, double p) const;
+    [[nodiscard]] State p_T(double p, double T) const;
+    [[nodiscard]] State v_u(double v, double u) const;
+    [[nodiscard]] State h_s(double h, double s) const;
 
 private:
     /// Helmholtz free energy
@@ -35,42 +44,42 @@ private:
     /// @param delta Scaled density \f$[-]\f$
     /// @param tau Scaled temperature \f$[-]\f$
     /// @return Helmholtz free energy (\f$\alpha\f$)
-    [[nodiscard]] virtual double alpha(double delta, double tau) const = 0;
+    [[nodiscard]] double call_alpha(double delta, double tau) const;
 
     /// Derivative of Helmholtz free energy wrt delta
     ///
     /// @param delta Scaled density \f$[-]\f$
     /// @param tau Scaled temperature \f$[-]\f$
     /// @return Derivative of Helmholtz free energy wrt delta
-    [[nodiscard]] virtual double dalpha_ddelta(double delta, double tau) const = 0;
+    [[nodiscard]] double call_dalpha_ddelta(double delta, double tau) const;
 
     /// Derivative of Helmholtz free energy wrt tau
     ///
     /// @param delta Scaled density \f$[-]\f$
     /// @param tau Scaled temperature \f$[-]\f$
     /// @return Derivative of Helmholtz free energy wrt tau
-    [[nodiscard]] virtual double dalpha_dtau(double delta, double tau) const = 0;
+    [[nodiscard]] double call_dalpha_dtau(double delta, double tau) const;
 
     /// Second derivative of Helmholtz free energy wrt delta
     ///
     /// @param delta Scaled density \f$[-]\f$
     /// @param tau Scaled temperature \f$[-]\f$
     /// @return Second derivative of Helmholtz free energy wrt delta
-    [[nodiscard]] virtual double d2alpha_ddelta2(double delta, double tau) const = 0;
+    [[nodiscard]] double call_d2alpha_ddelta2(double delta, double tau) const;
 
     /// Second derivative of Helmholtz free energy wrt tau
     ///
     /// @param delta Scaled density \f$[-]\f$
     /// @param tau Scaled temperature \f$[-]\f$
     /// @return Second derivative of Helmholtz free energy wrt tau
-    [[nodiscard]] virtual double d2alpha_dtau2(double delta, double tau) const = 0;
+    [[nodiscard]] double call_d2alpha_dtau2(double delta, double tau) const;
 
     /// Second derivative of Helmholtz free energy wrt delta and tau
     ///
     /// @param delta Scaled density \f$[-]\f$
     /// @param tau Scaled temperature \f$[-]\f$
     /// @return Second derivative of Helmholtz free energy wrt delta and tau
-    [[nodiscard]] virtual double d2alpha_ddeltatau(double delta, double tau) const = 0;
+    [[nodiscard]] double call_d2alpha_ddeltatau(double delta, double tau) const;
 
     /// Density given pressure and temperature
     ///
@@ -98,14 +107,14 @@ private:
     /// @param rho Density \f$[kg/m^3]\f$
     /// @param T Temperature \f$[K]\f$
     /// @return Dynamic viscosity \f$[Pa-s]\f$
-    [[nodiscard]] virtual double mu_from_rho_T(double rho, double T) const = 0;
+    [[nodiscard]] double call_mu_from_rho_T(double rho, double T) const;
 
     /// Thermal conductivity
     ///
     /// @param rho Density \f$[kg/m^3]\f$
     /// @param T Temperature \f$[K]\f$
     /// @return Thermal conductivity \f$[W/(m-K)]\f$
-    [[nodiscard]] virtual double k_from_rho_T(double rho, double T) const = 0;
+    [[nodiscard]] double call_k_from_rho_T(double rho, double T) const;
 
     /// Universal gas constant \f$[J/(mol-K)]\f$
     const double R;
@@ -1169,28 +1178,342 @@ protected:
     };
 
 protected:
-    double delta(double rho) const;
-    double tau(double T) const;
+    double
+    delta(double rho) const
+    {
+        return rho / this->rho_c;
+    }
 
-    double temperature(double u, double tau, double da_dt) const;
-    double pressure(double rho, double T, double delta, double da_dd) const;
-    double internal_energy(double T, double tau, double da_dt) const;
-    double enthalphy(double T, double delta, double tau, double da_dt, double da_dd) const;
-    double sound_speed(double T,
-                       double delta,
-                       double tau,
-                       double da_dd,
-                       double d2a_dd2,
-                       double d2a_ddt,
-                       double d2a_dt2) const;
-    double entropy(double tau, double a, double da_dt) const;
-    double heat_capacity_isobaric(double delta,
-                                  double tau,
-                                  double da_dd,
-                                  double d2a_dt2,
-                                  double d2a_dd2,
-                                  double d2a_ddt) const;
-    double heat_capacity_isochoric(double tau, double d2a_dt2) const;
+    double
+    tau(double T) const
+    {
+        return this->T_c / T;
+    }
+
+    double
+    temperature(double u, double tau, double da_dt) const
+    {
+        return u * this->M / (this->R * tau * da_dt);
+    }
+
+    double
+    pressure(double rho, double T, double delta, double da_dd) const
+    {
+        return this->R * rho * T * delta * da_dd / this->M;
+    }
+
+    double
+    internal_energy(double T, double tau, double da_dt) const
+    {
+        return this->R * T * tau * da_dt / this->M;
+    }
+
+    double
+    enthalphy(double T, double delta, double tau, double da_dt, double da_dd) const
+    {
+        return this->R * T * (tau * da_dt + delta * da_dd) / this->M;
+    }
+
+    double
+    sound_speed(double T,
+                double delta,
+                double tau,
+                double da_dd,
+                double d2a_dd2,
+                double d2a_ddt,
+                double d2a_dt2) const
+    {
+        const double n =
+            2.0 * delta * da_dd + delta * delta * d2a_dd2 -
+            math::pow<2>(delta * da_dd - delta * tau * d2a_ddt) / (tau * tau * d2a_dt2);
+        return std::sqrt(this->R * T * n / this->M);
+    }
+
+    double
+    entropy(double tau, double a, double da_dt) const
+    {
+        return this->R * (tau * da_dt - a) / this->M;
+    }
+
+    double
+    heat_capacity_isobaric(double delta,
+                           double tau,
+                           double da_dd,
+                           double d2a_dt2,
+                           double d2a_dd2,
+                           double d2a_ddt) const
+    {
+        return this->R *
+               (-tau * tau * d2a_dt2 + math::pow<2>(delta * da_dd - delta * tau * d2a_ddt) /
+                                           (2.0 * delta * da_dd + delta * delta * d2a_dd2)) /
+               this->M;
+    }
+
+    double
+    heat_capacity_isochoric(double tau, double d2a_dt2) const
+    {
+        return -this->R * tau * tau * d2a_dt2 / this->M;
+    }
 };
+
+template <typename FLUID>
+State
+Helmholtz<FLUID>::rho_T(double rho, double T) const
+{
+    if (rho < 0)
+        throw Exception("Negative density");
+    if (T < 0)
+        throw Exception("Negative temperature");
+
+    const double delta = rho / this->rho_c;
+    const double tau = this->T_c / T;
+
+    const double a = call_alpha(delta, tau);
+    const double da_dd = call_dalpha_ddelta(delta, tau);
+    const double da_dt = call_dalpha_dtau(delta, tau);
+    const double d2a_dt2 = call_d2alpha_dtau2(delta, tau);
+    const double d2a_dd2 = call_d2alpha_ddelta2(delta, tau);
+    const double d2a_ddt = call_d2alpha_ddeltatau(delta, tau);
+
+    auto v = 1. / rho;
+    auto p = pressure(rho, T, delta, da_dd);
+    auto u = internal_energy(T, tau, da_dt);
+    auto h = enthalphy(T, delta, tau, da_dt, da_dd);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = call_mu_from_rho_T(rho, T);
+    auto k = call_k_from_rho_T(rho, T);
+
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
+}
+
+template <typename FLUID>
+State
+Helmholtz<FLUID>::rho_p(double rho, double p) const
+{
+    if (rho < 0)
+        throw Exception("Negative density");
+
+    const double T = T_from_rho_p(rho, p);
+
+    const double delta = rho / this->rho_c;
+    const double tau = this->T_c / T;
+
+    const double a = call_alpha(delta, tau);
+    const double da_dd = call_dalpha_ddelta(delta, tau);
+    const double da_dt = call_dalpha_dtau(delta, tau);
+    const double d2a_dt2 = call_d2alpha_dtau2(delta, tau);
+    const double d2a_dd2 = call_d2alpha_ddelta2(delta, tau);
+    const double d2a_ddt = call_d2alpha_ddeltatau(delta, tau);
+
+    auto v = 1. / rho;
+    auto u = internal_energy(T, tau, da_dt);
+    auto h = enthalphy(T, delta, tau, da_dt, da_dd);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = call_mu_from_rho_T(rho, T);
+    auto k = call_k_from_rho_T(rho, T);
+
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
+}
+
+template <typename FLUID>
+State
+Helmholtz<FLUID>::p_T(double p, double T) const
+{
+    if (T < 0)
+        throw Exception("Negative temperature");
+
+    const double rho = rho_from_p_T(p, T);
+
+    const double delta = rho / this->rho_c;
+    const double tau = this->T_c / T;
+
+    const double a = call_alpha(delta, tau);
+    const double da_dd = call_dalpha_ddelta(delta, tau);
+    const double da_dt = call_dalpha_dtau(delta, tau);
+    const double d2a_dt2 = call_d2alpha_dtau2(delta, tau);
+    const double d2a_dd2 = call_d2alpha_ddelta2(delta, tau);
+    const double d2a_ddt = call_d2alpha_ddeltatau(delta, tau);
+
+    auto v = 1. / rho;
+    auto u = internal_energy(T, tau, da_dt);
+    auto h = enthalphy(T, delta, tau, da_dt, da_dd);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = call_mu_from_rho_T(rho, T);
+    auto k = call_k_from_rho_T(rho, T);
+
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
+}
+
+template <typename FLUID>
+State
+Helmholtz<FLUID>::v_u(double v, double u) const
+{
+    if (v <= 0.)
+        throw Exception("Negative specific volume");
+    if (u <= 0.)
+        throw Exception("Negative internal energy");
+
+    const double rho = 1. / v;
+    const double delta = rho / this->rho_c;
+    const double tau = tau_from_v_u(v, u);
+
+    const double a = call_alpha(delta, tau);
+    const double da_dd = call_dalpha_ddelta(delta, tau);
+    const double da_dt = call_dalpha_dtau(delta, tau);
+    const double d2a_dt2 = call_d2alpha_dtau2(delta, tau);
+    const double d2a_dd2 = call_d2alpha_ddelta2(delta, tau);
+    const double d2a_ddt = call_d2alpha_ddeltatau(delta, tau);
+
+    auto T = temperature(u, tau, da_dt);
+    auto p = pressure(rho, T, delta, da_dd);
+    auto h = enthalphy(T, delta, tau, da_dt, da_dd);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = call_mu_from_rho_T(rho, T);
+    auto k = call_k_from_rho_T(rho, T);
+
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
+}
+
+template <typename FLUID>
+State
+Helmholtz<FLUID>::h_s(double h, double s) const
+{
+    throw Exception("Not implemented");
+}
+
+template <typename FLUID>
+double
+Helmholtz<FLUID>::rho_from_p_T(double p, double T) const
+{
+    auto f = [&p, &T, this](double rho) {
+        const double delta = rho / this->rho_c;
+        const double tau = this->T_c / T;
+
+        return this->R * rho * T * delta * call_dalpha_ddelta(delta, tau) / this->M - p;
+    };
+    auto df = [&T, this](double rho) {
+        const double delta = rho / this->rho_c;
+        const double ddelta_drho = 1 / this->rho_c;
+        const double tau = this->T_c / T;
+
+        double K = this->R * T / this->M;
+        double t1 = delta * call_dalpha_ddelta(delta, tau);
+        double t2 = rho * ddelta_drho * call_dalpha_ddelta(delta, tau);
+        double t3 = rho * delta * call_d2alpha_ddelta2(delta, tau) * ddelta_drho;
+
+        return K * (t1 + t2 + t3);
+    };
+
+    return newton::root(1.0e-2, f, df);
+}
+
+template <typename FLUID>
+double
+Helmholtz<FLUID>::T_from_rho_p(double rho, double p) const
+{
+    auto f = [&rho, &p, this](double T) {
+        const double delta = rho / this->rho_c;
+        const double tau = this->T_c / T;
+
+        return this->R * rho * T * delta * call_dalpha_ddelta(delta, tau) / this->M - p;
+    };
+    auto df = [&rho, this](double T) {
+        const double delta = rho / this->rho_c;
+        const double tau = this->T_c / T;
+        const double dtau_dT = -this->T_c / T / T;
+
+        double K = this->R * rho * delta / this->M;
+        double t1 = call_dalpha_ddelta(delta, tau);
+        double t2 = T * call_d2alpha_ddeltatau(delta, tau) * dtau_dT;
+
+        return K * (t1 + t2);
+    };
+
+    return newton::root(275., f, df);
+}
+
+template <typename FLUID>
+double
+Helmholtz<FLUID>::tau_from_v_u(double v, double u) const
+{
+    auto f = [&v, &u, this](double tau) {
+        const double delta = 1. / this->rho_c / v;
+        return this->R * this->T_c * call_dalpha_dtau(delta, tau) / this->M - u;
+    };
+    auto df = [&v, this](double tau) {
+        const double delta = 1. / this->rho_c / v;
+        return this->R * this->T_c * call_d2alpha_dtau2(delta, tau) / this->M;
+    };
+
+    return newton::root(1e-1, f, df);
+}
+
+template <typename FLUID>
+[[nodiscard]] double
+Helmholtz<FLUID>::call_alpha(double delta, double tau) const
+{
+    return static_cast<const FLUID *>(this)->alpha(delta, tau);
+}
+
+template <typename FLUID>
+[[nodiscard]] double
+Helmholtz<FLUID>::call_dalpha_ddelta(double delta, double tau) const
+{
+    return static_cast<const FLUID *>(this)->dalpha_ddelta(delta, tau);
+}
+
+template <typename FLUID>
+[[nodiscard]] double
+Helmholtz<FLUID>::call_dalpha_dtau(double delta, double tau) const
+{
+    return static_cast<const FLUID *>(this)->dalpha_dtau(delta, tau);
+}
+
+template <typename FLUID>
+[[nodiscard]] double
+Helmholtz<FLUID>::call_d2alpha_ddelta2(double delta, double tau) const
+{
+    return static_cast<const FLUID *>(this)->d2alpha_ddelta2(delta, tau);
+}
+
+template <typename FLUID>
+[[nodiscard]] double
+Helmholtz<FLUID>::call_d2alpha_dtau2(double delta, double tau) const
+{
+    return static_cast<const FLUID *>(this)->d2alpha_dtau2(delta, tau);
+}
+
+template <typename FLUID>
+[[nodiscard]] double
+Helmholtz<FLUID>::call_d2alpha_ddeltatau(double delta, double tau) const
+{
+    return static_cast<const FLUID *>(this)->d2alpha_ddeltatau(delta, tau);
+}
+
+template <typename FLUID>
+[[nodiscard]] double
+Helmholtz<FLUID>::call_mu_from_rho_T(double rho, double T) const
+{
+    return static_cast<const FLUID *>(this)->mu_from_rho_T(rho, T);
+}
+
+template <typename FLUID>
+[[nodiscard]] double
+Helmholtz<FLUID>::call_k_from_rho_T(double rho, double T) const
+{
+    return static_cast<const FLUID *>(this)->k_from_rho_T(rho, T);
+}
 
 } // namespace fprops

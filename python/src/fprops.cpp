@@ -48,14 +48,29 @@ PYBIND11_MODULE(fprops, m)
         .def_readwrite("w", &State::w)
         .def("__repr__", &State::to_string);
 
-    py::class_<Helmholtz, SinglePhaseFluidProperties>(m, "Helmholtz");
+    py::class_<Air, SinglePhaseFluidProperties>(m, "Air")
+        .def(py::init())
+        .def("rho_T", &Air::rho_T)
+        .def("rho_p", &Air::rho_p)
+        .def("p_T", &Air::p_T)
+        .def("v_u", &Air::v_u)
+        .def("h_s", &Air::h_s);
 
-    py::class_<Air, Helmholtz>(m, "Air").def(py::init());
-
-    py::class_<Ammonia, Helmholtz>(m, "Ammonia").def(py::init());
+    py::class_<Ammonia, SinglePhaseFluidProperties>(m, "Ammonia")
+        .def(py::init())
+        .def("rho_T", &Ammonia::rho_T)
+        .def("rho_p", &Ammonia::rho_p)
+        .def("p_T", &Ammonia::p_T)
+        .def("v_u", &Ammonia::v_u)
+        .def("h_s", &Ammonia::h_s);
 
     py::class_<IdealGas, SinglePhaseFluidProperties>(m, "IdealGas")
         .def(py::init<double, double>())
+        .def("rho_T", &IdealGas::rho_T)
+        .def("rho_p", &IdealGas::rho_p)
+        .def("p_T", &IdealGas::p_T)
+        .def("v_u", &IdealGas::v_u)
+        .def("h_s", &IdealGas::h_s)
         .def("gamma", &IdealGas::gamma)
         .def("molar_mass", &IdealGas::molar_mass)
         .def("specific_gas_constant", &IdealGas::R_specific)
@@ -66,13 +81,43 @@ PYBIND11_MODULE(fprops, m)
         .def("set_mu", &IdealGas::set_mu)
         .def("set_k", &IdealGas::set_k);
 
-    py::class_<Nitrogen, Helmholtz>(m, "Nitrogen").def(py::init());
+    py::class_<Nitrogen, SinglePhaseFluidProperties>(m, "Nitrogen")
+        .def(py::init())
+        .def("rho_T", &Nitrogen::rho_T)
+        .def("rho_p", &Nitrogen::rho_p)
+        .def("p_T", &Nitrogen::p_T)
+        .def("v_u", &Nitrogen::v_u)
+        .def("h_s", &Nitrogen::h_s);
 
-    py::class_<Helium, Helmholtz>(m, "Helium").def(py::init());
+    py::class_<Helium, SinglePhaseFluidProperties>(m, "Helium")
+        .def(py::init())
+        .def("rho_T", &Helium::rho_T)
+        .def("rho_p", &Helium::rho_p)
+        .def("p_T", &Helium::p_T)
+        .def("v_u", &Helium::v_u)
+        .def("h_s", &Helium::h_s);
 
-    py::class_<CarbonDioxide, Helmholtz>(m, "CarbonDioxide").def(py::init());
+    py::class_<CarbonDioxide, SinglePhaseFluidProperties>(m, "CarbonDioxide")
+        .def(py::init())
+        .def("rho_T", &CarbonDioxide::rho_T)
+        .def("rho_p", &CarbonDioxide::rho_p)
+        .def("p_T", &CarbonDioxide::p_T)
+        .def("v_u", &CarbonDioxide::v_u)
+        .def("h_s", &CarbonDioxide::h_s);
 
-    py::class_<Oxygen, Helmholtz>(m, "Oxygen").def(py::init());
+    py::class_<Oxygen, SinglePhaseFluidProperties>(m, "Oxygen")
+        .def(py::init())
+        .def("rho_T", &Oxygen::rho_T)
+        .def("rho_p", &Oxygen::rho_p)
+        .def("p_T", &Oxygen::p_T)
+        .def("v_u", &Oxygen::v_u)
+        .def("h_s", &Oxygen::h_s);
 
-    py::class_<Methane, Helmholtz>(m, "Methane").def(py::init());
+    py::class_<Methane, SinglePhaseFluidProperties>(m, "Methane")
+        .def(py::init())
+        .def("rho_T", &Methane::rho_T)
+        .def("rho_p", &Methane::rho_p)
+        .def("p_T", &Methane::p_T)
+        .def("v_u", &Methane::v_u)
+        .def("h_s", &Methane::h_s);
 }

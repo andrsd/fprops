@@ -12,19 +12,19 @@ namespace fprops {
 ///
 /// Reference:
 ///
-class Methane : public Helmholtz {
+class Methane : public Helmholtz<Methane> {
 public:
     Methane();
 
 private:
-    [[nodiscard]] double alpha(double delta, double tau) const override;
-    [[nodiscard]] double dalpha_ddelta(double delta, double tau) const override;
-    [[nodiscard]] double dalpha_dtau(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const override;
-    [[nodiscard]] double mu_from_rho_T(double rho, double T) const override;
-    [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
+    [[nodiscard]] double alpha(double delta, double tau) const;
+    [[nodiscard]] double dalpha_ddelta(double delta, double tau) const;
+    [[nodiscard]] double dalpha_dtau(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const;
+    [[nodiscard]] double mu_from_rho_T(double rho, double T) const;
+    [[nodiscard]] double k_from_rho_T(double rho, double T) const;
 
     IdealGasLead<double> lead;
     IdealGasLogTau<double> log_tau;
@@ -36,6 +36,9 @@ private:
 
     PowersOfTemperature<double> eta_0;
     FrictionTheory<double> eta_f;
+
+    template <typename FLUID>
+    friend class Helmholtz;
 };
 
 } // namespace fprops

@@ -18,19 +18,19 @@ namespace fprops {
 /// 3. V.D. Arp, R.D. McCarty, and D.G Friend. Thermophysical Properties of Helium-4 from 0.8 to
 ///    1500 K with Pressures to 2000 MPa - NIST Technical Note 1334 (revised). Technical Report,
 ///    NIST, 1998.
-class Helium : public Helmholtz {
+class Helium : public Helmholtz<Helium> {
 public:
     Helium();
 
 private:
-    [[nodiscard]] double alpha(double delta, double tau) const override;
-    [[nodiscard]] double dalpha_ddelta(double delta, double tau) const override;
-    [[nodiscard]] double dalpha_dtau(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const override;
-    [[nodiscard]] double mu_from_rho_T(double rho, double T) const override;
-    [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
+    [[nodiscard]] double alpha(double delta, double tau) const;
+    [[nodiscard]] double dalpha_ddelta(double delta, double tau) const;
+    [[nodiscard]] double dalpha_dtau(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const;
+    [[nodiscard]] double mu_from_rho_T(double rho, double T) const;
+    [[nodiscard]] double k_from_rho_T(double rho, double T) const;
 
     IdealGasLead<double> lead;
     IdealGasLogTau<double> log_tau;
@@ -38,6 +38,9 @@ private:
     ResidualPower<double> power_r;
     ResidualPowerExp<double, unsigned int> power_exp_r;
     ResidualGaussian<double> gauss;
+
+    template <typename FLUID>
+    friend class Helmholtz;
 };
 
 } // namespace fprops

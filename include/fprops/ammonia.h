@@ -10,19 +10,19 @@ namespace fprops {
 
 /// Ammonia fluid properties
 ///
-class Ammonia : public Helmholtz {
+class Ammonia : public Helmholtz<Ammonia> {
 public:
     Ammonia();
 
 private:
-    [[nodiscard]] double alpha(double delta, double tau) const override;
-    [[nodiscard]] double dalpha_ddelta(double delta, double tau) const override;
-    [[nodiscard]] double dalpha_dtau(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const override;
-    [[nodiscard]] double mu_from_rho_T(double rho, double T) const override;
-    [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
+    [[nodiscard]] double alpha(double delta, double tau) const;
+    [[nodiscard]] double dalpha_ddelta(double delta, double tau) const;
+    [[nodiscard]] double dalpha_dtau(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const;
+    [[nodiscard]] double mu_from_rho_T(double rho, double T) const;
+    [[nodiscard]] double k_from_rho_T(double rho, double T) const;
 
     double lambda_crit(double t, double d) const;
 
@@ -39,6 +39,9 @@ private:
     ModifiedBatshinskiHildebrand<double> eta_ho;
     PolynomialRatio<double> lambda_0;
     Polynomial<double> lambda_r;
+
+    template <typename FLUID>
+    friend class Helmholtz;
 };
 
 } // namespace fprops

@@ -16,19 +16,19 @@ namespace fprops {
 ///    2200 MPa, Journal of Physical and Chemical Reference Data, 29, 1361--1433 (2000)
 /// 2. E. W. Lemmon and R. T Jacobsen. Viscosity and Thermal Conductivity Equations for Nitrogen,
 ///    Oxygen, Argon, and Air. Int. J. Thermophys., 25(1):21–69, 2004.
-class Nitrogen : public Helmholtz {
+class Nitrogen : public Helmholtz<Nitrogen> {
 public:
     Nitrogen();
 
 private:
-    [[nodiscard]] double alpha(double delta, double tau) const override;
-    [[nodiscard]] double dalpha_ddelta(double delta, double tau) const override;
-    [[nodiscard]] double dalpha_dtau(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const override;
-    [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const override;
-    [[nodiscard]] double mu_from_rho_T(double rho, double T) const override;
-    [[nodiscard]] double k_from_rho_T(double rho, double T) const override;
+    [[nodiscard]] double alpha(double delta, double tau) const;
+    [[nodiscard]] double dalpha_ddelta(double delta, double tau) const;
+    [[nodiscard]] double dalpha_dtau(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_ddelta2(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_dtau2(double delta, double tau) const;
+    [[nodiscard]] double d2alpha_ddeltatau(double delta, double tau) const;
+    [[nodiscard]] double mu_from_rho_T(double rho, double T) const;
+    [[nodiscard]] double k_from_rho_T(double rho, double T) const;
 
     IdealGasLead<double> lead;
     IdealGasLogTau<double> log_tau;
@@ -42,6 +42,9 @@ private:
     ModifiedBatshinskiHildebrand<double> eta_r;
     Eta0AndPoly<double> lambda_0;
     PolynomialAndExponential<double> lambda_r;
+
+    template <typename FLUID>
+    friend class Helmholtz;
 };
 
 } // namespace fprops
