@@ -29,11 +29,11 @@ public:
     /// @param file_name HDF5 file name
     virtual void load(const std::string & file_name);
 
-    State p_T(double p, double T) const override;
-    State rho_T(double rho, double T) const override;
-    State rho_p(double rho, double p) const override;
-    State v_u(double v, double u) const override;
-    State h_s(double h, double s) const override;
+    State p_T(double p, double T) const;
+    State rho_T(double rho, double T) const;
+    State rho_p(double rho, double p) const;
+    State v_u(double v, double u) const;
+    State h_s(double h, double s) const;
 
 protected:
     /// Fluid property data set
