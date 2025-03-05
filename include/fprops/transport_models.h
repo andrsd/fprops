@@ -43,7 +43,7 @@ public:
     value(double tau, double delta) const
     {
         TYPE sum = 0.;
-        for (std::size_t i = 0; i < this->B.size(); i++)
+        for (std::size_t i = 0; i < this->B.size(); ++i)
             sum += this->B[i] * math::pow(tau, this->t[i]) * math::pow(delta, this->d[i]);
         return sum;
     }
@@ -139,7 +139,7 @@ public:
     value(double eta0, double tau) const
     {
         TYPE sum = this->A[0] * eta0 * 1e6;
-        for (unsigned int i = 1; i < A.size(); i++)
+        for (unsigned int i = 1; i < A.size(); ++i)
             sum += this->A[i] * math::pow(tau, this->t[i]);
         return sum;
     }
@@ -177,10 +177,10 @@ public:
     value(double Tr) const
     {
         TYPE numerator = 0.;
-        for (std::size_t i = 0; i < this->A.size(); i++)
+        for (std::size_t i = 0; i < this->A.size(); ++i)
             numerator += this->A[i] * math::pow(Tr, this->n[i]);
         TYPE denominator = 0.;
-        for (std::size_t i = 0; i < this->B.size(); i++)
+        for (std::size_t i = 0; i < this->B.size(); ++i)
             denominator += this->B[i] * math::pow(Tr, this->m[i]);
         return numerator / denominator;
     }
@@ -237,7 +237,7 @@ public:
     {
         double log_T_star = std::log(temperature / this->epsilon_over_k);
         double Omega_T_star = 0;
-        for (unsigned int i = 0; i < this->b.size(); i++)
+        for (unsigned int i = 0; i < this->b.size(); ++i)
             Omega_T_star += this->b[i] * math::pow(log_T_star, i);
         Omega_T_star = std::exp(Omega_T_star);
         return this->C * std::sqrt(1000.0 * this->M * temperature) /
@@ -296,7 +296,7 @@ public:
         /// for CO\f$_2\f$ for further information
         TYPE lnTstar = std::log(Tstar);
         TYPE S = 0;
-        for (std::size_t i = 0; i < this->a.size(); i++)
+        for (std::size_t i = 0; i < this->a.size(); ++i)
             S += this->a[i] * math::pow(lnTstar, this->t[i]);
         S = std::exp(S);
 
@@ -379,10 +379,10 @@ public:
 
         // for delta_0
         TYPE numer = 0;
-        for (std::size_t i = 0; i < this->g.size(); i++)
+        for (std::size_t i = 0; i < this->g.size(); ++i)
             numer += this->g[i] * pow(tau, this->h[i]);
         TYPE denom = 0;
-        for (std::size_t i = 0; i < this->p.size(); i++)
+        for (std::size_t i = 0; i < this->p.size(); ++i)
             denom += this->p[i] * pow(tau, this->q[i]);
         TYPE delta0 = numer / denom;
 
@@ -550,7 +550,7 @@ private:
     dot(const std::array<TYPE, N> & a, const std::array<TYPE, N> & b) const
     {
         TYPE prod = 0.;
-        for (auto i = 0; i < N; i++)
+        for (auto i = 0; i < N; ++i)
             prod += a[i] * b[i];
         return prod;
     }

@@ -294,7 +294,7 @@ protected:
         alpha(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum +=
                     this->n[i] * std::log(this->c[i] + this->d[i] * std::exp(this->theta[i] * tau));
             return sum;
@@ -387,7 +387,7 @@ protected:
         {
             assert(n.size() == t.size());
             std::vector<T> theta(n.size(), 0.);
-            for (std::size_t i = 0; i < t.size(); i++)
+            for (std::size_t i = 0; i < t.size(); ++i)
                 theta[i] = -t[i];
             std::vector<T> c(n.size(), 1);
             std::vector<T> d(n.size(), -1);
@@ -441,7 +441,7 @@ protected:
         alpha(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * math::pow(delta, this->d[i]) * math::pow(tau, this->t[i]);
             return sum;
         }
@@ -450,7 +450,7 @@ protected:
         ddelta(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * this->d[i] * math::pow(delta, this->d[i] - 1) *
                        math::pow(tau, this->t[i]);
             return sum;
@@ -460,7 +460,7 @@ protected:
         dtau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * math::pow(delta, this->d[i]) * this->t[i] *
                        math::pow(tau, this->t[i] - 1);
             return sum;
@@ -470,7 +470,7 @@ protected:
         d2delta(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * this->d[i] * (this->d[i] - 1) *
                        math::pow(delta, this->d[i] - 2) * math::pow(tau, this->t[i]);
             return sum;
@@ -480,7 +480,7 @@ protected:
         d2tau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * math::pow(delta, this->d[i]) * this->t[i] * (this->t[i] - 1) *
                        math::pow(tau, this->t[i] - 2);
             return sum;
@@ -490,7 +490,7 @@ protected:
         d2deltatau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * this->d[i] * math::pow(delta, this->d[i] - 1) * this->t[i] *
                        math::pow(tau, this->t[i] - 1);
             return sum;
@@ -529,7 +529,7 @@ protected:
         alpha(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i]) *
                        std::exp(-std::pow(delta, this->l[i]));
             return sum;
@@ -539,7 +539,7 @@ protected:
         ddelta(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * std::pow(delta, this->d[i] - 1) * std::pow(tau, this->t[i]) *
                        std::exp(-std::pow(delta, this->l[i])) *
                        (this->d[i] - this->l[i] * std::pow(delta, this->l[i]));
@@ -550,7 +550,7 @@ protected:
         dtau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * this->t[i] * std::pow(delta, this->d[i]) *
                        std::pow(tau, this->t[i] - 1) * std::exp(-std::pow(delta, this->l[i]));
             return sum;
@@ -560,7 +560,7 @@ protected:
         d2delta(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum +=
                     this->n[i] * std::pow(delta, this->d[i] - 2) * std::pow(tau, this->t[i]) *
                     std::exp(-std::pow(delta, this->l[i])) *
@@ -574,7 +574,7 @@ protected:
         d2tau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * (this->t[i] - 1) * this->t[i] * std::pow(delta, this->d[i]) *
                        std::exp(-std::pow(delta, this->l[i])) * std::pow(tau, this->t[i] - 2);
             return sum;
@@ -584,7 +584,7 @@ protected:
         d2deltatau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * this->t[i] * std::pow(delta, this->d[i] - 1) *
                        std::pow(tau, this->t[i] - 1) * std::exp(-std::pow(delta, this->l[i])) *
                        (this->d[i] - this->l[i] * std::pow(delta, this->l[i]));
@@ -634,7 +634,7 @@ protected:
         alpha(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i]) *
                        std::exp(-this->eta[i] * math::pow<2>(delta - this->epsilon[i]) -
                                 this->beta[i] * math::pow<2>(tau - this->gamma[i]));
@@ -645,7 +645,7 @@ protected:
         ddelta(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * std::pow(delta, this->d[i] - 1) * std::pow(tau, this->t[i]) *
                        (this->d[i] - 2.0 * delta * this->eta[i] * (delta - this->epsilon[i])) *
                        std::exp(-this->eta[i] * math::pow<2>(delta - this->epsilon[i]) -
@@ -657,7 +657,7 @@ protected:
         dtau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i] - 1) *
                        (2.0 * this->beta[i] * (this->gamma[i] - tau) * tau + this->t[i]) *
                        std::exp(-this->eta[i] * math::pow<2>(delta - this->epsilon[i]) -
@@ -669,7 +669,7 @@ protected:
         d2delta(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * std::pow(delta, this->d[i] - 2) * std::pow(tau, this->t[i]) *
                        (2 * math::pow<2>(delta) * this->eta[i] *
                             (2 * this->eta[i] * math::pow<2>(delta - this->epsilon[i]) - 1) +
@@ -684,7 +684,7 @@ protected:
         d2tau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * std::pow(delta, this->d[i]) * std::pow(tau, this->t[i] - 2) *
                        (2 * this->beta[i] * math::pow<2>(tau) *
                             (2 * this->beta[i] * math::pow<2>(this->gamma[i] - tau) - 1) +
@@ -699,7 +699,7 @@ protected:
         d2deltatau(T delta, T tau) const
         {
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += this->n[i] * std::pow(delta, this->d[i] - 1) *
                        std::pow(tau, this->t[i] - 1) *
                        (2. * this->beta[i] * (this->gamma[i] - tau) * tau + this->t[i]) *
@@ -753,7 +753,7 @@ protected:
         {
             fiddle(delta, tau);
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 sum += delta * this->n[i] * DELTA_bi(i, delta, tau) * PSI(i, delta, tau);
             return sum;
         }
@@ -763,7 +763,7 @@ protected:
         {
             fiddle(delta, tau);
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++) {
+            for (std::size_t i = 0; i < this->n.size(); ++i) {
                 sum += this->n[i] * (DELTA_bi(i, delta, tau) * PSI(i, delta, tau) +
                                      delta * dDELTA_bi_ddelta(i, delta, tau) * PSI(i, delta, tau) +
                                      delta * DELTA_bi(i, delta, tau) * dPSI_ddelta(i, delta, tau));
@@ -776,7 +776,7 @@ protected:
         {
             fiddle(delta, tau);
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++) {
+            for (std::size_t i = 0; i < this->n.size(); ++i) {
                 sum += this->n[i] * delta *
                        (dDELTA_bi_dtau(i, delta, tau) * PSI(i, delta, tau) +
                         DELTA_bi(i, delta, tau) * dPSI_dtau(i, delta, tau));
@@ -789,7 +789,7 @@ protected:
         {
             fiddle(delta, tau);
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++) {
+            for (std::size_t i = 0; i < this->n.size(); ++i) {
                 sum += this->n[i] *
                        (dDELTA_bi_ddelta(i, delta, tau) * PSI(i, delta, tau) +
                         DELTA_bi(i, delta, tau) * dPSI_ddelta(i, delta, tau) +
@@ -808,7 +808,7 @@ protected:
         {
             fiddle(delta, tau);
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++) {
+            for (std::size_t i = 0; i < this->n.size(); ++i) {
                 sum += this->n[i] * delta *
                        (d2DELTA_bi_dtau2(i, delta, tau) * PSI(i, delta, tau) +
                         2 * dDELTA_bi_dtau(i, delta, tau) * dPSI_dtau(i, delta, tau) +
@@ -822,7 +822,7 @@ protected:
         {
             fiddle(delta, tau);
             T sum = 0;
-            for (std::size_t i = 0; i < this->n.size(); i++) {
+            for (std::size_t i = 0; i < this->n.size(); ++i) {
                 sum += this->n[i] *
                        (dDELTA_bi_dtau(i, delta, tau) * PSI(i, delta, tau) +
                         delta * (d2DELTA_bi_ddeltatau(i, delta, tau) * PSI(i, delta, tau) +
@@ -1040,7 +1040,7 @@ protected:
         alpha(TYPE delta, TYPE tau) const
         {
             TYPE a = 0.;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 a += this->n[i] * f_tau(i, tau) * f_delta(i, delta);
             return a;
         }
@@ -1049,7 +1049,7 @@ protected:
         ddelta(TYPE delta, TYPE tau) const
         {
             TYPE da_ddelta = 0.;
-            for (std::size_t i = 0; i < this->n.size(); i++) {
+            for (std::size_t i = 0; i < this->n.size(); ++i) {
                 da_ddelta += this->n[i] * f_tau(i, tau) * delta_df_delta_ddelta(i, delta) / delta;
             }
             return da_ddelta;
@@ -1059,7 +1059,7 @@ protected:
         dtau(TYPE delta, TYPE tau) const
         {
             TYPE da_dtau = 0.;
-            for (std::size_t i = 0; i < this->n.size(); i++) {
+            for (std::size_t i = 0; i < this->n.size(); ++i) {
                 da_dtau += this->n[i] * f_delta(i, delta) * tau_df_tau_dtau(i, tau) / tau;
             }
             return da_dtau;
@@ -1069,7 +1069,7 @@ protected:
         d2delta(TYPE delta, TYPE tau) const
         {
             TYPE d2a_ddelta2 = 0.;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 d2a_ddelta2 += this->n[i] * f_tau(i, tau) * delta2_d2f_delta_ddelta2(i, delta) /
                                math::pow<2>(delta);
             return d2a_ddelta2;
@@ -1079,7 +1079,7 @@ protected:
         d2tau(TYPE delta, TYPE tau) const
         {
             TYPE d2a_dtau2 = 0.;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 d2a_dtau2 +=
                     this->n[i] * f_delta(i, delta) * tau2_d2f_tau_dtau2(i, tau) / math::pow<2>(tau);
             return d2a_dtau2;
@@ -1089,7 +1089,7 @@ protected:
         d2deltatau(TYPE delta, TYPE tau) const
         {
             TYPE d2a_ddeltatau = 0.;
-            for (std::size_t i = 0; i < this->n.size(); i++)
+            for (std::size_t i = 0; i < this->n.size(); ++i)
                 d2a_ddeltatau += this->n[i] * tau_df_tau_dtau(i, tau) *
                                  delta_df_delta_ddelta(i, delta) / tau / delta;
             return d2a_ddeltatau;

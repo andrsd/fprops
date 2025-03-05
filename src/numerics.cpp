@@ -20,7 +20,7 @@ root(double x0,
      std::function<double(double)> const & df,
      double tol)
 {
-    for (unsigned int iter = 0; iter < MAX_ITERATIONS; iter++) {
+    for (unsigned int iter = 0; iter < MAX_ITERATIONS; ++iter) {
         double y = f(x0);
         double y_prime = df(x0);
         if (std::fabs(y_prime) < epsilon)
