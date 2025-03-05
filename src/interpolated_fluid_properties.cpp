@@ -222,8 +222,8 @@ InterpolatedFluidProperties::FPDataSet::set_values(std::size_t idx, const DynDen
     DynDenseMatrix dydx1, dydx2, d2ydx1x2;
     calc_derivatives(y, dydx1, dydx2, d2ydx1x2);
 
-    for (Eigen::Index i = 0; i < this->values[idx].rows(); i++) {
-        for (Eigen::Index j = 0; j < this->values[idx].cols(); j++) {
+    for (Eigen::Index i = 0; i < this->values[idx].rows(); ++i) {
+        for (Eigen::Index j = 0; j < this->values[idx].cols(); ++j) {
             const double d1 = this->x1(i + 1) - this->x1(i);
             const double d2 = this->x2(j + 1) - this->x2(j);
 
@@ -237,7 +237,7 @@ InterpolatedFluidProperties::FPDataSet::set_values(std::size_t idx, const DynDen
             yy12 << d2ydx1x2(i, j), d2ydx1x2(i, j + 1), d2ydx1x2(i + 1, j + 1), d2ydx1x2(i + 1, j);
 
             Eigen::Matrix<double, 16, 1> xx;
-            for (Eigen::Index k = 0; k < 4; k++) {
+            for (Eigen::Index k = 0; k < 4; ++k) {
                 xx(k) = yy0(k);
                 xx(k + 4) = yy1(k) * d1;
                 xx(k + 8) = yy2(k) * d2;
@@ -262,8 +262,8 @@ InterpolatedFluidProperties::FPDataSet::calc_derivatives(const DynDenseMatrix & 
     dydx2.resize(m, n);
     dydx1x2.resize(m, n);
 
-    for (Eigen::Index i = 0; i < m; i++) {
-        for (Eigen::Index j = 0; j < n; j++) {
+    for (Eigen::Index i = 0; i < m; ++i) {
+        for (Eigen::Index j = 0; j < n; ++j) {
             // Derivative wrt x1
             if (i == 0)
                 dydx1(i, j) = (y(i + 1, j) - y(i, j)) / (this->x1(i + 1) - this->x1(i));
@@ -329,8 +329,8 @@ InterpolatedFluidProperties::FPDataSet::eval(double xx1,
     std::array<double, N> vals = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     for (auto & idx : val_idx) {
         const auto & coeffs = this->values[idx](i, j);
-        for (Eigen::Index k = 0; k < 4; k++)
-            for (Eigen::Index l = 0; l < 4; l++)
+        for (Eigen::Index k = 0; k < 4; ++k)
+            for (Eigen::Index l = 0; l < 4; ++l)
                 vals[idx] += coeffs(k, l) * math::pow(u, k) * math::pow(v, l);
     }
     return vals;
