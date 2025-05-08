@@ -2,6 +2,11 @@ file(GLOB SRCS CONFIGURE_DEPENDS *.cpp)
 
 add_library(libfprops SHARED ${SRCS})
 
+target_compile_options(libfprops
+    PRIVATE
+        $<$<CONFIG:Debug>:-Wall -Werror>
+)
+
 if(NOT MSVC)
     set_target_properties(libfprops PROPERTIES OUTPUT_NAME fprops)
 endif()
