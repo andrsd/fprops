@@ -1,6 +1,6 @@
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
-configure_file(setup.py.in setup.py)
+configure_file(pyproject.toml.in pyproject.toml)
 install(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install ${CMAKE_CURRENT_BINARY_DIR})")
 
 add_subdirectory(src)

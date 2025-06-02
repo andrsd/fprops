@@ -1,8 +1,0 @@
-from setuptools import Extension, setup
-
-setup(
-    name='fprops',
-    version='${PROJECT_VERSION}',
-    packages=['fprops'],
-    package_dir={ '': '${CMAKE_CURRENT_SOURCE_DIR}/src' }
-)
