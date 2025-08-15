@@ -66,7 +66,23 @@ jobs:
 
       - name: Run unit tests
         run: |
-          ${{ github.workspace }}/build/test/fprops-test
+          ${{ github.workspace }}/build/test/fprops-test \
+            --gtest_output=xml:${{ github.workspace }}/build/gtest-results.xml
+
+      - name: Test summary
+        uses: test-summary/action@v2
+        if: always()
+        with:
+          paths: ${{ github.workspace }}/build/gtest-results.xml
+          show: "fail, skip"
+
+      - name: Upload test results to codecov.io
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ${{ github.workspace }}/build/gtest-results.xml
+          name: ${{ matrix.os }}-${{ matrix.python-version }}
 
       - name: Run python tests
         run: |
@@ -94,6 +110,6 @@ jobs:
         uses: actions/download-artifact@v4
 
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
