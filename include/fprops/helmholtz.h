@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "fprops/single_phase_fluid_properties.h"
+#include "fprops/state.h"
 #include "fprops/numerics.h"
 #include "fprops/exception.h"
 #include <cmath>
@@ -17,20 +17,13 @@ namespace fprops {
 /// This class is based on `HelmholtzFluidProperties.h` from `idaholab/moose/fluid_properties`
 /// module
 template <typename FLUID>
-class Helmholtz : public SinglePhaseFluidProperties {
+class Helmholtz {
 public:
     /// @param R Universal gas constant \f$[J/(mol-K)]\f$
     /// @param M Molar mass \f$[kg/mol]\f$
     /// @param rho_c Critical density \f$[kg/m^3]\f$
     /// @param T_c Critical temperature \f$[K]\f$
-    Helmholtz(double R, double M, double rho_c, double T_c) :
-        SinglePhaseFluidProperties(),
-        R(R),
-        M(M),
-        rho_c(rho_c),
-        T_c(T_c)
-    {
-    }
+    Helmholtz(double R, double M, double rho_c, double T_c) : R(R), M(M), rho_c(rho_c), T_c(T_c) {}
 
     [[nodiscard]] State rho_T(double rho, double T) const;
     [[nodiscard]] State rho_p(double rho, double p) const;

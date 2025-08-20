@@ -25,7 +25,6 @@ const std::size_t InterpolatedFluidProperties::H = 10;
 const std::size_t InterpolatedFluidProperties::W = 11;
 
 InterpolatedFluidProperties::InterpolatedFluidProperties() :
-    SinglePhaseFluidProperties(),
     var_names({ "u", "v", "rho", "p", "T", "mu", "cp", "cv", "s", "k", "h", "w" }),
     var_units({ "J/kg",
                 "m^3/kg",

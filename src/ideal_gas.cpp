@@ -11,7 +11,6 @@ namespace fprops {
 static const double R = 8.3144598;
 
 IdealGas::IdealGas(double gamma, double molar_mass) :
-    SinglePhaseFluidProperties(),
     m_gamma(gamma),
     m_molar_mass(molar_mass),
     m_R_specific(R / molar_mass),
