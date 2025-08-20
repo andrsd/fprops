@@ -96,8 +96,7 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidPropertiesE">
 <span id="_CPPv3N6fprops26SinglePhaseFluidPropertiesE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidPropertiesE"></span><span id="fprops::SinglePhaseFluidProperties"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SinglePhaseFluidProperties</span></span></span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidPropertiesE" title="Link to this definition"></a><br /></dt>
-<dd><p>Base class for single phase fluids. </p>
-<p>Subclassed by <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz&lt; Air &gt;</span></a>, <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz&lt; Ammonia &gt;</span></a>, <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz&lt; CarbonDioxide &gt;</span></a>, <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz&lt; Helium &gt;</span></a>, <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz&lt; Methane &gt;</span></a>, <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz&lt; Nitrogen &gt;</span></a>, <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz&lt; Oxygen &gt;</span></a>, <a class="reference internal" href="helmholtz.html#classfprops_1_1_helmholtz"><span class="std std-ref">fprops::Helmholtz&lt; FLUID &gt;</span></a>, <a class="reference internal" href="ideal-gas.html#classfprops_1_1_ideal_gas"><span class="std std-ref">fprops::IdealGas</span></a>, fprops::InterpolatedFluidProperties</p>
+<dd><p>Single phase fluids. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -166,6 +165,23 @@
 <li><p><strong>h</strong> – Specific enthalpy <span class="math notranslate nohighlight">\([J/kg]\)</span></p></li>
 <li><p><strong>s</strong> – Entropy <span class="math notranslate nohighlight">\([J/(kg-K)]\)</span></p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6fprops26SinglePhaseFluidProperties9from_nameERKNSt6stringE">
+<span id="_CPPv3N6fprops26SinglePhaseFluidProperties9from_nameERKNSt6stringE"></span><span id="_CPPv2N6fprops26SinglePhaseFluidProperties9from_nameERKNSt6stringE"></span><span id="fprops::SinglePhaseFluidProperties::from_name__ssCR"></span><span class="target" id="classfprops_1_1_single_phase_fluid_properties_1a6129fa7e0bb9b4b5dac0767cbd980490"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6fprops26SinglePhaseFluidPropertiesE" title="fprops::SinglePhaseFluidProperties"><span class="n"><span class="pre">SinglePhaseFluidProperties</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">from_name</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6fprops26SinglePhaseFluidProperties9from_nameERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Construct fluid properties from a fluid name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Fluid name </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fluid properties </p>
 </dd>
 </dl>
 </dd></dl>
