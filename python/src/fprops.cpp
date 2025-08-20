@@ -48,7 +48,7 @@ PYBIND11_MODULE(fprops, m)
         .def_readwrite("w", &State::w)
         .def("__repr__", &State::to_string);
 
-    py::class_<Air, SinglePhaseFluidProperties>(m, "Air")
+    py::class_<Air>(m, "Air")
         .def(py::init())
         .def("rho_T", &Air::rho_T)
         .def("rho_p", &Air::rho_p)
@@ -56,7 +56,7 @@ PYBIND11_MODULE(fprops, m)
         .def("v_u", &Air::v_u)
         .def("h_s", &Air::h_s);
 
-    py::class_<Ammonia, SinglePhaseFluidProperties>(m, "Ammonia")
+    py::class_<Ammonia>(m, "Ammonia")
         .def(py::init())
         .def("rho_T", &Ammonia::rho_T)
         .def("rho_p", &Ammonia::rho_p)
@@ -64,7 +64,7 @@ PYBIND11_MODULE(fprops, m)
         .def("v_u", &Ammonia::v_u)
         .def("h_s", &Ammonia::h_s);
 
-    py::class_<IdealGas, SinglePhaseFluidProperties>(m, "IdealGas")
+    py::class_<IdealGas>(m, "IdealGas")
         .def(py::init<double, double>())
         .def("rho_T", &IdealGas::rho_T)
         .def("rho_p", &IdealGas::rho_p)
@@ -81,7 +81,7 @@ PYBIND11_MODULE(fprops, m)
         .def("set_mu", &IdealGas::set_mu)
         .def("set_k", &IdealGas::set_k);
 
-    py::class_<Nitrogen, SinglePhaseFluidProperties>(m, "Nitrogen")
+    py::class_<Nitrogen>(m, "Nitrogen")
         .def(py::init())
         .def("rho_T", &Nitrogen::rho_T)
         .def("rho_p", &Nitrogen::rho_p)
@@ -89,7 +89,7 @@ PYBIND11_MODULE(fprops, m)
         .def("v_u", &Nitrogen::v_u)
         .def("h_s", &Nitrogen::h_s);
 
-    py::class_<Helium, SinglePhaseFluidProperties>(m, "Helium")
+    py::class_<Helium>(m, "Helium")
         .def(py::init())
         .def("rho_T", &Helium::rho_T)
         .def("rho_p", &Helium::rho_p)
@@ -97,7 +97,7 @@ PYBIND11_MODULE(fprops, m)
         .def("v_u", &Helium::v_u)
         .def("h_s", &Helium::h_s);
 
-    py::class_<CarbonDioxide, SinglePhaseFluidProperties>(m, "CarbonDioxide")
+    py::class_<CarbonDioxide>(m, "CarbonDioxide")
         .def(py::init())
         .def("rho_T", &CarbonDioxide::rho_T)
         .def("rho_p", &CarbonDioxide::rho_p)
@@ -105,7 +105,7 @@ PYBIND11_MODULE(fprops, m)
         .def("v_u", &CarbonDioxide::v_u)
         .def("h_s", &CarbonDioxide::h_s);
 
-    py::class_<Oxygen, SinglePhaseFluidProperties>(m, "Oxygen")
+    py::class_<Oxygen>(m, "Oxygen")
         .def(py::init())
         .def("rho_T", &Oxygen::rho_T)
         .def("rho_p", &Oxygen::rho_p)
@@ -113,7 +113,7 @@ PYBIND11_MODULE(fprops, m)
         .def("v_u", &Oxygen::v_u)
         .def("h_s", &Oxygen::h_s);
 
-    py::class_<Methane, SinglePhaseFluidProperties>(m, "Methane")
+    py::class_<Methane>(m, "Methane")
         .def(py::init())
         .def("rho_T", &Methane::rho_T)
         .def("rho_p", &Methane::rho_p)

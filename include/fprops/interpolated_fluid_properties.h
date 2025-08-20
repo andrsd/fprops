@@ -19,7 +19,7 @@ typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> D
 typedef Eigen::Matrix<Eigen::Matrix4d, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>
     CoefficientMatrix;
 
-class InterpolatedFluidProperties : public SinglePhaseFluidProperties {
+class InterpolatedFluidProperties {
 public:
     InterpolatedFluidProperties();
     virtual ~InterpolatedFluidProperties() = default;

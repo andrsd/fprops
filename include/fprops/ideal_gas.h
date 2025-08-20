@@ -9,7 +9,7 @@ namespace fprops {
 
 /// Ideal gas
 ///
-class IdealGas : public SinglePhaseFluidProperties {
+class IdealGas {
 public:
     /// Constructor
     ///

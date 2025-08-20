@@ -7,12 +7,60 @@
 
 namespace fprops {
 
-/// Base class for single phase fluids
+/// Single phase fluids
 ///
 class SinglePhaseFluidProperties {
+private:
+    struct AbstractProperties {
+        virtual ~AbstractProperties() = default;
+        virtual State rho_T(double rho, double T) const = 0;
+        virtual State rho_p(double rho, double p) const = 0;
+        virtual State p_T(double p, double T) const = 0;
+        virtual State v_u(double v, double u) const = 0;
+        virtual State h_s(double h, double s) const = 0;
+    };
+
+    template <typename FP>
+    struct Properties : public AbstractProperties {
+        FP * fprops_;
+
+        explicit Properties(FP * fprops) : fprops_(fprops) {}
+
+        State
+        rho_T(double rho, double T) const override
+        {
+            return this->fprops_->rho_T(rho, T);
+        }
+
+        State
+        rho_p(double rho, double p) const override
+        {
+            return this->fprops_->rho_p(rho, p);
+        }
+
+        State
+        p_T(double p, double T) const override
+        {
+            return this->fprops_->p_T(p, T);
+        }
+
+        State
+        v_u(double v, double u) const override
+        {
+            return this->fprops_->v_u(v, u);
+        }
+
+        State
+        h_s(double h, double s) const override
+        {
+            return this->fprops_->h_s(h, s);
+        }
+    };
+
+    AbstractProperties * impl_;
+
 public:
-    SinglePhaseFluidProperties();
-    virtual ~SinglePhaseFluidProperties() = default;
+    virtual ~SinglePhaseFluidProperties();
 
     /// Compute thermodynamical state given density and temperature
     ///
@@ -43,6 +91,20 @@ public:
     /// @param h Specific enthalpy \f$[J/kg]\f$
     /// @param s Entropy \f$[J/(kg-K)]\f$
     [[nodiscard]] State h_s(double h, double s) const;
+
+private:
+    // constructor from raw pointer to an implementation
+    template <typename FPROPS>
+    SinglePhaseFluidProperties(FPROPS * fprops) : impl_(new Properties<FPROPS>(fprops))
+    {
+    }
+
+public:
+    /// Construct fluid properties from a fluid name
+    ///
+    /// @param name Fluid name
+    /// @return Fluid properties
+    static SinglePhaseFluidProperties from_name(const std::string & name);
 };
 
 } // namespace fprops
