@@ -7,6 +7,7 @@
 #include "fprops/helium.h"
 #include "fprops/nitrogen.h"
 #include "fprops/exception.h"
+#include <algorithm>
 
 namespace fprops {
 
