@@ -40,7 +40,7 @@ jobs:
           conda install \
             cmake \
             make \
-            fmt==9.1.0 \
+            fmt=11.* \
             hdf5 \
             eigen \
             pybind11 \
