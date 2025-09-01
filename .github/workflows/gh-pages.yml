@@ -42,7 +42,7 @@ jobs:
             pytest \
             hdf5 \
             eigen \
-            fmt==9.1.0
+            fmt=11.*
 
       - name: Build doco
         run: |

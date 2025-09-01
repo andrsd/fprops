@@ -35,7 +35,7 @@ jobs:
             eigen \
             pybind11 \
             pytest \
-            fmt==9.1.0
+            fmt=11.*
 
       - name: Configure
         run: |
@@ -47,10 +47,10 @@ jobs:
         id: linter
         with:
           style: file
-          tidy-checks: ''
+          tidy-checks: ""
           version: 14
           lines-changed-only: true
-          ignore: 'cmake|contrib|docs|python'
+          ignore: "cmake|contrib|docs|python"
           step-summary: true
           database: build
 

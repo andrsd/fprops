@@ -5,7 +5,7 @@ Requirements
 
 * C++17 compiler
 * cmake 3.16+
-* `fmt`_
+* `fmt`_ 11.x
 * python
 * pybind11 (>=2.9.2 - if building with python bindings)
 
