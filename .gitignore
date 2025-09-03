@@ -10,6 +10,7 @@ python/src/fprops.egg-info
 # Editors/IDEs
 .idea
 .zed
+.vscode
 
 # docs
 docs/pyplots/*.png
