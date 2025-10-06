@@ -24,9 +24,11 @@ set_target_properties(
 
 target_include_directories(
     libfprops
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/include
-        ${CMAKE_BINARY_DIR}/include
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>/include
+        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>/include
         ${CMAKE_SOURCE_DIR}/contrib
         ${HDF5_INCLUDE_DIR}
         ${EIGEN3_INCLUDE_DIR}
