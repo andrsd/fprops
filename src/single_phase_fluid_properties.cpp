@@ -23,38 +23,38 @@ to_lower(const std::string & name)
 
 } // namespace
 
-SinglePhaseFluidProperties::~SinglePhaseFluidProperties()
-{
-    delete this->impl_;
-}
-
 State
 SinglePhaseFluidProperties::rho_T(double rho, double T) const
 {
+    assert(this->impl_ != nullptr);
     return this->impl_->rho_T(rho, T);
 }
 
 State
 SinglePhaseFluidProperties::rho_p(double rho, double p) const
 {
+    assert(this->impl_ != nullptr);
     return this->impl_->rho_p(rho, p);
 }
 
 State
 SinglePhaseFluidProperties::p_T(double p, double T) const
 {
+    assert(this->impl_ != nullptr);
     return this->impl_->p_T(p, T);
 }
 
 State
 SinglePhaseFluidProperties::v_u(double v, double u) const
 {
+    assert(this->impl_ != nullptr);
     return this->impl_->v_u(v, u);
 }
 
 State
 SinglePhaseFluidProperties::h_s(double h, double s) const
 {
+    assert(this->impl_ != nullptr);
     return this->impl_->h_s(h, s);
 }
 
@@ -63,13 +63,13 @@ SinglePhaseFluidProperties::from_name(const std::string & name)
 {
     auto n = to_lower(name);
     if (n == "air")
-        return SinglePhaseFluidProperties(new Air());
+        return SinglePhaseFluidProperties(Air());
     else if (n == "carbon_dioxide" || n == "co2")
-        return SinglePhaseFluidProperties(new CarbonDioxide());
+        return SinglePhaseFluidProperties(CarbonDioxide());
     else if (n == "helium" || n == "he")
-        return SinglePhaseFluidProperties(new Helium());
+        return SinglePhaseFluidProperties(Helium());
     else if (n == "nitrogen" || n == "n2")
-        return SinglePhaseFluidProperties(new Nitrogen());
+        return SinglePhaseFluidProperties(Nitrogen());
     else
         throw Exception("Unknown fluid name '{}'", name);
 }

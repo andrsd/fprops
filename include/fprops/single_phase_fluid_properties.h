@@ -4,6 +4,7 @@
 #pragma once
 
 #include "fprops/state.h"
+#include <memory>
 
 namespace fprops {
 
@@ -22,45 +23,54 @@ private:
 
     template <typename FP>
     struct Properties : public AbstractProperties {
-        FP * fprops_;
+        FP fprops_;
 
-        explicit Properties(FP * fprops) : fprops_(fprops) {}
+        explicit Properties(FP fprops) : fprops_(fprops) {}
 
         State
         rho_T(double rho, double T) const override
         {
-            return this->fprops_->rho_T(rho, T);
+            return this->fprops_.rho_T(rho, T);
         }
 
         State
         rho_p(double rho, double p) const override
         {
-            return this->fprops_->rho_p(rho, p);
+            return this->fprops_.rho_p(rho, p);
         }
 
         State
         p_T(double p, double T) const override
         {
-            return this->fprops_->p_T(p, T);
+            return this->fprops_.p_T(p, T);
         }
 
         State
         v_u(double v, double u) const override
         {
-            return this->fprops_->v_u(v, u);
+            return this->fprops_.v_u(v, u);
         }
 
         State
         h_s(double h, double s) const override
         {
-            return this->fprops_->h_s(h, s);
+            return this->fprops_.h_s(h, s);
         }
     };
 
-    AbstractProperties * impl_;
+    std::shared_ptr<AbstractProperties> impl_;
 
 public:
-    virtual ~SinglePhaseFluidProperties();
+    SinglePhaseFluidProperties() = default;
+
+    // constructor from raw pointer to an implementation
+    template <typename FPROPS>
+    explicit SinglePhaseFluidProperties(FPROPS fprops) :
+        impl_(std::make_shared<Properties<FPROPS>>(fprops))
+    {
+    }
+
+    operator bool() const { return this->impl_ != nullptr; }
 
     /// Compute thermodynamical state given density and temperature
     ///
@@ -91,13 +101,6 @@ public:
     /// @param h Specific enthalpy \f$[J/kg]\f$
     /// @param s Entropy \f$[J/(kg-K)]\f$
     [[nodiscard]] State h_s(double h, double s) const;
-
-private:
-    // constructor from raw pointer to an implementation
-    template <typename FPROPS>
-    SinglePhaseFluidProperties(FPROPS * fprops) : impl_(new Properties<FPROPS>(fprops))
-    {
-    }
 
 public:
     /// Construct fluid properties from a fluid name

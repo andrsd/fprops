@@ -334,38 +334,42 @@ protected:
     public:
         IdealGasPlanckEinsteinFunctionT(double T_crit,
                                         const std::vector<T> & n,
-                                        const std::vector<T> & v)
+                                        const std::vector<T> & v) :
+            generalized(make_generalized(T_crit, n, v))
+        {
+        }
+
+        T
+        alpha(T delta, T tau) const
+        {
+            return this->generalized.alpha(delta, tau);
+        }
+
+        T
+        dtau(T delta, T tau) const
+        {
+            return this->generalized.dtau(delta, tau);
+        }
+
+        T
+        d2tau(T delta, T tau) const
+        {
+            return this->generalized.d2tau(delta, tau);
+        }
+
+    private:
+        static IdealPlanckEinsteinGeneralized<T>
+        make_generalized(double T_crit, const std::vector<T> & n, const std::vector<T> & v)
         {
             std::vector<T> theta(n.size(), 0.);
             for (std::size_t i = 0; i < v.size(); ++i)
                 theta[i] = -v[i] / T_crit;
             std::vector<T> c(n.size(), 1);
             std::vector<T> d(c.size(), -1);
-            this->generalized = new IdealPlanckEinsteinGeneralized<T>(n, theta, c, d);
+            return IdealPlanckEinsteinGeneralized<T>(n, theta, c, d);
         }
 
-        ~IdealGasPlanckEinsteinFunctionT() { delete this->generalized; }
-
-        T
-        alpha(T delta, T tau) const
-        {
-            return this->generalized->alpha(delta, tau);
-        }
-
-        T
-        dtau(T delta, T tau) const
-        {
-            return this->generalized->dtau(delta, tau);
-        }
-
-        T
-        d2tau(T delta, T tau) const
-        {
-            return this->generalized->d2tau(delta, tau);
-        }
-
-    private:
-        IdealPlanckEinsteinGeneralized<T> * generalized;
+        IdealPlanckEinsteinGeneralized<T> generalized;
     };
 
     /// Planck-Einstein
@@ -376,7 +380,32 @@ protected:
     template <typename T>
     class IdealGasPlanckEinstein {
     public:
-        IdealGasPlanckEinstein(const std::vector<T> & n, const std::vector<T> & t)
+        IdealGasPlanckEinstein(const std::vector<T> & n, const std::vector<T> & t) :
+            generalized(make_generalized(n, t))
+        {
+        }
+
+        T
+        alpha(T delta, T tau) const
+        {
+            return this->generalized.alpha(delta, tau);
+        }
+
+        T
+        dtau(T delta, T tau) const
+        {
+            return this->generalized.dtau(delta, tau);
+        }
+
+        T
+        d2tau(T delta, T tau) const
+        {
+            return this->generalized.d2tau(delta, tau);
+        }
+
+    private:
+        static IdealPlanckEinsteinGeneralized<T>
+        make_generalized(const std::vector<T> & n, const std::vector<T> & t)
         {
             assert(n.size() == t.size());
             std::vector<T> theta(n.size(), 0.);
@@ -384,31 +413,10 @@ protected:
                 theta[i] = -t[i];
             std::vector<T> c(n.size(), 1);
             std::vector<T> d(n.size(), -1);
-            this->generalized = new IdealPlanckEinsteinGeneralized<T>(n, theta, c, d);
+            return IdealPlanckEinsteinGeneralized<T>(n, theta, c, d);
         }
 
-        ~IdealGasPlanckEinstein() { delete this->generalized; }
-
-        T
-        alpha(T delta, T tau) const
-        {
-            return this->generalized->alpha(delta, tau);
-        }
-
-        T
-        dtau(T delta, T tau) const
-        {
-            return this->generalized->dtau(delta, tau);
-        }
-
-        T
-        d2tau(T delta, T tau) const
-        {
-            return this->generalized->d2tau(delta, tau);
-        }
-
-    private:
-        IdealPlanckEinsteinGeneralized<T> * generalized;
+        IdealPlanckEinsteinGeneralized<T> generalized;
     };
 
     /// Power model
