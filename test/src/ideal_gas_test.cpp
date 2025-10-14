@@ -179,6 +179,32 @@ TEST(IdealGas, h_s)
     EXPECT_NEAR(state.w, gold1.w, 1e-9);
 }
 
+TEST(IdealGas, v_h)
+{
+    double gamma = 1.4;
+    double molar_mass = 29.0e-3;
+    IdealGas fp(gamma, molar_mass);
+    fp.set_mu(18.23e-6);
+    fp.set_k(25.68e-3);
+
+    double v = 1.1124428462084279;
+    double h = 3.9451394987224141e5;
+    auto state = fp.v_h(v, h);
+
+    EXPECT_DOUBLE_EQ(state.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(state.T, gold1.T);
+    EXPECT_DOUBLE_EQ(state.p, gold1.p);
+    EXPECT_DOUBLE_EQ(state.u, gold1.u);
+    EXPECT_DOUBLE_EQ(state.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(state.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(state.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(state.k, gold1.k);
+    EXPECT_DOUBLE_EQ(state.v, gold1.v);
+    EXPECT_DOUBLE_EQ(state.s, gold1.s);
+    EXPECT_DOUBLE_EQ(state.h, gold1.h);
+    EXPECT_DOUBLE_EQ(state.w, gold1.w);
+}
+
 TEST(IdealGas, v_u_incorrect)
 {
     double gamma = 1.4;
@@ -196,4 +222,12 @@ TEST(IdealGas, p_T_incorrect)
     IdealGas fp(gamma, molar_mass);
 
     EXPECT_THROW_MSG(auto st = fp.p_T(1e5, -1), "Negative temperature");
+}
+TEST(IdealGas, v_h_incorrect)
+{
+    double gamma = 1.4;
+    double molar_mass = 29.0e-3;
+    IdealGas fp(gamma, molar_mass);
+
+    EXPECT_THROW_MSG(auto st = fp.v_h(-1, 1), "Negative specific volume");
 }

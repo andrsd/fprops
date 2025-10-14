@@ -58,6 +58,13 @@ SinglePhaseFluidProperties::h_s(double h, double s) const
     return this->impl_->h_s(h, s);
 }
 
+State
+SinglePhaseFluidProperties::v_h(double v, double h) const
+{
+    assert(this->impl_ != nullptr);
+    return this->impl_->v_h(v, h);
+}
+
 SinglePhaseFluidProperties
 SinglePhaseFluidProperties::from_name(const std::string & name)
 {
