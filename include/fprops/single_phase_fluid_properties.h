@@ -19,6 +19,7 @@ private:
         virtual State p_T(double p, double T) const = 0;
         virtual State v_u(double v, double u) const = 0;
         virtual State h_s(double h, double s) const = 0;
+        virtual State v_h(double v, double h) const = 0;
     };
 
     template <typename FP>
@@ -55,6 +56,12 @@ private:
         h_s(double h, double s) const override
         {
             return this->fprops_.h_s(h, s);
+        }
+
+        State
+        v_h(double v, double h) const override
+        {
+            return this->fprops_.v_h(v, h);
         }
     };
 
@@ -101,6 +108,12 @@ public:
     /// @param h Specific enthalpy \f$[J/kg]\f$
     /// @param s Entropy \f$[J/(kg-K)]\f$
     [[nodiscard]] State h_s(double h, double s) const;
+
+    /// Compute thermodynamical state given specific volume and specific enthalpy
+    ///
+    /// @param v Specific volume \f$[m^3/kg]\f$
+    /// @param h Specific enthalpy \f$[J/kg]\f$
+    [[nodiscard]] State v_h(double v, double h) const;
 
 public:
     /// Construct fluid properties from a fluid name

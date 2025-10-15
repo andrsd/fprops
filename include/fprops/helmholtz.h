@@ -30,6 +30,7 @@ public:
     [[nodiscard]] State p_T(double p, double T) const;
     [[nodiscard]] State v_u(double v, double u) const;
     [[nodiscard]] State h_s(double h, double s) const;
+    [[nodiscard]] State v_h(double v, double h) const;
 
 private:
     /// Helmholtz free energy
@@ -1390,6 +1391,13 @@ Helmholtz<FLUID>::v_u(double v, double u) const
 template <typename FLUID>
 State
 Helmholtz<FLUID>::h_s(double h, double s) const
+{
+    throw Exception("Not implemented");
+}
+template <typename FLUID>
+
+State
+Helmholtz<FLUID>::v_h(double v, double h) const
 {
     throw Exception("Not implemented");
 }
