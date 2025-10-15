@@ -68,8 +68,6 @@ private:
     std::shared_ptr<AbstractProperties> impl_;
 
 public:
-    SinglePhaseFluidProperties() = default;
-
     // constructor from raw pointer to an implementation
     template <typename FPROPS>
     explicit SinglePhaseFluidProperties(FPROPS fprops) :
