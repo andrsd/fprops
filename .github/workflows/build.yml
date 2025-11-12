@@ -53,6 +53,8 @@ jobs:
       - name: Configure
         run: |
           cmake -S . -B ${{ github.workspace }}/build \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS_DEBUG="-g -Wall -Werror" \
             -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
             -DFPROPS_BUILD_TESTS=YES \
             -DFPROPS_WITH_PYTHON=YES \
