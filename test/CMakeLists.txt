@@ -3,6 +3,8 @@ project(fprops-test)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+find_package(GTest REQUIRED)
+
 file(GLOB SRCS CONFIGURE_DEPENDS src/*.cpp)
 
 add_executable(${PROJECT_NAME} ${SRCS})
@@ -26,8 +28,7 @@ target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
         libfprops
-        gtest_main
-        gmock_main
+        GTest::gmock_main
 )
 
 add_test(

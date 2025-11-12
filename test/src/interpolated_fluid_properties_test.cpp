@@ -124,7 +124,7 @@ TEST(InterpolatedFluidPropertiesTest, h_s)
 
     double h = 288084;
     double s = 6083;
-    EXPECT_THROW_MSG(auto st = fp.h_s(h, s), "'h_s' data set is missing.");
+    EXPECT_THROW_MSG((void) fp.h_s(h, s), "'h_s' data set is missing.");
 }
 
 TEST(InterpolatedFluidPropertiesTest, non_existent_file)
@@ -138,11 +138,11 @@ TEST(InterpolatedFluidPropertiesTest, empty_file)
     auto file_name = path(FPROPS_UNIT_TESTS_ROOT) / path("assets") / path("empty.fprops.h5");
     InterpolatedFluidProperties fp;
     fp.load(file_name);
-    EXPECT_THROW_MSG(auto st = fp.p_T(1e6, 280), "'p_T' data set is missing.");
-    EXPECT_THROW_MSG(auto st = fp.rho_T(0.1, 280), "'rho_T' data set is missing.");
-    EXPECT_THROW_MSG(auto st = fp.rho_p(0.1, 1e6), "'rho_p' data set is missing.");
-    EXPECT_THROW_MSG(auto st = fp.v_u(1, 1e5), "'v_u' data set is missing.");
-    EXPECT_THROW_MSG(auto st = fp.h_s(1e4, 1.1e4), "'h_s' data set is missing.");
+    EXPECT_THROW_MSG((void) fp.p_T(1e6, 280), "'p_T' data set is missing.");
+    EXPECT_THROW_MSG((void) fp.rho_T(0.1, 280), "'rho_T' data set is missing.");
+    EXPECT_THROW_MSG((void) fp.rho_p(0.1, 1e6), "'rho_p' data set is missing.");
+    EXPECT_THROW_MSG((void) fp.v_u(1, 1e5), "'v_u' data set is missing.");
+    EXPECT_THROW_MSG((void) fp.h_s(1e4, 1.1e4), "'h_s' data set is missing.");
 }
 
 TEST(InterpolatedFluidPropertiesTest, grid_1_by_1_file)

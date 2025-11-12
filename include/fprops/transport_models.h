@@ -550,7 +550,7 @@ private:
     dot(const std::array<TYPE, N> & a, const std::array<TYPE, N> & b) const
     {
         TYPE prod = 0.;
-        for (auto i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             prod += a[i] * b[i];
         return prod;
     }

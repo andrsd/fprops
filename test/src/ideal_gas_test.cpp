@@ -98,7 +98,7 @@ TEST(IdealGas, rho_p_incorrect)
     double molar_mass = 29.0e-3;
     IdealGas fp(gamma, molar_mass);
 
-    EXPECT_THROW_MSG(auto st = fp.rho_p(-1, 1e5), "Negative density");
+    EXPECT_THROW_MSG((void) fp.rho_p(-1, 1e5), "Negative density");
 }
 
 TEST(IdealGas, p_T)
@@ -211,8 +211,8 @@ TEST(IdealGas, v_u_incorrect)
     double molar_mass = 29.0e-3;
     IdealGas fp(gamma, molar_mass);
 
-    EXPECT_THROW_MSG(auto st = fp.v_u(-1, 1), "Negative specific volume");
-    EXPECT_THROW_MSG(auto st = fp.v_u(1, -1), "Negative internal energy");
+    EXPECT_THROW_MSG((void) fp.v_u(-1, 1), "Negative specific volume");
+    EXPECT_THROW_MSG((void) fp.v_u(1, -1), "Negative internal energy");
 }
 
 TEST(IdealGas, p_T_incorrect)
@@ -221,7 +221,7 @@ TEST(IdealGas, p_T_incorrect)
     double molar_mass = 29.0e-3;
     IdealGas fp(gamma, molar_mass);
 
-    EXPECT_THROW_MSG(auto st = fp.p_T(1e5, -1), "Negative temperature");
+    EXPECT_THROW_MSG((void) fp.p_T(1e5, -1), "Negative temperature");
 }
 TEST(IdealGas, v_h_incorrect)
 {
@@ -229,5 +229,5 @@ TEST(IdealGas, v_h_incorrect)
     double molar_mass = 29.0e-3;
     IdealGas fp(gamma, molar_mass);
 
-    EXPECT_THROW_MSG(auto st = fp.v_h(-1, 1), "Negative specific volume");
+    EXPECT_THROW_MSG((void) fp.v_h(-1, 1), "Negative specific volume");
 }

@@ -30,9 +30,10 @@ jobs:
           conda install \
             cmake \
             make \
-            mpich-mpicxx \
+            gxx_linux-64=14.3.* \
             hdf5 \
             eigen \
+            gtest \
             pybind11 \
             pytest \
             fmt=11.*
