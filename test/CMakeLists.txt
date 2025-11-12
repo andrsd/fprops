@@ -1,13 +1,11 @@
 project(fprops-test)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
 find_package(GTest REQUIRED)
 
 file(GLOB SRCS CONFIGURE_DEPENDS src/*.cpp)
 
 add_executable(${PROJECT_NAME} ${SRCS})
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_code_coverage(${PROJECT_NAME})
 target_sanitization(${PROJECT_NAME})
 target_compile_definitions(${PROJECT_NAME} PRIVATE H5PP_USE_EIGEN3)

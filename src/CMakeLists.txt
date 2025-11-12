@@ -2,6 +2,8 @@ file(GLOB SRCS CONFIGURE_DEPENDS *.cpp)
 
 add_library(libfprops SHARED ${SRCS})
 
+target_compile_features(libfprops PRIVATE cxx_std_17)
+
 if(NOT MSVC)
     set_target_properties(libfprops PROPERTIES OUTPUT_NAME fprops)
 endif()

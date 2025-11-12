@@ -19,16 +19,10 @@ jobs:
         include:
           - os: ubuntu-22.04
             python-version: "3.10"
-            compiler: "gxx_linux-64=14.3.*"
           - os: ubuntu-22.04
             python-version: "3.11"
-            compiler: "gxx_linux-64=14.3.*"
           - os: ubuntu-22.04
             python-version: "3.12"
-            compiler: "gxx_linux-64=14.3.*"
-          - os: macos-13
-            python-version: "3.11"
-            compiler: ""
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up miniconda
@@ -46,7 +40,7 @@ jobs:
           conda install \
             cmake \
             make \
-            ${{ matrix.compiler }} \
+            gxx_linux-64=14.3.* \
             fmt=11.* \
             hdf5 \
             eigen \
