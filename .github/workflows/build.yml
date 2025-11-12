@@ -59,6 +59,7 @@ jobs:
       - name: Configure
         run: |
           cmake -S . -B ${{ github.workspace }}/build \
+            -DGCOV_PATH=`which x86_64-conda-linux-gnu-gcov` \
             -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
             -DCMAKE_BUILD_TYPE=Debug \
             -DCMAKE_CXX_FLAGS_DEBUG="-g -Wall -Werror" \
