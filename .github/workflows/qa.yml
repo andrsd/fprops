@@ -33,6 +33,7 @@ jobs:
             mpich-mpicxx \
             hdf5 \
             eigen \
+            gtest \
             pybind11 \
             pytest \
             fmt=11.*

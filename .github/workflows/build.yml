@@ -45,6 +45,7 @@ jobs:
             fmt=11.* \
             hdf5 \
             eigen \
+            gtest \
             pybind11 \
             flake8 \
             pytest \
