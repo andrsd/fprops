@@ -55,6 +55,8 @@ jobs:
         run: |
           cmake -S . -B ${{ github.workspace }}/build \
             -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS_DEBUG="-g -Wall -Werror" \
             -DFPROPS_BUILD_TESTS=YES \
             -DFPROPS_WITH_PYTHON=YES \
             -DFPROPS_CODE_COVERAGE=YES

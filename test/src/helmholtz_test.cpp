@@ -94,8 +94,8 @@ TEST(HelmholtzTest, v_u_incorrect)
 {
     MockHelmholtz fp;
 
-    EXPECT_THROW_MSG(auto st = fp.v_u(-1, 1), "Negative specific volume");
-    EXPECT_THROW_MSG(auto st = fp.v_u(1, -1), "Negative internal energy");
+    EXPECT_THROW_MSG((void) fp.v_u(-1, 1), "Negative specific volume");
+    EXPECT_THROW_MSG((void) fp.v_u(1, -1), "Negative internal energy");
 }
 
 TEST(HelmholtzTest, ideal_gas_lead)
