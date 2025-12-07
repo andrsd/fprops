@@ -42,6 +42,7 @@ target_link_libraries(
     libfprops
     PUBLIC
         fmt::fmt
+        Eigen3::Eigen
     PRIVATE
         ${HDF5_LIBRARIES}
 )

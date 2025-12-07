@@ -6,6 +6,8 @@ include("${CMAKE_CURRENT_LIST_DIR}/fprops-targets.cmake")
 include(FindPackageHandleStandardArgs)
 include(CMakeFindDependencyMacro)
 
+find_dependency(HDF5 1.8 COMPONENTS C HL REQUIRED)
+find_dependency(Eigen3 3.3.4 REQUIRED)
 find_dependency(fmt 11 REQUIRED)
 
 find_library(FPROPS_LIBRARY NAMES fprops HINTS ${PACKAGE_PREFIX_DIR}/lib NO_DEFAULT_PATH)
