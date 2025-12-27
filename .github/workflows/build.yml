@@ -42,7 +42,7 @@ jobs:
           conda install \
             cmake \
             make \
-            gxx_linux-64=14.3.* \
+            cxx-compiler \
             fmt=11.* \
             hdf5 \
             eigen \

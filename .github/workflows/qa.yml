@@ -30,7 +30,7 @@ jobs:
           conda install \
             cmake \
             make \
-            gxx_linux-64=14.3.* \
+            cxx-compiler \
             hdf5 \
             eigen \
             gtest \
