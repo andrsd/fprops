@@ -23,6 +23,8 @@ jobs:
             python-version: "3.11"
           - os: ubuntu-22.04
             python-version: "3.12"
+          - os: ubuntu-22.04
+            python-version: "3.13"
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up miniconda
@@ -40,7 +42,7 @@ jobs:
           conda install \
             cmake \
             make \
-            gxx_linux-64=14.3.* \
+            cxx-compiler \
             fmt=11.* \
             hdf5 \
             eigen \
