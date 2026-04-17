@@ -1394,8 +1394,8 @@ Helmholtz<FLUID>::h_s(double h, double s) const
 {
     throw Exception("Not implemented");
 }
-template <typename FLUID>
 
+template <typename FLUID>
 State
 Helmholtz<FLUID>::v_h(double v, double h) const
 {
