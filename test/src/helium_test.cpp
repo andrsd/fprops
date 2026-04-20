@@ -114,3 +114,27 @@ TEST(HeliumTest, v_u)
         EXPECT_DOUBLE_EQ(state.w, gold1.w);
     */
 }
+
+TEST(HeliumTest, p_h)
+{
+    Helium fp;
+
+    /*
+    double h = gold1.h;
+    double p = 1.0e6;
+    auto state = fp.p_h(p, h);
+
+    EXPECT_DOUBLE_EQ(state.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(state.T, gold1.T);
+    EXPECT_DOUBLE_EQ(state.p, gold1.p);
+    EXPECT_DOUBLE_EQ(state.u, gold1.u);
+    EXPECT_DOUBLE_EQ(state.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(state.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(state.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(state.k, gold1.k);
+    EXPECT_DOUBLE_EQ(state.v, gold1.v);
+    EXPECT_DOUBLE_EQ(state.s, gold1.s);
+    EXPECT_DOUBLE_EQ(state.h, gold1.h);
+    EXPECT_DOUBLE_EQ(state.w, gold1.w);
+    */
+}

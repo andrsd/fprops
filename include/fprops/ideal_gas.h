@@ -65,6 +65,7 @@ public:
     [[nodiscard]] State rho_T(double rho, double T) const;
     [[nodiscard]] State rho_p(double rho, double p) const;
     [[nodiscard]] State p_T(double p, double T) const;
+    [[nodiscard]] State p_h(double p, double h) const;
     [[nodiscard]] State v_u(double v, double u) const;
     [[nodiscard]] State h_s(double h, double s) const;
     [[nodiscard]] State v_h(double v, double h) const;

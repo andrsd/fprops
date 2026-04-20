@@ -102,3 +102,22 @@ TEST(R134aTest, v_u)
     EXPECT_NEAR(state.h, gold1.h, 1.);
     EXPECT_NEAR(state.w, gold1.w, 0.01);
 }
+
+TEST(R134aTest, p_h)
+{
+    R134a fp;
+    auto state = fp.p_h(p, h);
+
+    EXPECT_NEAR(state.rho, gold1.rho, 1e-3);
+    EXPECT_NEAR(state.T, gold1.T, 0.03);
+    EXPECT_NEAR(state.p, gold1.p, 1e-10);
+    EXPECT_NEAR(state.u, gold1.u, 25);
+    EXPECT_NEAR(state.cv, gold1.cv, 0.2);
+    EXPECT_NEAR(state.cp, gold1.cp, 0.3);
+    EXPECT_NEAR(state.mu, gold1.mu, 1e-7);
+    EXPECT_NEAR(state.k, gold1.k, 5e-6);
+    EXPECT_NEAR(state.v, gold1.v, 1e-4);
+    EXPECT_NEAR(state.s, gold1.s, 0.6);
+    EXPECT_NEAR(state.h, gold1.h, 30);
+    EXPECT_NEAR(state.w, gold1.w, 0.05);
+}

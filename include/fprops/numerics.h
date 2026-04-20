@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "Eigen/Dense"
 #include <functional>
 #include <stdexcept>
 #include <type_traits>
@@ -101,6 +102,12 @@ double root(double x0,
             std::function<double(double)> const & f,
             std::function<double(double)> const & df,
             double tol = 1.0e-12);
+
+/// Finds the root using Newton's method
+Eigen::Vector2d root(Eigen::Vector2d x,
+                     std::function<Eigen::Vector2d(Eigen::Vector2d)> const & compute_F,
+                     std::function<Eigen::Matrix2d(Eigen::Vector2d)> const & compute_J,
+                     double tol = 1.0e-12);
 
 } // namespace newton
 

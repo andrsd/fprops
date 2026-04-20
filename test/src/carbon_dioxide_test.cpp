@@ -98,3 +98,22 @@ TEST(CarbonDioxide, v_u)
     EXPECT_NEAR(state.h, gold1.h, 5e-3);
     EXPECT_NEAR(state.w, gold1.w, 1e-4);
 }
+
+TEST(CarbonDioxide, p_h)
+{
+    CarbonDioxide fp;
+    auto state = fp.p_h(p, h);
+
+    EXPECT_NEAR(state.rho, gold1.rho, 1e-7);
+    EXPECT_NEAR(state.T, gold1.T, 1e-6);
+    EXPECT_NEAR(state.p, gold1.p, 1e-2);
+    EXPECT_NEAR(state.u, gold1.u, 5e-4);
+    EXPECT_NEAR(state.cv, gold1.cv, 1e-5);
+    EXPECT_NEAR(state.cp, gold1.cp, 2e-3);
+    EXPECT_NEAR(state.mu, gold1.mu, 1e-7);
+    EXPECT_NEAR(state.k, gold1.k, 3e-4);
+    EXPECT_NEAR(state.v, gold1.v, 1e-9);
+    EXPECT_NEAR(state.s, gold1.s, 1e-10);
+    EXPECT_NEAR(state.h, gold1.h, 5e-3);
+    EXPECT_NEAR(state.w, gold1.w, 1e-4);
+}

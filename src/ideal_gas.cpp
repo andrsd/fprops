@@ -141,6 +141,30 @@ IdealGas::p_T(double p, double T) const
 }
 
 State
+IdealGas::p_h(double p, double h) const
+{
+    if (h < 0)
+        throw Exception("Negative specific enthalpy");
+    State state;
+    state.p = p;
+    state.h = h;
+    state.T = h / this->m_cp;
+    state.cp = this->m_cp;
+    state.cv = this->m_cv;
+    state.mu = this->m_mu;
+    state.k = this->m_k;
+    state.rho = p * this->m_molar_mass / (R * state.T);
+    state.u = this->m_cv * state.T;
+    state.v = 1. / state.rho;
+    const double n = std::pow(state.T, this->m_gamma) / std::pow(p, this->m_gamma - 1.0);
+    if (n <= 0)
+        throw Exception("Invalid log base for computing entropy");
+    state.s = this->m_cv * std::log(n);
+    state.w = std::sqrt(this->m_cp * R * state.T / (this->m_cv * this->m_molar_mass));
+    return state;
+}
+
+State
 IdealGas::v_u(double v, double u) const
 {
     if (v <= 0.)
