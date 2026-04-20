@@ -32,7 +32,7 @@ jobs:
             make \
             cxx-compiler \
             hdf5=1.14 \
-            eigen \
+            eigen=3.4 \
             gtest \
             pybind11 \
             pytest \

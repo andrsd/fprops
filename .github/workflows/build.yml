@@ -45,7 +45,7 @@ jobs:
             cxx-compiler \
             fmt=11.* \
             hdf5=1.14 \
-            eigen \
+            eigen=3.4 \
             gtest \
             pybind11 \
             flake8 \

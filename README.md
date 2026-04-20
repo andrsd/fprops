@@ -14,7 +14,7 @@
 - gtest (>=1.11.0)
 - pybind11 (>=2.9.2 - if building with python bindings)
 - hdf5 (>=1.8, <2)
-- eigen (>=3.3)
+- eigen (>=3.3, <4)
 
 ### List of fluids
 
