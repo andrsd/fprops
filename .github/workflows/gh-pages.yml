@@ -41,7 +41,7 @@ jobs:
             pybind11 \
             pytest \
             hdf5 \
-            eigen \
+            eigen=3.4 \
             fmt=11.*
 
       - name: Build doco
