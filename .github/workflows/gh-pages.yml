@@ -40,7 +40,7 @@ jobs:
             coolprop \
             pybind11 \
             pytest \
-            hdf5 \
+            hdf5=1.14 \
             eigen=3.4 \
             fmt=11.*
 

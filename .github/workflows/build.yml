@@ -44,7 +44,7 @@ jobs:
             make \
             cxx-compiler \
             fmt=11.* \
-            hdf5 \
+            hdf5=1.14 \
             eigen \
             gtest \
             pybind11 \

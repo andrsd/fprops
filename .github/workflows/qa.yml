@@ -31,7 +31,7 @@ jobs:
             cmake \
             make \
             cxx-compiler \
-            hdf5 \
+            hdf5=1.14 \
             eigen \
             gtest \
             pybind11 \
