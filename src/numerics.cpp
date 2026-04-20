@@ -35,6 +35,26 @@ root(double x0,
     throw Exception("Newton's method failed to converge");
 }
 
+Eigen::Vector2d
+root(Eigen::Vector2d x,
+     std::function<Eigen::Vector2d(Eigen::Vector2d)> const & compute_F,
+     std::function<Eigen::Matrix2d(Eigen::Vector2d)> const & compute_J,
+     double tol)
+{
+    for (unsigned int iter = 0; iter < MAX_ITERATIONS; ++iter) {
+        auto r = compute_F(x);
+        auto J = compute_J(x);
+
+        Eigen::Vector2d dx = J.fullPivLu().solve(-r);
+        x += dx;
+
+        if (dx.norm() < tol)
+            return x;
+    }
+
+    throw Exception("Newton's method failed to converge");
+}
+
 } // namespace newton
 
 } // namespace fprops
