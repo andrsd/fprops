@@ -231,3 +231,29 @@ TEST(IdealGas, v_h_incorrect)
 
     EXPECT_THROW_MSG((void) fp.v_h(-1, 1), "Negative specific volume");
 }
+
+TEST(IdealGas, p_h)
+{
+    double gamma = 1.4;
+    double molar_mass = 29.0e-3;
+    IdealGas fp(gamma, molar_mass);
+    fp.set_mu(18.23e-6);
+    fp.set_k(25.68e-3);
+
+    double p = 101325;
+    double h = 3.9451394987224141e5;
+    auto state = fp.p_h(p, h);
+
+    EXPECT_DOUBLE_EQ(state.rho, gold1.rho);
+    EXPECT_DOUBLE_EQ(state.T, gold1.T);
+    EXPECT_DOUBLE_EQ(state.p, gold1.p);
+    EXPECT_DOUBLE_EQ(state.u, gold1.u);
+    EXPECT_DOUBLE_EQ(state.cv, gold1.cv);
+    EXPECT_DOUBLE_EQ(state.cp, gold1.cp);
+    EXPECT_DOUBLE_EQ(state.mu, gold1.mu);
+    EXPECT_DOUBLE_EQ(state.k, gold1.k);
+    EXPECT_DOUBLE_EQ(state.v, gold1.v);
+    EXPECT_DOUBLE_EQ(state.s, gold1.s);
+    EXPECT_DOUBLE_EQ(state.h, gold1.h);
+    EXPECT_DOUBLE_EQ(state.w, gold1.w);
+}
