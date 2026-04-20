@@ -1288,6 +1288,27 @@ protected:
     }
 
     double
+    dp_drho(double rho, double T, double delta, double tau) const
+    {
+        const double ddelta_drho = 1 / this->rho_c;
+        double K = this->R * T / this->M;
+        double t1 = delta * call_dalpha_ddelta(delta, tau);
+        double t2 = rho * ddelta_drho * call_dalpha_ddelta(delta, tau);
+        double t3 = rho * delta * call_d2alpha_ddelta2(delta, tau) * ddelta_drho;
+        return K * (t1 + t2 + t3);
+    }
+
+    double
+    dp_dT(double rho, double T, double delta, double tau) const
+    {
+        const double dtau_dT = -this->T_c / T / T;
+        double K = this->R * rho * delta / this->M;
+        double t1 = call_dalpha_ddelta(delta, tau);
+        double t2 = T * call_d2alpha_ddeltatau(delta, tau) * dtau_dT;
+        return K * (t1 + t2);
+    }
+
+    double
     dp_ddelta(double rho, double T, double delta, double tau) const
     {
         auto dalpha_delta = call_dalpha_ddelta(delta, tau);
@@ -1513,22 +1534,15 @@ double
 Helmholtz<FLUID>::rho_from_p_T(double p, double T) const
 {
     auto f = [&p, &T, this](double rho) {
-        const double delta = rho / this->rho_c;
-        const double tau = this->T_c / T;
-
-        return this->R * rho * T * delta * call_dalpha_ddelta(delta, tau) / this->M - p;
+        const auto delta = rho / this->rho_c;
+        const auto tau = this->T_c / T;
+        const auto da_dd = call_dalpha_ddelta(delta, tau);
+        return pressure(rho, T, delta, da_dd) - p;
     };
     auto df = [&T, this](double rho) {
         const double delta = rho / this->rho_c;
-        const double ddelta_drho = 1 / this->rho_c;
         const double tau = this->T_c / T;
-
-        double K = this->R * T / this->M;
-        double t1 = delta * call_dalpha_ddelta(delta, tau);
-        double t2 = rho * ddelta_drho * call_dalpha_ddelta(delta, tau);
-        double t3 = rho * delta * call_d2alpha_ddelta2(delta, tau) * ddelta_drho;
-
-        return K * (t1 + t2 + t3);
+        return dp_drho(rho, T, delta, tau);
     };
 
     return newton::root(1.0e-2, f, df);
@@ -1541,19 +1555,13 @@ Helmholtz<FLUID>::T_from_rho_p(double rho, double p) const
     auto f = [&rho, &p, this](double T) {
         const double delta = rho / this->rho_c;
         const double tau = this->T_c / T;
-
-        return this->R * rho * T * delta * call_dalpha_ddelta(delta, tau) / this->M - p;
+        const auto da_dd = call_dalpha_ddelta(delta, tau);
+        return pressure(rho, T, delta, da_dd) - p;
     };
     auto df = [&rho, this](double T) {
         const double delta = rho / this->rho_c;
         const double tau = this->T_c / T;
-        const double dtau_dT = -this->T_c / T / T;
-
-        double K = this->R * rho * delta / this->M;
-        double t1 = call_dalpha_ddelta(delta, tau);
-        double t2 = T * call_d2alpha_ddeltatau(delta, tau) * dtau_dT;
-
-        return K * (t1 + t2);
+        return dp_dT(rho, T, delta, tau);
     };
 
     return newton::root(275., f, df);
