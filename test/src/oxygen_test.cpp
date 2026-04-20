@@ -98,3 +98,22 @@ TEST(Oxygen, v_u)
     EXPECT_DOUBLE_EQ(state.h, gold.h);
     EXPECT_DOUBLE_EQ(state.w, gold.w);
 }
+
+TEST(Oxygen, p_h)
+{
+    Oxygen fp;
+    auto state = fp.p_h(p, h);
+
+    EXPECT_NEAR(state.rho, gold.rho, 1e-12);
+    EXPECT_NEAR(state.T, gold.T, 1e-10);
+    EXPECT_NEAR(state.p, gold.p, 1e-10);
+    EXPECT_NEAR(state.u, gold.u, 1e-10);
+    EXPECT_NEAR(state.cv, gold.cv, 1e-10);
+    EXPECT_NEAR(state.cp, gold.cp, 1e-10);
+    EXPECT_NEAR(state.mu, gold.mu, 1e-10);
+    EXPECT_NEAR(state.k, gold.k, 1e-8);
+    EXPECT_NEAR(state.v, gold.v, 1e-12);
+    EXPECT_NEAR(state.s, gold.s, 1e-10);
+    EXPECT_NEAR(state.h, gold.h, 1e-10);
+    EXPECT_NEAR(state.w, gold.w, 1e-10);
+}
