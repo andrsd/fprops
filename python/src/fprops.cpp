@@ -13,6 +13,7 @@
 #include "fprops/carbon_dioxide.h"
 #include "fprops/oxygen.h"
 #include "fprops/methane.h"
+#include "fprops/r134a.h"
 #include "version.h"
 
 using namespace fprops;
@@ -120,4 +121,12 @@ PYBIND11_MODULE(fprops, m)
         .def("p_T", &Methane::p_T)
         .def("v_u", &Methane::v_u)
         .def("h_s", &Methane::h_s);
+
+    py::class_<R134a>(m, "R134a")
+        .def(py::init())
+        .def("rho_T", &R134a::rho_T)
+        .def("rho_p", &R134a::rho_p)
+        .def("p_T", &R134a::p_T)
+        .def("v_u", &R134a::v_u)
+        .def("h_s", &R134a::h_s);
 }
