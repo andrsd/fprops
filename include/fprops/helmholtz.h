@@ -98,6 +98,13 @@ private:
     /// @return Tau (scaled temperature)
     [[nodiscard]] double tau_from_v_u(double v, double u) const;
 
+    /// Tau given specific volume and enthalpy
+    ///
+    /// @param v Specific volume \f$[m^3/kg]\f$
+    /// @param h Specific enthalpy \f$[J/kg]\f$
+    /// @return Tau (scaled temperature)
+    [[nodiscard]] double tau_from_v_h(double v, double h) const;
+
     ///
     [[nodiscard]] std::pair<double, double> delta_tau_from_p_h(double p_target,
                                                                double h_target) const;
@@ -1526,7 +1533,32 @@ template <typename FLUID>
 State
 Helmholtz<FLUID>::v_h(double v, double h) const
 {
-    throw Exception("Not implemented");
+    if (h < 0)
+        throw Exception("Negative enthalpy");
+    if (v <= 0)
+        throw Exception("Negative specific volume");
+    const double rho = 1. / v;
+    const double delta = rho / this->rho_c;
+    const double tau = tau_from_v_h(v, h);
+
+    const double a = call_alpha(delta, tau);
+    const double da_dd = call_dalpha_ddelta(delta, tau);
+    const double da_dt = call_dalpha_dtau(delta, tau);
+    const double d2a_dt2 = call_d2alpha_dtau2(delta, tau);
+    const double d2a_dd2 = call_d2alpha_ddelta2(delta, tau);
+    const double d2a_ddt = call_d2alpha_ddeltatau(delta, tau);
+
+    const double T = this->T_c / tau;
+    auto p = pressure(rho, T, delta, da_dd);
+    auto u = internal_energy(T, tau, da_dt);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto s = entropy(tau, a, da_dt);
+    auto mu = call_mu_from_rho_T(rho, T);
+    auto k = call_k_from_rho_T(rho, T);
+
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
 template <typename FLUID>
@@ -1578,6 +1610,26 @@ Helmholtz<FLUID>::tau_from_v_u(double v, double u) const
     auto df = [&v, this](double tau) {
         const double delta = 1. / this->rho_c / v;
         return this->R * this->T_c * call_d2alpha_dtau2(delta, tau) / this->M;
+    };
+
+    return newton::root(1e-1, f, df);
+}
+
+template <typename FLUID>
+double
+Helmholtz<FLUID>::tau_from_v_h(double v, double h) const
+{
+    auto f = [&v, &h, this](double tau) {
+        const double delta = 1. / this->rho_c / v;
+        const double T = this->T_c / tau;
+        auto da_dd = call_dalpha_ddelta(delta, tau);
+        auto da_dt = call_dalpha_dtau(delta, tau);
+        return enthalphy(T, delta, tau, da_dt, da_dd) - h;
+    };
+    auto df = [&v, this](double tau) {
+        const double delta = 1. / this->rho_c / v;
+        const double T = this->T_c / tau;
+        return dh_dtau(T, delta, tau);
     };
 
     return newton::root(1e-1, f, df);
