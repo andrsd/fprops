@@ -108,6 +108,9 @@ private:
     ///
     [[nodiscard]] std::pair<double, double> delta_tau_from_p_h(double p_target,
                                                                double h_target) const;
+    ///
+    [[nodiscard]] std::pair<double, double> delta_tau_from_h_s(double h_target,
+                                                               double s_target) const;
 
     /// Dynamic viscosity
     ///
@@ -1336,6 +1339,24 @@ protected:
     }
 
     double
+    ds_ddelta(double delta, double tau) const
+    {
+        auto da_dd = call_dalpha_ddelta(delta, tau);
+        auto d2a_ddt = call_d2alpha_ddeltatau(delta, tau);
+        auto K = this->R / this->M;
+        auto t1 = tau * d2a_ddt;
+        auto t2 = da_dd;
+        return K * (t1 - t2);
+    }
+
+    double
+    ds_dtau(double delta, double tau) const
+    {
+        auto d2a_dt2 = call_d2alpha_dtau2(delta, tau);
+        return this->R / this->M * tau * d2a_dt2;
+    }
+
+    double
     dh_ddelta(double T, double delta, double tau) const
     {
         auto d2a_ddt = call_d2alpha_ddeltatau(delta, tau);
@@ -1526,7 +1547,30 @@ template <typename FLUID>
 State
 Helmholtz<FLUID>::h_s(double h, double s) const
 {
-    throw Exception("Not implemented");
+    if (h < 0)
+        throw Exception("Negative enthalpy");
+
+    auto [delta, tau] = delta_tau_from_h_s(h, s);
+
+    const double a = call_alpha(delta, tau);
+    const double da_dd = call_dalpha_ddelta(delta, tau);
+    const double da_dt = call_dalpha_dtau(delta, tau);
+    const double d2a_dt2 = call_d2alpha_dtau2(delta, tau);
+    const double d2a_dd2 = call_d2alpha_ddelta2(delta, tau);
+    const double d2a_ddt = call_d2alpha_ddeltatau(delta, tau);
+
+    const double rho = delta * rho_c;
+    const double T = this->T_c / tau;
+    auto v = 1. / rho;
+    auto u = internal_energy(T, tau, da_dt);
+    auto w = sound_speed(T, delta, tau, da_dd, d2a_dd2, d2a_ddt, d2a_dt2);
+    auto cp = heat_capacity_isobaric(delta, tau, da_dd, d2a_dt2, d2a_dd2, d2a_ddt);
+    auto cv = heat_capacity_isochoric(tau, d2a_dt2);
+    auto p = pressure(rho, T, delta, da_dd);
+    auto mu = call_mu_from_rho_T(rho, T);
+    auto k = call_k_from_rho_T(rho, T);
+
+    return State(u, v, rho, p, T, mu, cp, cv, s, k, h, w);
 }
 
 template <typename FLUID>
@@ -1669,6 +1713,52 @@ Helmholtz<FLUID>::delta_tau_from_p_h(double p_target, double h_target) const
         // clang-format off
         J << dp_dd, dp_dt,
              dh_dd, dh_dt;
+        // clang-format on
+        return J;
+    };
+
+    // @note Incorrect initial guess will lead to non-sensical state point
+    double delta0 = 0.001;
+    double tau0 = 0.5;
+    Eigen::Vector2d x(delta0, tau0);
+    auto sln = newton::root(x, F, compute_J);
+    return { sln(0), sln(1) };
+}
+
+template <typename FLUID>
+[[nodiscard]] std::pair<double, double>
+Helmholtz<FLUID>::delta_tau_from_h_s(double h_target, double s_target) const
+{
+    auto F = [&h_target, &s_target, this](const Eigen::Vector2d & x) {
+        double delta = x[0];
+        double tau = x[1];
+
+        const double T = this->T_c / tau;
+
+        const double a = call_alpha(delta, tau);
+        auto da_dd = call_dalpha_ddelta(delta, tau);
+        auto da_dt = call_dalpha_dtau(delta, tau);
+        double s = entropy(tau, a, da_dt);
+        double h = enthalphy(T, delta, tau, da_dt, da_dd);
+
+        return Eigen::Vector2d(h - h_target, s - s_target);
+    };
+
+    auto compute_J = [this](const Eigen::Vector2d & x) {
+        double delta = x[0];
+        double tau = x[1];
+
+        const double rho = delta * this->rho_c;
+        const double T = this->T_c / tau;
+
+        Eigen::Matrix2d J;
+        double dh_dd = dh_ddelta(T, delta, tau);
+        double dh_dt = dh_dtau(T, delta, tau);
+        double ds_dd = ds_ddelta(delta, tau);
+        double ds_dt = ds_dtau(delta, tau);
+        // clang-format off
+        J << dh_dd, dh_dt,
+             ds_dd, ds_dt;
         // clang-format on
         return J;
     };
