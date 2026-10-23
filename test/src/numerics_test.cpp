@@ -59,7 +59,7 @@ TEST(NumericsTest, newton_root_2x2)
         return Eigen::Vector2d(r1, r2);
     };
 
-    auto compute_J = [](Eigen::Vector2d x) {
+    auto compute_J = [](Eigen::Vector2d /*x*/) {
         Eigen::Matrix2d J;
         // clang-format off
         J << 3, 2,

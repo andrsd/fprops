@@ -153,19 +153,19 @@ protected:
         }
 
         T
-        ddelta(T delta, T tau) const
+        ddelta(T delta, T /*tau*/) const
         {
             return 1.0 / delta;
         }
 
         T
-        dtau(T delta, T tau) const
+        dtau(T /*delta*/, T /*tau*/) const
         {
             return this->a2;
         }
 
         T
-        d2delta(T delta, T tau) const
+        d2delta(T delta, T /*tau*/) const
         {
             return -1.0 / delta / delta;
         }
@@ -185,19 +185,19 @@ protected:
         explicit IdealGasLogTau(double a1) : a1(a1) {}
 
         T
-        alpha(T delta, T tau) const
+        alpha(T /*delta*/, T tau) const
         {
             return this->a1 * std::log(tau);
         }
 
         T
-        dtau(T delta, T tau) const
+        dtau(T /*delta*/, T tau) const
         {
             return this->a1 / tau;
         }
 
         T
-        d2tau(T delta, T tau) const
+        d2tau(T /*delta*/, T tau) const
         {
             return -this->a1 / tau / tau;
         }
@@ -220,7 +220,7 @@ protected:
         }
 
         T
-        alpha(T delta, T tau) const
+        alpha(T /*delta*/, T tau) const
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i)
@@ -229,7 +229,7 @@ protected:
         }
 
         T
-        dtau(T delta, T tau) const
+        dtau(T /*delta*/, T tau) const
         {
             T sum = 0;
             for (std::size_t i = 0; i < n.size(); ++i)
@@ -238,7 +238,7 @@ protected:
         }
 
         T
-        d2tau(T delta, T tau) const
+        d2tau(T /*delta*/, T tau) const
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i)
@@ -262,13 +262,13 @@ protected:
         IdealEnthalpyEntropyOffset(double a1, double a2) : a1(a1), a2(a2) {}
 
         T
-        alpha(T delta, T tau) const
+        alpha(T /*delta*/, T tau) const
         {
             return this->a1 + this->a2 * tau;
         }
 
         T
-        dtau(T delta, T tau) const
+        dtau(T /*delta*/, T /*tau*/) const
         {
             return this->a2;
         }
@@ -301,7 +301,7 @@ protected:
         }
 
         T
-        alpha(T delta, T tau) const
+        alpha(T /*delta*/, T tau) const
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i)
@@ -311,7 +311,7 @@ protected:
         }
 
         T
-        dtau(T delta, T tau) const
+        dtau(T /*delta*/, T tau) const
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i) {
@@ -323,7 +323,7 @@ protected:
         }
 
         T
-        d2tau(T delta, T tau) const
+        d2tau(T /*delta*/, T tau) const
         {
             T sum = 0;
             for (std::size_t i = 0; i < this->n.size(); ++i) {
@@ -872,20 +872,20 @@ protected:
         }
 
         T
-        dtheta_ddelta(std::size_t i, T delta, T tau) const
+        dtheta_ddelta(std::size_t i, T delta, T /*tau*/) const
         {
             return this->A[i] * std::pow(math::pow<2>(delta - 1), 1. / (2. * this->beta[i])) /
                    (this->beta[i] * (delta - 1));
         }
 
         T
-        dtheta_dtau(std::size_t i, T delta, T tau) const
+        dtheta_dtau(std::size_t /*i*/, T /*delta*/, T /*tau*/) const
         {
             return -1;
         }
 
         T
-        d2theta_ddelta2(std::size_t i, T delta, T tau) const
+        d2theta_ddelta2(std::size_t i, T delta, T /*tau*/) const
         {
             return -1 *
                    (this->A[i] * (this->beta[i] - 1) *
@@ -1552,7 +1552,6 @@ Helmholtz<FLUID>::h_s(double h, double s) const
 
     auto [delta, tau] = delta_tau_from_h_s(h, s);
 
-    const double a = call_alpha(delta, tau);
     const double da_dd = call_dalpha_ddelta(delta, tau);
     const double da_dt = call_dalpha_dtau(delta, tau);
     const double d2a_dt2 = call_d2alpha_dtau2(delta, tau);
@@ -1748,7 +1747,6 @@ Helmholtz<FLUID>::delta_tau_from_h_s(double h_target, double s_target) const
         double delta = x[0];
         double tau = x[1];
 
-        const double rho = delta * this->rho_c;
         const double T = this->T_c / tau;
 
         Eigen::Matrix2d J;
