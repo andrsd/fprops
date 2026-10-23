@@ -1387,10 +1387,10 @@ template <typename FLUID>
 State
 Helmholtz<FLUID>::rho_T(double rho, double T) const
 {
-    if (rho < 0)
-        throw Exception("Negative density");
-    if (T < 0)
-        throw Exception("Negative temperature");
+    if (rho <= 0)
+        throw Exception("Zero or negative density");
+    if (T <= 0)
+        throw Exception("Zero or negative temperature");
 
     const double delta = rho / this->rho_c;
     const double tau = this->T_c / T;
@@ -1420,8 +1420,8 @@ template <typename FLUID>
 State
 Helmholtz<FLUID>::rho_p(double rho, double p) const
 {
-    if (rho < 0)
-        throw Exception("Negative density");
+    if (rho <= 0)
+        throw Exception("Zero or negative density");
 
     const double T = T_from_rho_p(rho, p);
 
@@ -1452,8 +1452,8 @@ template <typename FLUID>
 State
 Helmholtz<FLUID>::p_T(double p, double T) const
 {
-    if (T < 0)
-        throw Exception("Negative temperature");
+    if (T <= 0)
+        throw Exception("Zero or negative temperature");
 
     const double rho = rho_from_p_T(p, T);
 
@@ -1515,9 +1515,9 @@ State
 Helmholtz<FLUID>::v_u(double v, double u) const
 {
     if (v <= 0.)
-        throw Exception("Negative specific volume");
+        throw Exception("Zero or negative specific volume");
     if (u <= 0.)
-        throw Exception("Negative internal energy");
+        throw Exception("Zero or negative internal energy");
 
     const double rho = 1. / v;
     const double delta = rho / this->rho_c;
@@ -1579,7 +1579,7 @@ Helmholtz<FLUID>::v_h(double v, double h) const
     if (h < 0)
         throw Exception("Negative enthalpy");
     if (v <= 0)
-        throw Exception("Negative specific volume");
+        throw Exception("Zero or negative specific volume");
     const double rho = 1. / v;
     const double delta = rho / this->rho_c;
     const double tau = tau_from_v_h(v, h);
