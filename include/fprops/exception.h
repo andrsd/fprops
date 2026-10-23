@@ -12,8 +12,7 @@ namespace fprops {
 class Exception : public std::exception {
 public:
     template <typename... T>
-    Exception(fmt::format_string<T...> format, T... args) :
-        msg(fmt::format(format, std::forward<T>(args)...))
+    Exception(const std::string & msg) : msg(msg)
     {
     }
 

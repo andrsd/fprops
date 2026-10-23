@@ -11,49 +11,49 @@ public:
     MockHelmholtz() : Helmholtz(1., 1., 1., 1.) {}
 
     double
-    alpha(double delta, double tau) const
+    alpha(double /*delta*/, double /*tau*/) const
     {
         return 0.;
     }
 
     double
-    dalpha_ddelta(double delta, double tau) const
+    dalpha_ddelta(double /*delta*/, double /*tau*/) const
     {
         return 0.;
     }
 
     double
-    dalpha_dtau(double delta, double tau) const
+    dalpha_dtau(double /*delta*/, double /*tau*/) const
     {
         return 0.;
     }
 
     double
-    d2alpha_ddelta2(double delta, double tau) const
+    d2alpha_ddelta2(double /*delta*/, double /*tau*/) const
     {
         return 0.;
     }
 
     double
-    d2alpha_dtau2(double delta, double tau) const
+    d2alpha_dtau2(double /*delta*/, double /*tau*/) const
     {
         return 0.;
     }
 
     double
-    d2alpha_ddeltatau(double delta, double tau) const
+    d2alpha_ddeltatau(double /*delta*/, double /*tau*/) const
     {
         return 0.;
     }
 
     double
-    mu_from_rho_T(double rho, double T) const
+    mu_from_rho_T(double /*rho*/, double /*T*/) const
     {
         return 0.;
     }
 
     double
-    k_from_rho_T(double rho, double T) const
+    k_from_rho_T(double /*rho*/, double /*T*/) const
     {
         return 0.;
     }
@@ -94,8 +94,8 @@ TEST(HelmholtzTest, v_u_incorrect)
 {
     MockHelmholtz fp;
 
-    EXPECT_THROW_MSG((void) fp.v_u(-1, 1), "Negative specific volume");
-    EXPECT_THROW_MSG((void) fp.v_u(1, -1), "Negative internal energy");
+    EXPECT_THROW_MSG((void) fp.v_u(-1, 1), "Zero or negative specific volume");
+    EXPECT_THROW_MSG((void) fp.v_u(1, -1), "Zero or negative internal energy");
 }
 
 TEST(HelmholtzTest, ideal_gas_lead)

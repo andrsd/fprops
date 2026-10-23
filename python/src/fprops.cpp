@@ -55,6 +55,7 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &Air::rho_p)
         .def("p_T", &Air::p_T)
         .def("v_u", &Air::v_u)
+        .def("v_u", &Air::v_h)
         .def("h_s", &Air::h_s);
 
     py::class_<Ammonia>(m, "Ammonia")
@@ -63,6 +64,7 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &Ammonia::rho_p)
         .def("p_T", &Ammonia::p_T)
         .def("v_u", &Ammonia::v_u)
+        .def("v_u", &Ammonia::v_h)
         .def("h_s", &Ammonia::h_s);
 
     py::class_<IdealGas>(m, "IdealGas")
@@ -88,6 +90,7 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &Nitrogen::rho_p)
         .def("p_T", &Nitrogen::p_T)
         .def("v_u", &Nitrogen::v_u)
+        .def("v_u", &Nitrogen::v_h)
         .def("h_s", &Nitrogen::h_s);
 
     py::class_<Helium>(m, "Helium")
@@ -96,6 +99,7 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &Helium::rho_p)
         .def("p_T", &Helium::p_T)
         .def("v_u", &Helium::v_u)
+        .def("v_u", &Helium::v_h)
         .def("h_s", &Helium::h_s);
 
     py::class_<CarbonDioxide>(m, "CarbonDioxide")
@@ -104,6 +108,7 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &CarbonDioxide::rho_p)
         .def("p_T", &CarbonDioxide::p_T)
         .def("v_u", &CarbonDioxide::v_u)
+        .def("v_u", &CarbonDioxide::v_h)
         .def("h_s", &CarbonDioxide::h_s);
 
     py::class_<Oxygen>(m, "Oxygen")
@@ -112,6 +117,7 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &Oxygen::rho_p)
         .def("p_T", &Oxygen::p_T)
         .def("v_u", &Oxygen::v_u)
+        .def("v_u", &Oxygen::v_h)
         .def("h_s", &Oxygen::h_s);
 
     py::class_<Methane>(m, "Methane")
@@ -120,6 +126,7 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &Methane::rho_p)
         .def("p_T", &Methane::p_T)
         .def("v_u", &Methane::v_u)
+        .def("v_u", &Methane::v_h)
         .def("h_s", &Methane::h_s);
 
     py::class_<R134a>(m, "R134a")
@@ -128,5 +135,6 @@ PYBIND11_MODULE(fprops, m)
         .def("rho_p", &R134a::rho_p)
         .def("p_T", &R134a::p_T)
         .def("v_u", &R134a::v_u)
+        .def("v_h", &R134a::v_h)
         .def("h_s", &R134a::h_s);
 }
