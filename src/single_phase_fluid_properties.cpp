@@ -78,7 +78,7 @@ SinglePhaseFluidProperties::from_name(const std::string & name)
     else if (n == "nitrogen" || n == "n2")
         return SinglePhaseFluidProperties(Nitrogen());
     else
-        throw Exception("Unknown fluid name '{}'", name);
+        throw Exception(fmt::format("Unknown fluid name '{}'", name));
 }
 
 } // namespace fprops

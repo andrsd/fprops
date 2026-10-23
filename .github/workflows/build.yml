@@ -58,7 +58,7 @@ jobs:
             -DGCOV_PATH=`which x86_64-conda-linux-gnu-gcov` \
             -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
             -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_CXX_FLAGS_DEBUG="-g -Wall -Werror" \
+            -DCMAKE_CXX_FLAGS_DEBUG="-g -Wall -Werror -Wno-error=deprecated-declarations" \
             -DFPROPS_BUILD_TESTS=YES \
             -DFPROPS_WITH_PYTHON=YES \
             -DFPROPS_CODE_COVERAGE=YES

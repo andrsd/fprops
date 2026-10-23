@@ -53,7 +53,7 @@ InterpolatedFluidProperties::load(const std::string & file_name)
         this->hs_data = read_data(file, "h_s", { H, S }, { U, V, P, T, RHO, MU, CP, CV, K, W });
     }
     else
-        throw Exception("File '{}' does not exist.", file_name);
+        throw Exception(fmt::format("File '{}' does not exist.", file_name));
 }
 
 State
@@ -123,7 +123,7 @@ InterpolatedFluidProperties::check_unit(const h5pp::File & file,
 {
     auto attr = file.readAttribute<std::string>(dataset_name, "unit");
     if (attr != unit)
-        throw Exception("Expected unit '{}' for '{}'.", unit, dataset_name);
+        throw Exception(fmt::format("Expected unit '{}' for '{}'.", unit, dataset_name));
 }
 
 Eigen::VectorXd
@@ -138,6 +138,7 @@ InterpolatedFluidProperties::read_var_range(const h5pp::File & file,
     if (range.size() < 2)
         throw Exception(
             fmt::format("'{}' range must have 2 or more grid points.", this->var_names[var_idx]));
+
     return range;
 }
 
